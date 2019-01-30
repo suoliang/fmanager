@@ -1,0 +1,43 @@
+<div>
+	<div class="c_fl c_change_title">搜索历史：</div>
+	<div id="board_article_conditionId_select" class="c_divselect c_fl c_ml10">
+		<div class="cite">
+			<div class="citeT"></div>
+		</div>
+		<ul>
+			<!-- <li><a href="javascript:;" selectid="-1">请选择历史过滤器</a></li> -->
+			#foreach($!condition in $!conditions)
+			<li><a href="javascript:;" selectid="$!condition.id" #if($!condition.id == $!conditionId) def="true" #end>$!condition.name</a></li>
+			#end
+		</ul>
+		<input name="conditionId" type="hidden" id="board_article_conditionId" validate-js="notNull" validate-msg="不能为空" />
+	</div>
+	<div class="c_fl c_ml5 c_mt6 c_add_but" tag="btn-add-filter" onclick="util.go('/search/index.htm?action=focusFilterName')">新增</div>
+</div>
+<div class="c_cl">
+	<div class="c_fl c_change_title">板块名：</div>
+	<div class="c_fl c_change_search">
+		<input type="text" class="input" id="boardName" name="boardName" value="$!request.getParameter('boardName')" /><span class="c_color_red">请少于20字</span>
+	</div>
+</div>
+
+<script type="text/javascript">
+(function() {
+	var oldText;
+
+	$.divselect("#board_article_conditionId_select","#board_article_conditionId", function(txt, value) {
+		var orig = $('input[name=boardName]').val();
+		if (util.isBlank(orig) || orig == oldText) {
+			$('#boardName').val(txt);
+		}
+		oldText = txt;
+	});
+
+	validate_board_input = function() {
+		if($('#board_article_conditionId').val() == null || $('#board_article_conditionId').val() == -1 || $('#board_article_conditionId').val() == "") {
+			return "过滤器不能为空";
+		}
+		return null;
+	};
+})();
+</script>

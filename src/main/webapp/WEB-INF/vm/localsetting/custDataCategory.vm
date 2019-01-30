@@ -1,0 +1,197 @@
+#set($pagecss = ["setup.css"])
+#parse("/common/header.vm")
+
+<script type="text/javascript">
+<!--
+      var sys_type="${type}";
+      var sys_globePath="${rc.contextPath}";
+      var page_globePath=1;
+//-->
+</script>
+
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/common/layer/layer.min.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/custDataCategoryList.js')}"></script>
+
+##右边模块开始
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="${rc.getContextUrl('/custtopic/list.htm')}">设置</span><span> > </span><span href="${rc.getContextUrl('/custdata/list.htm?type=1')}">分类</span><span> > </span><span href="#">${listTitle}</span></p>
+      </h3>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl" id="custCategoryQuery">
+        <span>关键字：</span><input type="text" class="c_keywds" name="keywords"  id="keywords"  />
+        <a type="button" class="c_button c_ml10 c_fl" onclick="queryPageList(1,10);" >查询</a>
+      </div>
+      <div class="c_fr">
+      <a href="javascript:addAndUpdWin(${type});" class="c_search_link c_search_sys2 c_fl">新增</a></div> 
+    </div>
+   <!--search box end-->
+   <div class="c_mt15"></div>
+   <div class="c_tab_block" id="custCategoryList" >
+		#parse("/localsetting/custDataCategoryList-list.vm")
+   </div>
+    <div class="c_fl c_tool c_mt15 c_mb15"><a href="javascript:queryPageList(null,10);" >刷新排序</a></div>
+    #paging("id", "custdata-paging")
+##右边模块结束
+
+##新增/编辑 开始
+		<div class="c_alt_box c_w700 c_h450" id="addAndUPDCustDataCategory" style="display:none;">
+			<div class="c_alt_tit">
+				<div class="c_fl c_alt_titTag c_w670 c_h30">
+						<i class=" c_sprite c_tit_icon02"></i><span id="addAndUPDCustDataTitle" >编辑分类</span>
+				</div>
+				<ul class="c_fr">
+					<li><a href="javascript:layer.closeAll();" class="c_sprite c_tit_close"></a></li>
+				</ul>
+			</div>
+			
+	   <form  action="${rc.getContextUrl('/custdata/addSubmit.htm')}" id="addCustdataCategoryForm" method="post"  >		
+		    <input type="hidden" name="type"   id="addAndUdpType"/>
+            <input type="hidden" name="id"  id="addAndUdpId"/>	
+            
+			<div class="c_alt_con c_h420 c_pr">
+				<div class="c_cb c_m10 c_f12">
+					<div class="c_cb c_alt_form">
+						<div class="c_fl c_form_name c_tr"><font color=red>*</font>分类名称：</div>
+						<div class="c_fl c_ml5 c_form_text">
+							<input type="text" class="input c_form_input01" value="" id="addAndUdpName"
+                                                         name="name" 	onfocus="inputFoucus(this);"
+							onblur="inputBlur(this);" maxlength="10" title="必须小于20个字符！"/>
+						</div>
+						<div class="c_fl c_ml5 c_form_msg c_color_red" id="tips_name">分类名称不能为空</div>
+					</div>
+					<div class="c_cb c_alt_form c_mt5">
+						<div class="c_fl c_form_name c_tr">分类描述：</div>
+						<div class="c_fl c_ml5 c_form_text">
+							<textarea maxlength="150" class="c_form_word c_textarea" name="remarks" 
+                                                       id="addAndUdpRemarks"   title="必须小于150个字符！" 
+                                                       onpropertychange="if(value.length>150) value=value.substr(0,150)"
+                                                       onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" 
+                                                       onkeypress="LimitTextArea(this)"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="c_alt_but c_w700 c_change_butbg">
+					<div class="c_change_but c_change_but01">
+						<a href="javascript:addAndUpdSubmit();" class="c_but_ok c_mr10">确定</a><a href="javascript:layer.closeAll();"
+							class="c_but_no">取消</a>
+					</div>
+				</div>
+			</div>
+	    </form>
+		
+		</div>
+	</div>
+</div>
+##新增/编辑 结束
+
+	<script type="text/javascript">
+
+         var inputFoucus=function(obj){
+                if($(obj).val() == '请输入分类名称'){ 
+                    $(obj).val('');
+                     $('#tips_name').css('display','block');
+                }  
+             }
+         var inputBlur=function(obj){
+                if($(obj).val() == ''||$(obj).val() == '请输入分类名称'){ 
+                     $(obj).val('请输入分类名称');
+                      $('#tips_name').css('display','block');
+                } else{
+                   $('#tips_name').css('display','none');
+                }         
+             }
+	$(document).ready(function(){
+            $("#custdata-paging").paging({
+                      gotoNoImpl : function(pageNo, pagesize) {
+                          queryPageList(pageNo,pagesize);	
+                      }
+              });
+            $.fn.check({ checkall_name: "allcheck", checkbox_name: "subcheck" });
+    		$("#custdata-paging").paging("setInfo", $!page.pageNo, $!page.pageSize, $!page.totalPages, $!page.totalRecords); 
+    		page_globePath=$!page.pageNo;
+
+      //添加键盘enter事件
+    	document.onkeydown = function(e){  
+    		var ev = document.all ? window.event : e;
+    		if(ev.keyCode==13) {
+    			var activeId = document.activeElement.id;
+    			if(activeId=='keywords'){
+    				queryPageList(1,10);
+    			}
+    		}
+    	}        
+            });
+	
+
+		//新增提交
+		function addAndUpdSubmit() {
+			var name = $("#addAndUdpName").val();
+			var remark = $("#addAndUdpRemarks").val();
+
+		if (name == null || name.trim() == "" || name == "请输入分类名称") {
+				$("#tips_name").css("display", "");
+			} else if (remark.length > 150) {
+				$.msg.warning('<分类描述>限制在150字以内');
+			} else {
+				var fun = function(response){
+	                if(response.type == dict.action.suc){
+	                	layer.closeAll();
+	                	layer.msg("操作成功！",2,1);
+						$("#custdata-paging").paging('refresh');
+	                }else{
+	                    layer.alert(response.message);
+	                }
+	            }
+				ajaxCommFun(sys_globePath + "/custdata/addSubmit.htm", $("#addCustdataCategoryForm").serialize(), fun);
+			}
+		}
+
+		//新增-编辑 弹窗
+
+		function addAndUpdWin(type, id) {
+			$("#addAndUdpType").val(type);
+			$("#tips_name").css("display", "none");
+			var topicbox = "#addAndUPDCustDataCategory";
+			if (id == null) {
+				$("#addAndUdpId").val("");
+				$("#addAndUdpName").val("");
+				$("#addAndUdpRemarks").val("");
+				$("#addAndUPDCustDataTitle").html("新增分类");
+				$.box(topicbox, {
+					onOpen : function() {
+					}
+				}, {});
+
+			} else {
+
+				$("#addAndUPDCustDataTitle").html("编辑分类");
+				$("#addAndUdpId").val(id);
+
+				var fun = function(data) {
+					if (data.result == "success") {
+						$("#addAndUdpName").val(data.vo.name);
+						$("#addAndUdpRemarks").val(data.vo.remark);
+					}
+
+					$.box(topicbox, {
+						onOpen : function() {
+						}
+					}, {});
+
+				}
+				ajaxCommFun(sys_globePath + "/custdata/detail.htm", "id=" + id, fun);
+			}
+		}
+
+		function LimitTextArea(field) {
+			var maxlimit = 150;
+			if (field.value.length > maxlimit)
+				field.value = field.value.substring(0, maxlimit);
+		}
+	</script>
+#parse("/common/footer.vm")

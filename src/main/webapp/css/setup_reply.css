@@ -1,0 +1,13 @@
+/*下拉框*/
+.c_divselect{width:100px;}
+.c_divselect .cite{ width:98px;}
+.c_divselect .cite .citeT{ width:68px;}
+.c_divselect ul{width:98px;}
+.c_divselect ul li a{width:88px;}
+
+/*设置预警table*/
+.c_tab_reply1{ width:5%; text-indent:10px;}
+.c_tab_reply2{ width:68%;}
+.c_tab_reply3{ width:15%;}
+.c_tab_reply4{ width:6%;}
+.c_tab_reply5{ width:6%;}

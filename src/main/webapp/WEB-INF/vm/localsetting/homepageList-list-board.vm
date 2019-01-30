@@ -1,0 +1,16 @@
+ #foreach($!board in $!boards) #set ($userIds="") #foreach($userItem in $!board.userIds) #set($userIds=$userIds+$userItem+",") #end
+<ul class="c_tab2 c_tab_top">
+	<li class="c_tab_home1 c_none"><div>
+			<!-- <input type="checkbox" class="c_check"> -->
+		</div></li>
+	<li class="c_tab_home2 c_tc"><div class="c_mr10">$!board.userIndex</div></li>
+	<li class="c_tab_home3"><div class="c_mr10 c_omit">$!board.name</div></li>
+	<li class="c_tab_home4"><div class="c_mr10 c_omit" tag="board-share-info" oid="$!board.id">$!tag.getRealName($board.userIds, ",")</div></li>
+	<li class="c_tab_home5"><div class="c_mr10 c_omit">#if($board.createrId != -1)$tag.getRealName($board.createrId)#else系统#end</div></li>
+	<li class="c_tab_home6">
+		#if($!LOGIN_USER.id == $!board.createrId)
+		<div><a href="javascript:void(0);" class="c_color_gay c_color_deeporange" tag="board-share" oid="$!board.id" userIds="$userIds">共享用户</a></div>
+		#end
+	</li>
+</ul>
+#end

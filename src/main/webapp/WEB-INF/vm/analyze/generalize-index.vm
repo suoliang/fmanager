@@ -1,0 +1,331 @@
+
+#set($pagecss = ["analysis.css"]) 
+
+#parse("/common/header.vm")
+
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name">
+				<p class="c_location">
+					<i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0);">分析</span><span> > </span><span href="javascript:void(0);">概况分析</span>
+				</p>
+			</h3>
+		</div>
+		<form id="situation-condition">
+			<!-- 总体概况 媒体类型 -->
+			<div tag="condition-form" oid="situation-topics"></div>
+		</form>
+		<form id="tendency-condition">
+			<!-- 媒体趋势 媒体类型 -->
+			<div tag="condition-form" oid="tendency-topics"></div>
+		</form>
+		<!--search box end-->
+		<div class="c_mt15"></div>
+		<div class="c_bg_gay c_border c_border_top">
+			<div class="c_fl c_m10 c_f14">
+				<span>总体概况</span>
+			</div>			
+			<div class="c_cb"></div>
+			<div class="c_bg_white c_border_top c_pt10 c_over_hidden">
+			<div class="c_fl">
+				<div class="c_summary_tab c_fl">
+					<div class="c_tab_title c_fl c_w40 c_tr c_ml5">日期：</div>
+					<div class="c_tab_rg c_fl">
+						<div class="c_tab_con1">
+							<div class="c_tab_choice c_fl" tag="btn-today" oid="situation">
+								<div class="c_sprite c_choice_icon  c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">今日</div>
+								<div class="c_cb"></div>
+							</div>
+							<div class="c_tab_choice c_fl" tag="btn-week" oid="situation">
+								<div class="c_sprite c_choice_icon c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">最近一周</div>
+								<div class="c_cb"></div>
+							</div>
+							<div class="c_tab_choice c_fl" tag="btn-month" oid="situation">
+								<div class="c_sprite c_choice_icon c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">最近一月</div>
+								<div class="c_cb"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c_calendar_bar c_fl">
+					<div class="c_calendar">
+						<input type="text" class="c_cal_icon input" id="startDate" name="startDate" oid="situation" value="$!startDate" readonly="readonly" />
+					</div>
+					<i class="c_clearfix c_fl c_mr5 c_ml5">-</i>
+					<div class="c_calendar  c_mr10">
+						<input type="text" class="c_cal_icon input" id="endDate" name="endDate" oid="situation" value="$!endDate" readonly="readonly" />
+					</div>
+				</div>
+				<a type="button" class="c_button  c_fl" tag="btn-analyze" oid="situation">重新分析</a>
+				</div>
+				<div class="c_fr c_mr5"><a id="exportSituation" class="c_search_link c_search_sys1 c_fl">导出</a></div>
+				<div class="c_cb"></div>
+				
+				<div class="c_summary_sp_tab c_wp_box">
+					<div class="c_tab_title c_fl c_w40 c_tr c_ml5">专题：</div>
+					<div class="c_tab_rg">
+					
+						<div class="c_tab_con1">
+							<div class="c_tag">
+								<div class="c_tab_choice c_fl" tag="situation-allTopic" oid="0" selct="true">
+									<div class="c_sprite c_choice_icon checkbox c_fl active" value="0"></div>
+									<div class="c_choice_tag c_omit name c_tag_active" title="全部">全部</div>
+									<div class="c_cb"></div>
+								</div>
+								
+								<div class="c_tab_choice1 c_fl" id="search">
+									<div class="c_sprite c_choice_icon active c_fl"></div>
+									<div class="c_fl c_tag_active">请选择专题</div>
+									<div class="c_cb"></div>
+								</div>
+								<div class="c_tab_choice2">
+									<div class="c_choice2_w c_omit" tag="situation-info" oid="topic"></div>
+								</div>
+								
+							</div>
+						</div>
+
+					</div>
+				</div>
+				
+			</div>
+			<div class="c_cb"></div>
+			
+		</div>
+		<div id="generalize-situation-chart-mask" class="c_chart_loading"></div>
+		<div id="generalize-situation-chart" class="c_border c_bg_white  c_over_hidden"></div>
+		<div class="c_mt15"></div>
+
+		<div class="c_bg_gay c_border c_border_top">
+			<div class="c_fl c_m10 c_f14">
+				<span>媒体趋势</span>
+			</div>			
+			<div class="c_cb"></div>
+			<div class="c_bg_white c_border_top c_pt10" style="overflow: hidden;">
+			<div class="c_fl">
+				<div class="c_summary_tab c_fl">
+					<div class="c_tab_title c_fl c_w40 c_tr c_ml5">日期：</div>
+					<div class="c_tab_rg c_fl">
+						<div class="c_tab_con1">
+							<div class="c_tab_choice c_fl" tag="btn-today" oid="tendency">
+								<div class="c_sprite c_choice_icon  c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">今日</div>
+								<div class="c_cb"></div>
+							</div>
+							<div class="c_tab_choice c_fl" tag="btn-week" oid="tendency">
+								<div class="c_sprite c_choice_icon c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">最近一周</div>
+								<div class="c_cb"></div>
+							</div>
+							<div class="c_tab_choice c_fl" tag="btn-month" oid="tendency">
+								<div class="c_sprite c_choice_icon c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">最近一月</div>
+								<div class="c_cb"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c_calendar_bar c_fl">
+					<div class="c_calendar">
+						<input type="text" class="c_cal_icon input" id="tendencystartDate" name="startDate" oid="tendency" value="$!startDate" readonly="readonly" />
+					</div>
+					<i class="c_clearfix c_fl c_mr5 c_ml5">-</i>
+					<div class="c_calendar  c_mr10">
+						<input type="text" class="c_cal_icon input" id="tendencyendDate" name="endDate" oid="tendency" value="$!endDate" readonly="readonly" />
+					</div>
+				</div>
+				<a type="button" class="c_button  c_fl" tag="btn-analyze" oid="tendency">重新分析</a>
+				</div>
+				<div class="c_fr c_mr5"><a id="exportTendency" class="c_search_link c_search_sys1 c_fl">导出</a></div>
+				<div class="c_cb"></div>
+
+				<div class="c_summary_sp_tab c_wp_box_tendency">
+					<div class="c_tab_title c_fl c_w40 c_tr c_ml5">专题：</div>
+					<div class="c_tab_rg">
+						
+						<div class="c_tab_con1">
+						
+							<div class="c_tag">
+							
+								<div class="c_tab_choice c_fl" tag="tendency-allTopic" oid="0" selct="true">
+									<div class="c_sprite c_choice_icon c_fl checkbox active" value="0"></div>
+									<div class="c_choice_tag c_omit name c_tag_active" title="全部">全部</div>
+									<div class="c_cb"></div>
+								</div>
+								
+								<div class="c_tab_choice1 c_fl" id="searchTendency">
+									<div class="c_sprite c_choice_icon active c_fl"></div>
+									<div class="c_fl c_tag_active">请选择专题</div>
+									<div class="c_cb"></div>
+								</div>
+								<div class="c_tab_choice2">
+									<div class="c_choice2_w c_omit" tag="tendency-info" oid="topic"></div>
+								</div>
+								
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+
+			</div>
+			<div class="c_cb"></div>
+			
+		</div>
+		<div id="generalize-tendency-chart-mask" class="c_chart_loading"></div>
+		<div id="generalize-tendency-chart" class="c_border c_bg_white c_an_chart"></div>
+		<div class="c_mt15"></div>
+
+		<div class="c_bg_gay c_border c_border_top">
+			<div class="c_fl c_m10 c_f14">
+				<span>专题分布</span>
+			</div>			
+			<div class="c_cb"></div>
+			<div class="c_bg_white c_border_top c_pt10">
+			<div class="c_fl">
+				<div class="c_summary_tab c_fl">
+					<div class="c_tab_title c_fl c_w40 c_tr c_ml5">日期：</div>
+					<div class="c_tab_rg c_fl">
+						<div class="c_tab_con1">
+							<div class="c_tab_choice c_fl" tag="btn-today" oid="custTopic">
+								<div class="c_sprite c_choice_icon  c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">今日</div>
+								<div class="c_cb"></div>
+							</div>
+							<div class="c_tab_choice c_fl" tag="btn-week" oid="custTopic">
+								<div class="c_sprite c_choice_icon c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">最近一周</div>
+								<div class="c_cb"></div>
+							</div>
+							<div class="c_tab_choice c_fl" tag="btn-month" oid="custTopic">
+								<div class="c_sprite c_choice_icon c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">最近一月</div>
+								<div class="c_cb"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c_calendar_bar c_fl">
+					<div class="c_calendar">
+						<input type="text" class="c_cal_icon input" id="custTopicstartDate" name="startDate" oid="custTopic" value="$!startDate" readonly="readonly" />
+					</div>
+					<i class="c_clearfix c_fl c_mr5 c_ml5">-</i>
+					<div class="c_calendar  c_mr10">
+						<input type="text" class="c_cal_icon input" id="custTopicendDate" name="endDate" oid="custTopic" value="$!endDate" readonly="readonly" />
+					</div>
+				</div>
+				<a type="button" class="c_button  c_fl" tag="btn-analyze" oid="custTopic">重新分析</a>
+				</div>
+				<div class="c_cb"></div>
+			</div>
+			<div class="c_cb"></div>
+			
+		</div>
+		<div id="generalize-statCustTopic-list-mask" class="c_chart_loading"></div>
+		<div id="generalize-statCustTopic-list" class="c_border c_bg_white c_over_hidden"></div>
+		<div class="c_mt15"></div>
+
+		<div class="c_bg_gay c_border c_border_top">
+			<div class="c_fl c_m10 c_f14">
+				<span>站点统计</span>
+			</div>			
+			<div class="c_cb"></div>
+			<div class="c_bg_white c_border_top c_pt10">
+			<div class="c_fl">
+				<div class="c_summary_tab c_fl">
+					<div class="c_tab_title c_fl c_w40 c_tr c_ml5">日期：</div>
+					<div class="c_tab_rg c_fl">
+						<div class="c_tab_con1">
+							<div class="c_tab_choice c_fl" tag="btn-today" oid="website">
+								<div class="c_sprite c_choice_icon  c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">今日</div>
+								<div class="c_cb"></div>
+							</div>
+							<div class="c_tab_choice c_fl" tag="btn-week" oid="website">
+								<div class="c_sprite c_choice_icon c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">最近一周</div>
+								<div class="c_cb"></div>
+							</div>
+							<div class="c_tab_choice c_fl" tag="btn-month" oid="website">
+								<div class="c_sprite c_choice_icon c_fl checkbox"></div>
+								<div class="c_choice_tag c_fl name">最近一月</div>
+								<div class="c_cb"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="c_calendar_bar c_fl">
+					<div class="c_calendar">
+						<input type="text" class="c_cal_icon input" id="websitestartDate" name="startDate" oid="website" value="$!startDate" readonly="readonly" />
+					</div>
+					<i class="c_clearfix c_fl c_mr5 c_ml5">-</i>
+					<div class="c_calendar  c_mr10">
+						<input type="text" class="c_cal_icon input" id="websiteendDate" name="endDate" oid="website" value="$!endDate" readonly="readonly" />
+					</div>
+				</div>
+				<a type="button" class="c_button  c_fl" tag="btn-analyze" oid="website">重新分析</a>
+				</div>
+				<div class="c_cb"></div>
+			</div>
+			<div class="c_cb"></div>
+			
+		</div>
+		<div id="generalize-statWebsite-list-mask" class="c_chart_loading"></div>
+		<div id="generalize-statWebsite-list" class="c_border c_bg_white c_over_hidden"></div>
+		<div class="c_mt15"></div>
+	</div>
+</div>
+
+#parse("/analyze/pop-up-parent-topic.vm")
+
+<script type="text/javascript" src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/common/echarts/echarts-all.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/common/echarts/macarons.js"></script>
+
+<script src="${rc.contextPath}/js/analyze/analyze-interface.js" type="text/javascript"></script>
+<script src="${rc.contextPath}/js/analyze/ay-generalize-index.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var endDate = "$!endDate";
+	var forwardOneMonth = "$!forwardOneMonth";
+	
+	$('#situationDiv').click(function() {
+		if($(this).text() == "展开▼") {
+		   $('#situation').css('overflow', 'auto');
+		   /**100是专题的宽度,body.clientWidth是网页可见区域宽*/
+		   if ($(std.findTag('situation-topic')).size() * 100 > document.body.clientWidth/2) {
+			   $('#situation').css('height', '80px');
+			   $('.c_wp_box').css('height', '80px');
+		   }
+		   $(this).text('收起▲');				   
+		} else {
+		   $('#situation').css('overflow', 'hidden');
+		   $('#situation').css('height', '35px');
+		   $('.c_wp_box').css('height', '35px');
+		   $(this).text('展开▼');
+		}
+	});/**总体概况*/
+	
+	$('#tendencyDiv').click(function() {
+		if($(this).text() == "展开▼") {
+		   $('#tendency').css('overflow', 'auto');
+		   /**100是专题的宽度,body.clientWidth是网页可见区域宽*/
+		   if ($(std.findTag('tendency-topic')).size() * 100 > document.body.clientWidth/2) {
+			   $('#tendency').css('height', '80px');
+			   $('.c_wp_box_tendency').css('height', '80px');
+		   }
+		   $(this).text('收起▲');				   
+		} else {
+		   $('#tendency').css('overflow', 'hidden');
+		   $('#tendency').css('height', '35px');
+		   $('.c_wp_box_tendency').css('height', '35px');
+		   $(this).text('展开▼');
+		}
+	});/**媒体趋势*/
+	
+</script>
+#parse("/common/footer.vm")

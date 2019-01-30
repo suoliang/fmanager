@@ -1,0 +1,33 @@
+#parse("/common/header.vm")
+
+##右边模块开始
+<div style="width:750px;float:right;">
+$eventTitle
+    <form  action="${rc.getContextUrl('/incident/addEventSubmit.htm')}" id="addeventForm" method="post">
+      <input type="hidden" name="id" value="$!beanVO.id"/>  
+
+<table>
+         <tr>
+        <td>事件名称：</td>
+        <td><input type="text" name="name"  value="$!beanVO.name" /></td>
+        </tr>
+         <tr>
+        <td>关键词：</td>
+        <td><textarea rows="3" cols="20" name="keywords" >$!beanVO.keywords</textarea>
+           多个关键词用逗号“,”分隔
+        </td>
+        </tr>
+         <tr>
+        <td>简介：</td>
+        <td><textarea rows="3" cols="20" name="content" >$!beanVO.content</textarea></td>
+        </tr>
+         <tr>
+        <td  colspan=2 ><input type="submit" value="保存"  /></td>
+
+        </tr>
+        </table>
+      </form>
+</div>
+
+##右边模块结束
+#parse("/common/footer.vm")

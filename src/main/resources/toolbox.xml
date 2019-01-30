@@ -1,0 +1,8 @@
+<tools>
+	<toolbox scope="application">
+		<tool class="com.cyyun.authim.shiro.velocity.AuthTool" />
+		<tool class="com.cyyun.base.velocity.TagTool" />
+		<tool class="com.cyyun.base.velocity.ConfigTool" />
+		<tool class="com.cyyun.base.velocity.ConstTool" />
+	</toolbox>
+</tools>

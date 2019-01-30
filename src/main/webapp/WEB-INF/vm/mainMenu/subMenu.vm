@@ -1,0 +1,91 @@
+#parse("/common/header.vm")
+<!-- sidebar end-->
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span>设置</span><span> > </span><span>栏目</span><span> > </span><span>子菜单设置</span></p>
+			</h3>
+		</div>
+		<!--location line end-->
+		<div class="c_nav_pag">
+			#foreach($listMenu in $!listMenuSys) #if($listMenu.Children != 'null' && $listMenu.Children.size()>0 )
+			<!-- && $listMenu.needShow隐藏的是否显示的判断条件 -->
+			<div>
+				<a href="#" name="navi" rel="navi$!listMenu.id" id="$!listMenu.id" tag="search-popup" oid="subMenu" onClick="return changeTab(this);" #if($velocityCount==1) class="nav_pag_active" #end>$listMenu.name</a>
+			</div>
+			#end #end
+		</div>
+
+		<form id="voicefocus_id" action="${rc.contextPath}/setting/subMenuShow.htm" method="post">
+			<div class="c_nav_bock"></div>
+
+			#foreach($listMenu in $!listMenuSys) #if($listMenu.Children != 'null' && $listMenu.Children.size()>0)
+			<div class="c_tab_block selected" id="navi$!listMenu.id" #if($!velocityCount!=1) style="display: none;" #end>
+				<ul class="c_tab1">
+					<li class="c_tab_main_sub1"><input type="checkbox" class="c_check" id="$listMenu.name" value="$listMenu.name"></li>
+					<li class="c_tab_main_sub2">菜单</li>
+					<li class="c_tab_main_sub3">描述</li>
+				</ul>
+				#foreach($!Children in $!listMenu.Children)
+				<tr>
+				   <td><br>
+					<!-- 二级菜单 -->
+						<ul class="c_tab2 c_tab_top">
+							<li class="c_tab_main_sub1"><div><input ctx="$listMenu.name" type="checkbox" tag="check-box" name="checkboxName" fl="$Children.needShow" id="$!Children.parentId" oid="$Children.id" value="$!Children.id" index="$!Children.index"></div></li>
+							<li class="c_tab_main_sub2"><div class="c_mr10 c_omit">$Children.name</div></li>
+							<li class="c_tab_main_sub3"><div class="c_mr10 c_omit" tag="Children_tag">$Children.needShow</div></li> #if($Children.Children != 'null' && $Children.Children.size() > 0) #foreach($!Grandson in $Children.Children)
+					<!-- 三级菜单 -->
+							<ul class="c_tab2 c_tab_top">
+								<li class="c_tab_main_sub1"><div><input ctx="$listMenu.name" type="checkbox" tag="check-box" name="checkboxName" fl="$Grandson.needShow" id="$!Grandson.parentId" oid="$Grandson.id" value="$!Grandson.id" index="$!Grandson.index"></div></li>
+								<li class="c_tab_main_sub2"><div class="c_mr10 c_omit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$!Grandson.name</div></li>
+								<li class="c_tab_main_sub3"><div class="c_mr10 c_omit" tag="Children_tag">$!Grandson.needShow</div></li>
+							</ul>
+				#end 
+			#end
+						</ul>
+				  </td>
+				</tr>
+				#end
+				<div class="c_nav_but c_cb">
+					<div class="c_change_but c_fl">
+						<a onclick="menuSubmit();" id="submit_id" class="c_mr10 c_but_ok">确定</a><a href="javascript:location.reload();" class="c_mr10 c_but_no">取消</a>
+					</div>
+					<div class="c_fl c_f12 c_mt10 c_color_gay">
+						<i class="c_color_red c_mr5">*</i>菜单设置完成后，下次登录生效！
+					</div>
+				</div>
+			</div>
+			#end #end
+
+		</form>
+		<div class="c_page c_fr c_mt15 c_mb15" style="display: none">
+			<div>
+				<div class="c_page_num">&lt;</div>
+				<div class="c_page_num">1</div>
+				<div class="c_page_num active">2</div>
+				<div class="c_page_num">3</div>
+				<div class="c_page_more">...</div>
+				<div class="c_page_num">100</div>
+				<div class="c_page_num">&gt;</div>
+			</div>
+			<div class="c_page_goto">
+				共<span>100</span>页
+			</div>
+			<div class="c_page_goto">跳转至</div>
+			<div class="c_page_input">
+				<input type="text">
+			</div>
+			<div class="c_page_goto">
+				<i>GO</i>
+			</div>
+		</div>
+		<!--c_page end-->
+	</div>
+	<!--c_list end-->
+</div>
+<!-- main end-->
+
+<link href="${rc.contextPath}/css/setup.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${rc.contextPath}/js/mainMenu/subMenu.js"></script>
+
+#parse("/common/footer.vm")

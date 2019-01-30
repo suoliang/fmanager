@@ -1,0 +1,36 @@
+<div class="c_container">
+    <div class="c_fr c_msgbox_rg">
+    	 <div class="c_boxrg_tit"><span class="c_boxrg_tit_icon"></span> 基本信息</div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">预警时间：</div><div class="c_fl c_list_msg">$!date.format("yyyy-MM-dd HH:mm:ss",$!article.createTime)</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">预警等级：</div><div class="c_fl c_list_msg" id="level_id">$!article.level</div><div class="c_cb"></div></div>
+    </div>
+    <div class="c_over_hidden">
+        <div class="c_msgbox_lf">
+        	 <h4 class="c_mb10" title="$!article.title">$!article.title</h4>
+             <div  class=" c_f12 c_omit c_mb10 c_color_blue  c_tc "><a class="c_color_blue" href="$!article.url" target="_blank">$!article.url</a></div>
+             <div class="c_con_word">
+                  <p>$!article.content</p>
+             </div>
+             <div class="msg_close" onclick="window.close();">[关闭此页]</div>
+        </div>
+    </div>
+    <a class="to-top" title="回到顶部"></a>
+</div>
+
+<script type="text/javascript">
+//******************** 页面操作  ********************//
+$(function() {
+	//返回顶部
+	$('.to-top').toTop();
+	
+	$("#level_id").each(function(prop, value) {
+		if ($(value).text() == 1) {
+			$(value).html("紧急");
+		} else if ($(value).text() == 2) {
+			$(value).html("重要");
+		}else{
+			$(value).html("一般");
+		}
+	});
+});
+</script>

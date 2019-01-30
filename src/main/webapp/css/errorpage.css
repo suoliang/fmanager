@@ -1,0 +1,9 @@
+.page_bg{ width:970px; height:420px;  margin:30px auto;}
+.page_404bg{background: url(../images/bg404.png) no-repeat top center;}
+.page_500bg{background: url(../images/bg500.png) no-repeat top center;}
+.page_tit{ height:54px; width:350px; background: url(../images/bg404_tit.png) no-repeat left top; margin:0 auto; line-height:54px; padding-left:50px; font-size:18px; color:#77B3BF;}
+.page_con{ height:30px; width:310px; margin:320px auto;line-height:30px;}
+  .page_con div{ color:#57B4C3;}
+  .page_con div a{ display:block;line-height:2em; text-align:center; border-radius:2px;}
+.page_back{height:30px; width:100px; background-color:#57B4C3; color:#fff;}
+.page_btn{height:28px; width:98px; border:solid 1px #57B4C3; color:#57B4C3;}

@@ -1,0 +1,5 @@
+#parse("/common/header.vm")
+
+客户名称：$cust.name
+    
+#parse("/common/footer.vm")

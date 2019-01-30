@@ -1,0 +1,176 @@
+<!-- #if(!$situation) -->
+<!-- <div class="c_nodata" style="line-height: 300px;">暂无数据</div> -->
+<!-- #else -->
+<!-- <div id="generalize-situation-pie" style="width: 50%; height: 300px; float: left;"> -->
+<!-- 	<div class="c_chart c_pr" style="width: 100%;"> -->
+<!-- 		<div class="c_fl c_chart03 c_f12 c_pa" style="height: 100%; margin: 20px 0 0 20px;"> -->
+<!-- 			<dl> -->
+<!-- 				<dt class="c_chart_word c_w130">舆情来源分布</dt> -->
+<!-- 				#foreach($key in ${situation.keySet()}) -->
+<!-- 				<dd> -->
+<!-- 					<div class="c_chart_c c_chart_c$velocityCount c_fl"> -->
+<!-- 						<div></div> -->
+<!-- 					</div> -->
+<!-- 					<div class="c_omit"> -->
+<!-- 						$const.getName("MediaType", "$key")<i style="cursor: pointer;" onclick="util.go('/search/index.htm?mediaType=$key');" title="$situation.get($key)">$situation.get($key)</i>篇 -->
+<!-- 					</div> -->
+<!-- 				</dd> -->
+<!-- 				#end -->
+<!-- 			</dl> -->
+<!-- 			<div class=" c_mt10 c_f14"> -->
+<!-- 				发文数:<span class="c_color_orange c_ml5">$!total</span> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div id="generalize-situation-pie-chart" style="width: 100%; height: 300px; float: right;"></div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+<!-- <div id="generalize-situation-bar" style="width: 50%; height: 300px; float: left;"> -->
+<!-- 	<div id="generalize-situation-bar-chart" style="width: 100%; height: 100%"></div> -->
+<!-- </div> -->
+<div class="c_fl c_chart03 c_f12 c_pa c_mt10  c_ml20">
+	<dl>
+		<dt class="c_chart_word c_w130">舆情来源分布</dt>
+		#foreach($key in ${situation.keySet()})
+		<dd>
+			<div class="c_chart_c c_chart_c$velocityCount c_fl">
+				<div></div>
+			</div>
+			<div class="c_omit">
+				$const.getName("MediaType", "$key")<i style="cursor: pointer;" onclick="util.go('/search/index.htm?mediaType=$key');" title="$situation.get($key)">$situation.get($key)</i>篇
+			</div>
+		</dd>
+		#end
+	</dl>
+	<div class=" c_mt5 c_f14">
+		发文数:<span class="c_color_orange c_ml5">$!total</span>
+	</div>
+</div>
+<div class="c_chart01">
+	<div id="generalize-situation-pie-chart" class="c_circle01 c_fl"></div>
+	<div id="generalize-situation-bar-chart" class="c_circle02 c_fl"></div>
+</div>
+<script type="text/javascript">
+(function() {
+	console.log('generalize-situation-chart');
+
+	var situation = [];
+	#foreach($key in ${situation.keySet()})
+	situation['$key'] = '$const.getName("MediaType", "$key")';
+	#end
+
+	var initSituation = function(data) {
+		
+		var legendData = [];
+		var chartData = [];
+		var barChartData = [];
+		$(data).each(function(i, item) {
+			legendData.push(situation[item.key]);
+			barChartData.push(item.value);
+			if(item.value > 0) {
+				chartData.push({
+					name : situation[item.key],
+					value : item.value
+				});
+			}
+		});
+		var pie = echarts.init(document.getElementById('generalize-situation-pie-chart'));
+		pie.setOption({
+// 			noDataLoadingOption : {
+// 				text : '暂无数据',
+// 		    	effect : function(a,b,c) {
+// 		    		console.log(a);
+// 		    		console.log(b);
+// 		    		console.log(c);
+// 		    	}
+// 			},
+			tooltip : {
+				trigger : 'item',
+				textStyle : {
+					fontFamily : 'Microsoft YaHei, SimHei',
+					fontSize : 12
+				}
+			},
+			legend : {
+				data : legendData,
+				x : 2000,
+				y : 2000
+			},
+			color : [ '#87CEFA', '#6495ED', '#32CD32', '#DA70D6', '#FF7F50', '#FF69B4', '#4D4DFF' ],
+			series : [ {
+				name : '舆情概况',
+				type : 'pie',
+				itemStyle : {
+					normal : {
+						label : {
+							formatter : function(params) {
+								return params.name + '('+(params.percent - 0).toFixed(0) + '%)'
+							},
+							textStyle : {
+								fontFamily : 'Microsoft YaHei, SimHei',
+								color : '#FF9933'
+							}
+						}
+					}
+				},
+				center : ['50%', '50%'],
+				startAngle : 180,
+				minAngle : 4,
+				data : chartData
+			} ]
+		});
+		var bar = echarts.init(document.getElementById('generalize-situation-bar-chart'));
+		//bar.setTheme(getChartTheme());
+		bar.setOption({
+			tooltip : {
+				trigger : 'item',
+				textStyle : {
+					fontFamily : 'Microsoft YaHei, SimHei',
+					fontSize : 12
+				}
+			},
+			xAxis : [ {
+				type : 'category',
+				data : legendData
+			} ],
+			yAxis : [ {
+				type : 'value'
+			} ],
+			series : [ {
+				name : '发文数',
+				type : 'bar',
+	            itemStyle: {
+	                normal: {
+	                    color: function(params) {
+	                        var colorList = ['#87CEFA', '#6495ED', '#32CD32', '#DA70D6', '#FF7F50', '#FF69B4', '#4D4DFF'];
+	                        return colorList[params.dataIndex];
+	                    },
+	                    label: {
+	                        show: true,
+	                        position: 'top',
+	                        formatter: '{c}'
+	                    }
+	                }
+	            },
+				data : barChartData,
+				markLine : {
+					data : [ {
+						type : 'average',
+						name : '平均值'
+					} ]
+				}
+			} ]
+		});
+
+		$(window).resize(function() {
+			setTimeout(function() {
+				pie.resize();
+				bar.resize();
+			}, 100);
+		});
+	};
+
+	initSituation($!data);
+	
+})();
+</script>
+#end

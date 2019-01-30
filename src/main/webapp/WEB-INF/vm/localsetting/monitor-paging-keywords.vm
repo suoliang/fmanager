@@ -1,0 +1,10 @@
+
+#set($$monitorKeywords = $pageInfo.data)
+
+#parse("/localsetting/monitor-index-list.vm")
+
+<script type="text/javascript">
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

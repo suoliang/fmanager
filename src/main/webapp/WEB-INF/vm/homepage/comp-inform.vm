@@ -1,0 +1,12 @@
+<ul class="c_block_listC">
+	<li onclick="util.go('/focusing/QueryInfo.htm?timeType=1');"><a href="javascript:void(0);" class="c_block_list c_omit">今日预警</a><span class="c_block_num c_color_red">$!alertInfo</span></li>
+	<li onclick="util.go('/search/index.htm?timeType=1');"><a href="javascript:void(0);" class="c_block_list c_omit">今日文章</a>
+	<span class="c_block_num c_color_red">
+<!-- 	$!archiveInfo -->
+		$!total
+	</span>
+	</li>
+	<li><a href="javascript:void(0);" class="c_block_list c_omit">今日报告</a><span class="c_block_num c_color_green">0</span></li>
+	<li><a href="javascript:void(0);" class="c_block_list c_omit">今日推荐事件</a><span class="c_block_num c_color_blue">0</span></li>
+	<li><a href="javascript:void(0);" class="c_block_list c_omit">今日推荐人物</a><span class="c_block_num c_color_green">0</span></li>
+</ul>

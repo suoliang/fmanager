@@ -1,0 +1,99 @@
+
+
+#set($pagecss = ["report.css"])
+
+#parse("/common/header.vm")
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name">
+				<p class="c_location">
+					<i class="c_loc_icon c_sprite"></i>
+					<span>当前位置：</span><span href="javascript:void(0);">报告</span>
+					<span> > </span><span href="javascript:void(0);">简报</span>
+				</p>
+			</h3>
+		</div>
+		<div class="c_search_box">
+			<div class="c_fl">
+				<span>简报名称：</span><input type="text" class="c_keywds" id="title" id="reprotTitle"/><a tag="btn-search-brief" type="button" class="c_button c_ml10 c_fl">查询</a>
+				<form id="condition-form">
+					<input type="hidden" class="c_keywds" name="title" id="reprotTitle"/>
+				</form>
+			</div>
+			<div class="c_fr">
+				<a href="javascript:void(0);" tag="btn-add-brief" class="c_search_link c_search_sys1 c_alert_btn02">新增简报</a>
+			</div>
+			<div class="c_fr">
+				<a href="#" onclick="batchExport();" class="c_search_link c_search_sys1">批量导出</a>
+			</div>
+		</div>
+		<div class="c_mt15"></div>
+		<div class="c_tab_block">
+			<ul class="c_tab1">
+				<li class="c_tab_reort8"/>
+				<li class="c_tab_reort7"><div class="c_sprite c_choice_icon" id="selectall" ></div></li>
+				<li class="c_tab_reort1">序号</li>
+				<li class="c_tab_reort2">简报名称</li>
+				<li class="c_tab_reort3">文章数量</li>
+				<li class="c_tab_reort4">创建人</li>
+				<li class="c_tab_reort5">创建时间</li>
+				<li class="c_tab_reort6">操作</li>
+			</ul>
+			<div class="report-container">
+				#set($reports = $pageInfo.data)
+				#parse("/report/brief-index-list-report.vm")
+			</div>
+		</div>
+		#paging("id", "report-brief-paging")
+	</div>
+</div>
+
+
+<script type="text/javascript" src="${rc.contextPath}/js/report/report-interface.js" ></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/pop-up-brief-input.js" ></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/re-brief-index.js" ></script>
+
+<script type="text/javascript">
+	$(function() {
+		$('#report-brief-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+		
+		$("#selectall").bind("click",function(){//selectall为表示全选的框  
+			var son=$("[type='son']");
+	      if($('#selectall').hasClass('c_sprite c_choice_icon active')==false){
+	 		   for(var i=0;i<son.length;i++){
+		 		  $(son[i]).removeClass("c_sprite c_choice_icon").addClass("c_sprite c_choice_icon active");
+	 		   }
+			 	$('#selectall').removeClass("c_sprite c_choice_icon").addClass("c_sprite c_choice_icon active"); 
+		 	 }
+	      else{
+	 		   for(var i=0;i<son.length;i++){
+		 		  $(son[i]).removeClass("c_sprite c_choice_icon active").addClass("c_sprite c_choice_icon"); 
+	 		   }
+			  $('#selectall').removeClass("c_sprite c_choice_icon active").addClass("c_sprite c_choice_icon"); 
+		 	 }
+		});
+	
+	});
+	
+
+	function batchExport(){
+		$(".c_main").append("<form id='param-form' action='"+ctx+"/report/brief/batchExport.htm' method='post'></form>");
+		$("[type='son']").each(function(i,obj){
+			if($(obj).hasClass("c_sprite c_choice_icon active")){
+				$("#param-form").append("<input type='hidden' name='reportId' value='"+$(obj).attr("value")+"'/>");
+			}
+		});
+		if($("input[type='hidden'][name='reportId']").length > 0){
+			$("#param-form").submit();
+		}else{
+			$.msg.warning("请选择要导出的简报！");
+		}
+		$("#param-form").remove();
+	}
+
+
+</script>
+
+#parse("/common/footer.vm")
+#parse("/report/pop-up-brief-input.vm")

@@ -1,0 +1,137 @@
+
+#set($pagecss = ["focus.css"]) #parse("/common/header.vm")
+<div class="c_main">
+	<div></div>
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="#">传播路径</span></p>
+			</h3>
+		</div>
+	</div>
+		<div class="c_tab_block c_mt10 c_search_ok" style="line-height:35px; background:#f5f5f5; width:99%;  border-top:1px solid #e1e1e1">   
+				#if($!{status}==0)
+					系统后台正在生成，可能会耗费一段时间，请您稍后再次查看
+				#elseif($!{status}==1)
+					系统后台正在生成，可能会耗费一段时间，请您稍后再次查看
+				#elseif($!{status}==2)
+				<font color="blue">成功</font>
+				#elseif($!{status}==3)
+				<font color="red">失败</font>
+				#end
+          <div class="c_fr c_mt5" style="height:30px">
+            <div class="c_fr c_mr10"><a href="javascript:history.go(-1)" class="c_button c_ml10">返回</a></div>
+		    <br class="c_cb">
+		  </div>
+		  <br class="c_cb">
+        </div>
+        <div class="c_tab_block c_mt10 c_search_ok" style="line-height:35px; background:#f5f5f5; width:99%;  border-top:1px solid #e1e1e1">
+		<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<!--     <title>ECharts</title> -->
+</head>
+<body>
+    <div id="main" style="height:1225px"></div>
+<!--     ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        myChart = require(
+            [
+                'echarts',
+                'echarts/chart/tree' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+					title : {
+						//text: '传播路径'
+						text: ''
+					},
+					tooltip : {
+						trigger: 'item',
+						formatter: "{b}"
+					},
+					toolbox: {
+						show : true,
+						feature : {
+							//mark : {show: true},
+							//dataView : {show: true, readOnly: false},
+							//restore : {show: true},
+							saveAsImage : {show: true}
+						}
+					},
+					series : [
+						{
+							name:'树图',
+							type:'tree',
+							orient: 'horizontal',  // vertical horizontal
+							rootLocation: {x: 100,y: 230}, // 根节点位置  {x: 100, y: 'center'}
+							nodePadding: 58,
+							layerPadding: 200,
+							hoverable: false,
+							roam: true,
+							symbolSize: 6,
+							itemStyle: {
+								normal: {
+									color: '#4883b4',
+									label: {
+										show: true,
+										position: 'right',
+										formatter: "{b}",
+										textStyle: {
+											color: '#000',
+											fontSize: 5
+										}
+									},
+									lineStyle: {
+										color: '#ccc',
+										type: 'curve' // 'curve'|'broken'|'solid'|'dotted'|'dashed'
+
+									}
+								},
+								emphasis: {
+									color: '#4883b4',
+									label: {
+										show: false
+									},
+									borderWidth: 0
+								}
+							},
+							
+							data: $!{data}
+						}
+					]
+				};
+									
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+				var ecConfig = require('echarts/config');
+				function eConsole(param) {
+					var str = param.name + ":" + param.value; 
+					//alert(param.dataIndex);
+					//alert(param.name);
+					//alert(param.value);
+					window.open(param.value);
+				}
+
+				myChart.on(ecConfig.EVENT.CLICK, eConsole);
+            }
+        );
+    </script>
+</body>
+		
+	</div>
+</div>
+
+#parse("/common/footer.vm")

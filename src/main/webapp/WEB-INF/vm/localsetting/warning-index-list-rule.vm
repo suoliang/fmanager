@@ -1,0 +1,16 @@
+ #foreach($rule in $rules)
+<ul class="c_tab2 c_tab_top">
+	<li class="c_tab_focus1"><div class="c_mr10 c_omit">$!rule.name</div></li>
+<!-- 	$!tag.join($!rule.keywords, "word", "&nbsp;") -->
+	<li class="c_tab_focus2"><div class="c_mr10 c_omit">$!rule.keyword</div></li>
+	<li class="c_tab_focus3"><div class="c_mr10 c_omit">$!rule.excludedKeyword</div></li>
+ 	#if($!rule.status == 1)
+ 	<li class="c_tab_focus5"><div class="c_tab_state c_state_active" tag="btn-change-rule-status" oid="$!rule.id" status="$!rule.status">可用</div></li> 
+    #else
+    <li class="c_tab_focus5"><div class="c_tab_state c_state_active" tag="btn-change-rule-status" oid="$!rule.id" status="$!rule.status" style="color: #808080;border-color: #808080;">不可用</div></li>
+    #end
+	<li class="c_tab_focus4"><div>
+			<a href="javascript:void(0);" class=" c_color_deeporange" tag="btn-edit-rule" oid="$!rule.id">编辑</a>
+		</div></li>
+</ul>
+#end

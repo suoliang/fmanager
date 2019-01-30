@@ -1,0 +1,79 @@
+<div class="c_alt_box c_w700 c_h450 c_alert_theme c_f12" tag="popup-box" oid="warning-rule-input" style="display: none; height:545px">
+	<div class="c_alt_tit">
+		<div class="c_fl c_alt_titTag c_w670 c_h30"><i class=" c_sprite c_tit_icon02"></i><span>预警详情</span></div>
+		<ul class="c_fr"><li><a href="javascript:void(0);" class="c_sprite c_tit_close box-close"></a></li></ul>
+	</div>
+	<div class="c_alt_con c_h420 c_pr">
+		<form>
+		<input name="id" type="hidden"/>
+		<div class="c_alt_content c_cb c_m10">
+			<div class="c_edit_list">
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">预警名称：</div>
+							<div class="c_fl c_ml5">
+						        <input type="text" class="input c_w200" name="name" value="" maxlength="25">
+							</div>
+							<div class="c_fl c_ml5 c_mt5 c_color_red c_none" tag="error-name">预警名称不能为空</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+						    <div class="c_fl c_list_name c_tr">来源类型：</div>
+						    <div id="navi2" tag="option-card" oid="media" style="display: block;" class="c_fl c_ml5">
+				                <div id="navi2" tag="option-container" oid="type">
+					                <div class="c_con_list c_cb c_f12">
+						            #foreach($bean in $const.list("MediaType"))
+						                <div class="c_tab_choice c_fl" tag="option-item" oid="$bean.value" onclick="changeState(this);">
+							                <div class="c_sprite c_choice_icon  c_fl" tag="option-hook" oid="$bean.value" onclick="changeState(this);"></div>
+							                <div class="c_fl c_tag_active c_w30" title="$bean.name" tag="option-name" oid="$bean.value">$bean.name</div>
+							                <div class="c_cb"></div>
+						                </div>
+						             #end
+					                 </div>
+					                 #foreach($meta in ${mediaType.keySet()})
+					                 <div tag="option-container" oid="${mediaType.get($meta)}"></div>
+					                 #end
+				                </div>
+			                </div>
+			                <div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">包含关键词：</div>
+							<div class="c_fl c_ml5">
+								<textarea style="border: 1px solid #e1e1e1;color: #7f7f7f;font-size: 12px;line-height: 23px;min-height: 100px;width: 420px;word-wrap: break-word;" name="keyword" value="" maxlength="250"></textarea>
+							</div>
+<!-- 							<div class="c_fl c_ml5 c_mt5 c_color_red c_none" tag="error-name">专题名称不能为空</div> -->
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">不包含关键词：</div>
+							<div class="c_fl c_ml5">
+								<textarea style="border: 1px solid #e1e1e1;color: #7f7f7f;font-size: 12px;line-height: 23px;min-height: 100px;width: 420px;word-wrap: break-word;" name="excludedKeyword" value="" maxlength="250"></textarea>
+							</div>
+<!-- 							<div class="c_fl c_ml5 c_mt5 c_color_red c_none" tag="error-name">专题名称不能为空</div> -->
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">预警规则描述：</div>
+							<div class="c_fl c_ml5">
+								<textarea style=" border: 1px solid #e1e1e1;color: #7f7f7f;font-size: 12px;line-height: 23px;min-height: 100px;width: 420px;word-wrap: break-word;" name="remark" value="" maxlength="100"></textarea>
+							</div>
+							<div class="c_cb"></div>
+							</div>
+								<div class="c_color_lightgay c_mt5  c_mb5 c_change_ml105">
+									<span class="c_color_red c_mr5">*</span> 包含的关键词用分号分隔，例如：北京 空气；北京 汽车尾气<br /> 
+									<span class="c_color_red c_mr5">*</span> 组合关键词用空格分隔，例如：北京 空气<br /> 
+									<span class="c_color_red c_mr5">*</span> 不包含的多个关键词用空格分隔，例如：廊坊 郊区
+								</div>
+							</div>
+		</div>
+		</form>
+		<div class="c_alt_but c_w700 c_change_butbg" style="bottom:-84px; *bottom:-101px">
+			<div class="c_change_but c_change_but01">
+				<a href="javascript:void(0);" class="c_but_ok c_mr10 box-submit">确定</a><a href="javascript:void(0);" class="c_but_no box-cancel">取消</a>
+			</div>
+		</div>
+		<script type="text/javascript" src="${rc.contextPath}/js/search/pop-up-option.js"></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/search/pop-up-site.js"></script>
+	</div>
+</div>
+

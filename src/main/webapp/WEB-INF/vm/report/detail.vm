@@ -1,0 +1,88 @@
+
+<div class="c_container">
+    <div class="c_fr c_msgbox_rg">
+    	 <div class="c_boxrg_tit"><span class="c_boxrg_tit_icon"></span> 基本信息</div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">发布时间：</div><div class="c_fl c_list_msg">$!date.format("yyyy-MM-dd HH:mm:ss",$article.postTime)</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">采集时间：</div><div class="c_fl c_list_msg">$!date.format("yyyy-MM-dd HH:mm:ss",$article.spiderTime)</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">阅读：</div><div class="c_fl c_list_msg">$!article.readCount</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">回复：</div><div class="c_fl c_list_msg">$!article.replyCount</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">发文网站：</div><div class="c_fl c_list_msg">$!tag.getWebsiteName($article.websiteId)</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">作者：</div><div class="c_fl c_list_msg">$!article.author</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_tit"><span class="c_boxrg_tit_icon"></span> 系统标签</div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">所属行业：</div><div class="c_fl c_list_msg">
+    	 		#if($!tag.getIndustryName($article.industryIds, ",")) $tag.getIndustryName($article.industryIds, ",") #else $article.industrynames #end
+    	 	</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">所属地域：</div><div class="c_fl c_list_msg">
+    	 		#if($!tag.getAreaName($article.areaIds, ",", $!CUSTDATA_AREA)) $tag.getAreaName($article.areaIds, ",", $!CUSTDATA_AREA) #else $article.areanames #end
+    	 	</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">褒贬：</div><div class="c_fl c_list_msg">
+    	 		#if($!const.getName("Sentiment", $article.custAttrs.get($CUSTOMER.id.toString()).sentiment)) $const.getName("Sentiment", $article.custAttrs.get($CUSTOMER.id.toString()).sentiment) #else $article.sentiments #end
+    	 	</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list">
+   	 	 <div class="c_fl c_list_name">专题：</div>
+   	 	 <div class="c_fl c_list_msg">
+   	 	 	#set($custTopicIds = $article.custAttrs.get($CUSTOMER.id.toString()).custTopicIds)
+			#if($custTopicIds.isEmpty())
+				#set($custTopicNames = "")
+			#else 
+				#set($custTopicNames = $tag.getCustTopicName($custTopicIds, ","))
+			#end
+			#if("$!custTopicNames" != "") $custTopicNames #else 暂无 #end
+   	 	 </div>
+   	 	 <div class="c_cb"></div> 
+    	 </div>
+    </div>
+    <div class="c_over_hidden">
+        <div class="c_msgbox_lf">
+      	    #if($!article.style == 4)
+			  <div class="c_mb10 c_tl c_fb c_f14 c_lh24">$!article.weiboContent</div>
+			  <div  class=" c_f12 c_omit c_mb10 c_color_blue  c_tl ">
+			  	<a class="c_color_blue" href="$!article.url" target="_blank">$!article.url</a>
+			  </div> 
+			#else
+        	  <h4 class="c_mb10" title="$!article.title">$!article.title</h4>
+              <div  class=" c_f12 c_omit c_mb10 c_color_blue  c_tc "><a class="c_color_blue" href="$!article.url" target="_blank">$!article.url</a></div>
+			#end
+             <div class="c_con_word">
+                #if($!article.style == 4)
+	            	#if($!article.weiboRelayContent)
+					  <div class="c_p15" style="background-color:#F2F2F5;">
+	                   <p>$!article.weiboRelayContent</p>
+	                  </div>
+	                #end
+				#else
+				  <p>$!article.content</p>
+				#end
+             </div>
+             <div class="msg_close" onclick="window.close();">[关闭此页]</div>
+        </div>
+    </div>
+    <a class="to-top" title="回到顶部"></a>
+</div>
+
+#parse("/report/pop-up-brief-picker.vm")
+
+<script type="text/javascript" src="${rc.contextPath}/js/report/report-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/pop-up-brief-picker.js"></script>
+		
+<script type="text/javascript">
+
+//******************** 页面操作  ********************//
+	$(function() {
+		//返回顶部
+		$('.to-top').toTop();
+		
+		//******************** 页面样式控制 ********************//
+		//左边导航 自适应左边高度
+		function autoHeight() 
+	     {
+		    var h = $(window).height()-60; 
+			var h_old = 300;
+			 if (h > h_old) { $(".c_msgbox_lf").css('min-height', h); } 
+			 else { return false; } 
+		}
+		autoHeight();
+		$(window).resize(autoHeight); 
+	});
+	
+</script>

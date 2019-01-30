@@ -1,0 +1,237 @@
+
+<div class="c_chart03 c_f12 c_pa c_mt10  c_ml20 c_none">
+	<dl>
+		<dt class="c_chart_word c_w130">舆情来源分布</dt>
+		#foreach($key in ${situation.keySet()})
+		<dd>
+			<div class="c_chart_c c_chart_c$velocityCount c_fl">
+				<div></div>
+			</div>
+			<div id="" class="c_omit">
+<!-- 				$const.getName("MediaType", "$key")<i style="cursor: pointer;" onclick="util.go('/search/index.htm?mediaType=$key');" title="$situation.get($key)">$situation.get($key)</i>篇 -->
+				$const.getName("MediaType", "$key")<i style="cursor: pointer;" mediaType="$key" onclick="fowardSearch(this);" title="$situation.get($key)">$situation.get($key)</i>篇
+			</div>
+		</dd>
+		#end
+	</dl>
+	<div class=" c_mt5 c_f14">
+		发文数:<span class="c_color_orange c_ml5">$!total</span>
+	</div>
+</div>
+<!-- 表格 -->
+<div class="c_chart_lf c_m10">
+<div class=" c_f12  c_lh24">舆情来源分布</div>
+<!-- <div class="  c_f14">发文数:<span class="c_color_orange c_ml5">$!total</span></div> -->
+<table class="c_f12 c_chart_tab c_mt10">
+		<tr class="c_chart_thead">
+			<td>来源</td>
+			#foreach($bean in $const.list("MediaType"))
+			<td>$bean.name</td>
+			#end
+			<td>总计</td>
+		</tr>
+		<tr>
+			<td>文章数</td>
+			#foreach($key in ${situation.keySet()})
+			<td tag="articleNo">$situation.get($key)</td>
+			#end
+			<td id="article-totalRecords"></td>
+		</tr>
+		<tr>
+			<td>阅读数</td>
+			#foreach($key in ${situation.keySet()})
+			<td tag="readNo">-</td>
+			#end
+			<td id="article-totalReadNos">-</td>
+		</tr>
+		<tr>
+			<td>回复数</td>
+			#foreach($key in ${situation.keySet()})
+			<td tag="replyNo">-</td>
+			#end
+			<td id="article-totalReplyNos">-</td>
+		</tr>
+</table>
+</div>
+
+<div class="c_over_hidden">
+	<div class="c_chart01">
+		<div class="c_fl" style="width:50%">
+			<div id="generalize-situation-pie-chart" class="c_circle01" style="width:100%"></div>
+		<div class="c_tc  c_f14 c_mt15">发文数:<span class="c_color_orange c_ml5">$!total</span></div>
+		</div>
+		<div id="generalize-situation-bar-chart" class="c_circle02 c_fl"></div>
+			
+	</div>
+</div>
+<script type="text/javascript">
+(function() {
+	//计算总文章数
+	var articleNos = $(std.findTag('articleNo'));
+	var articleNo = new Number;
+	articleNos.each(function(i , item){
+		articleNo = articleNo + parseInt($(item).text());
+	})
+	$("#article-totalRecords").html(articleNo);
+		
+})();
+function fowardSearch(obj){
+	$(obj).append("<form id='redirect' action='"+ctx+"/search/index.htm' method='post' style='display:none;'></form>");
+	$("#redirect").append("<input name='startTime' value='"+$("[name='startDate']").val()+"'/>");
+	$("#redirect").append("<input name='endTime' value='"+$("[name='endDate']").val()+"'/>");
+	$("#redirect").append("<input name='mediaType' value='"+$(obj).attr("mediaType")+"'/>");
+	$("#redirect").submit();
+}
+(function() {
+	var situation = [];
+	#foreach($key in ${situation.keySet()})
+	situation['$key'] = '$const.getName("MediaType", "$key")';
+	#end
+	
+	var initSituation = function(data) {
+		
+		var legendData = [];
+		var chartData = [];
+		var barChartData = [];
+		$(data).each(function(i, item) {
+			legendData.push(situation[item.key]);
+			barChartData.push(item.value);
+			if(item.value > 0) {
+				chartData.push({
+					name : situation[item.key],
+					value : item.value
+				});
+			}
+		});
+		
+		var pie = echarts.init(document.getElementById('generalize-situation-pie-chart'));
+		pie.setOption({
+			noDataLoadingOption : {
+				text: '暂无数据',
+				effect:'bubble',
+				effectOption : {
+					backgroundColor:"#fff",
+ 					effect: {
+ 						n: 10
+ 					}
+				},
+				textStyle: {
+					fontSize: 20,
+					fontWeight: 'bold'
+				}
+ 		   	}, 
+			tooltip : {
+				trigger : 'item',
+				textStyle : {
+					fontFamily : 'Microsoft YaHei, SimHei',
+					fontSize : 12
+				}
+			},
+			legend : {
+				data : legendData,
+				x : 2000,
+				y : 2000
+			},
+			color : [ '#59CDCC', '#5F88D0', '#5CBC85', '#F6AB8D', '#BADD5C', '#F06EB1', '#5FC5EB', '#E5DE66', '#EB5F5F'  ],
+			series : [ {
+				name : '舆情概况',
+				type : 'pie',
+				itemStyle : {
+					normal : {
+						label : {
+							formatter : function(params) {
+								return params.name + '('+(params.percent - 0).toFixed(0) + '%)'
+							},
+							textStyle : {
+								fontFamily : 'Microsoft YaHei, SimHei',
+								color : '#FF9933'
+							}
+						}
+					}
+				},
+				center : ['50%', '50%'],
+				startAngle : 180,
+				minAngle : 4,
+				data : chartData
+			} ]
+		});
+		
+		var topics = $("#situation-condition").serialize();
+		var topicTypes = topics.replace(/topic/g,"topicType");/**全部替换*/
+		
+		pie.on('click', function (param) {
+			$.getJSON(ctx + "/js/analyze/mediaType.json",function(json){
+				$.each(json, function(idx, obj) {
+					if (obj.name == param.name) {
+						window.location.href = ctx + "/search/index.htm?mediaType="+obj.id+"&startTime="+$('#startDate').val()+" 00:00:00"
+								+"&endTime="+$('#endDate').val()+" 23:59:59"+"&"+topicTypes;
+					}
+				});
+		  	});
+        });
+		
+		var bar = echarts.init(document.getElementById('generalize-situation-bar-chart'));
+		//bar.setTheme(getChartTheme());
+		bar.setOption({
+			tooltip : {
+				trigger : 'item',
+				textStyle : {
+					fontFamily : 'Microsoft YaHei, SimHei',
+					fontSize : 12
+				}
+			},
+			xAxis : [ {
+				type : 'category',
+				data : legendData
+			} ],
+			yAxis : [ {
+				type : 'value'
+			} ],
+			series : [ {
+				name : '发文数',
+				type : 'bar',
+	            itemStyle: {
+	                normal: {
+	                    color: function(params) {
+	                        var colorList = ['#59cdcc', '#5f88d0', '#5CBC85', '#F6AB8D', '#BADD5C', '#F06EB1', '#5FC5EB', '#E5DE66', '#EB5F5F'];
+	                        return colorList[params.dataIndex];
+	                    },
+	                    label: {
+	                        show: true,
+	                        position: 'top',
+	                        formatter: '{c}'
+	                    }
+	                }
+	            },
+				data : barChartData,
+				markLine : {
+					data : [ {
+						type : 'average',
+						name : '平均值'
+					} ]
+				}
+			} ]
+		});
+		bar.on('click', function (param) {
+			$.getJSON(ctx + "/js/analyze/mediaType.json",function(json){
+				$.each(json, function(idx, obj) {
+					if (obj.name == param.name) {
+						window.location.href = ctx + "/search/index.htm?mediaType="+obj.id+"&startTime="+$('#startDate').val()+" 00:00:00"
+								+"&endTime="+$('#endDate').val()+" 23:59:59"+"&"+topicTypes;
+					}
+				});
+		  	});
+        });
+		
+		$(window).resize(function() {
+			setTimeout(function() {
+				pie.resize();
+				bar.resize();
+			}, 100);
+		});
+	};
+
+	initSituation($!data);
+	
+})();
+</script>

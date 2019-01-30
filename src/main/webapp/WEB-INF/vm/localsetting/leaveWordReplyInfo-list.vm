@@ -1,0 +1,21 @@
+#foreach($message in $messages)
+#set($index = $velocityCount + ($!queryRest.currentPage - 1) * 20)
+  <ul class="c_tab2 c_tab_top">
+      <li class="c_tab_reply1"><div class="">$velocityCount</div></li>
+      <li class="c_tab_reply2"><div class="c_omit c_amore"><a href="#" class="c_amore" tag="btn-leave-detail" oid="$!message.id" onclick="forwardMessageLink(this)"  value="$!pageInfo.pageNo" id="messageReplyId">$message.title</a></div></li>
+      <li class="c_tab_reply3"><div class="c_mr10">$!date.format('yyyy-MM-dd HH:mm:ss',$message.createTime)</div></li>
+      <li class="c_tab_reply4">
+      	#if($message.status==0)
+      		<div class="c_mr10 c_omit">未处理</div>
+      	#end
+      	#if($message.status==1)
+      		<div class="c_mr10 c_omit">已处理</div>
+      	#end
+      </li>
+      #if($message.status==0)
+      <li class="c_tab_reply5"><div><a href="#" class="c_color_deeporange c_alert_btn" tag="reply" oid="$message.id">回复</a></div></li>
+      #else
+      <li class="c_tab_reply5"><div><a href="#" class="c_color_deeporange c_alert_btn" tag="reply" oid="$message.id"></a></div></li>
+      #end
+   </ul>
+#end

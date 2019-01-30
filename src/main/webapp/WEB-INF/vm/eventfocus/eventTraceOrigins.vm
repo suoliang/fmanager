@@ -1,0 +1,11 @@
+#parse("/common/header.vm")
+
+##右边模块开始
+<div style="width:750px;float:right;">
+
+
+</div>
+
+##右边模块结束
+</div>
+#parse("/common/footer.vm")

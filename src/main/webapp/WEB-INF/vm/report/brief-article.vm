@@ -1,0 +1,57 @@
+
+#set($pagecss = ["report.css"])
+
+#parse("/common/header.vm")
+
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0);">报告</span><span> > </span><span href="javascript:void(0);">简报</span><span> > </span><span href="javascript:void(0);">$!report.title</span></p>
+			</h3>
+		</div>
+		<div class="c_search_box">
+			<div class="c_fr">
+				<a href="${rc.contextPath}/report/brief/export.htm?reportId=$request.getParameter('reportId')" tag="btn-export-brief" class="c_search_link c_search_sys2 c_fl c_mr10">导出简报</a>
+				<a href="javascript:void(0);" tag="btn-back-to-brief" oid="$request.getParameter('pageNo')" class="c_search_link c_search_sys2 c_fl">返回</a>
+			</div>
+		</div>
+		<div class="c_mt15"></div>
+		<form id="search-advanced">
+			<!-- 关键字 -->
+			<input type="hidden" id="reportId" name="reportId" value="$request.getParameter('reportId')" />
+			<!-- 排序字段 -->
+			<input type="hidden" id="orderField" name="orderField" />
+			<!-- 排序类型 -->
+			<input type="hidden" id="orderType" name="orderType" />
+		</form>
+		<div class="c_tab_block search-list-head">
+			<ul class="c_tab1">
+				<li class="c_tab_list1"><span class="c_ml15"></span>标题</li>
+				<li class="c_tab_list2">站点</li>
+				<li class="c_tab_list3">作者</li>
+				<li class="c_tab_list4">褒贬</li>
+				<li class="c_tab_list5">阅读</li>
+				<li class="c_tab_list6">回复</li>
+				<li class="c_tab_list7">发布时间</li>
+			</ul>
+		</div>
+		<div class="search-list-container">
+			#set($articles = $pageInfo.data)
+			#parse("/report/brief-article-list-article.vm")
+		</div>
+
+		#paging("id", "report-brief-article-paging")
+
+	</div>
+</div>
+
+<script type="text/javascript" src="${rc.contextPath}/js/report/report-interface.js" ></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/re-brief-article.js" ></script>
+
+<script type="text/javascript">
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>
+
+#parse("/common/footer.vm")

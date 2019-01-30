@@ -1,0 +1,34 @@
+#parse("/common/header.vm")
+
+<h2>新增客户1</h2>
+<form id="addForm" method="post" onsubmit="return false;">
+<input type="hidden" name="type" value="1">
+<input type="hidden" name="status" value="1">
+<input type="hidden" name="categoryId" value="1">
+
+客户简称：<input type="text" name="name" value="测试客户1">
+<br>
+<button id="saveBtn" type="button">保存</button>
+</form>
+
+<script type="text/javascript">
+	$("#saveBtn").click(function() {
+		$.ajax({
+			type : "POST",
+			url : "save.htm",
+			data : $("#addForm").serialize(),
+			dataType : "json",
+			cache : false,
+			async : false,
+			success : function(result) {
+				if (result.code == "error") {
+					$.messager.alert('新增客户','新增客户错误！','error');
+				} else {
+					$.messager.alert('新增客户','新增客户成功！','info');
+				}
+			}
+		});
+	});
+</script>
+
+#parse("/common/footer.vm")

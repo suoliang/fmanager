@@ -1,0 +1,18 @@
+
+#set($pagecss = ["index.css"])
+
+#parse("/common/header.vm")
+
+<div class="c_main">
+	<div class="c_list">
+		<div class="c_title c_mr_pre1">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="#">专题</span></p>
+			</h3>
+		</div>
+	</div>
+	<div class="c_index">
+		hello world
+	</div>
+</div>
+
+#parse("/common/footer.vm")

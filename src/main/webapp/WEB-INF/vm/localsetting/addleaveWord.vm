@@ -1,0 +1,41 @@
+#parse("/common/header.vm")
+
+<link href="${rc.contextPath}/css/setup.css" rel="stylesheet"
+	type="text/css" />
+<script src="${rc.contextPath}/js/localsetting/ls-homepage.js"
+	type="text/javascript"></script>
+
+<script src="${rc.contextPath}/js/system/orgManager.js"
+	type="text/javascript"></script>
+
+ <!-- sidebar end-->
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name">我要留言</h3>
+      <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="setup.html">设置</span><span>></span><span href="setup_message.html">留言</span><span>></span><span href="setup_addmessage.html">我要留言</span></p>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl"><span>我要留言</span></div>
+      <div class="c_fr">
+      <a href="${rc.contextPath}/setting/leaveWord/index.htm" class="c_search_link c_search_sys2 c_fl">返回</a>
+      </div> 
+    </div>
+   <!--search box end-->
+   <div class="c_tab_block">
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">联系人：</div><div class="c_fl c_ml5"><input type="text" class="input c_w200" maxlength="20" title="必须小于20个字符！"></div><div class="c_fl c_ml5 c_mt5 c_color_red">联系人不能为空</div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">联系电话：</div><div class="c_fl c_ml5"><input type="text" class="input c_w200" maxlength="15" title="必须小于15个字符！"></div><div class="c_fl c_ml5 c_mt5 c_color_red">联系电话不能为空</div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">标题：</div><div class="c_fl c_ml5"><input type="text" class="input c_w400" maxlength="50" title="必须小于50个字符！"></div><div class="c_fl c_ml5 c_mt5 c_color_red">标题不能为空</div></div>
+    <div class="c_cb c_tab_list c_mt5 c_over_hidden"><div class="c_fl c_list_name c_tr">留言信息：</div><div class="c_fl c_ml5"><textarea class="c_textarea c_w600 c_p5 c_h200"></textarea></div></div>
+    <div class="c_cb c_change_butbg"><div class="c_change_but c_change_ml105"><a href="#" class="c_but_ok c_mr10">发送</a><a href="#" class="c_but_no">取消</a></div></div>
+   </div><!--c_tab_block-->    
+  </div><!--c_list end-->
+  </div><!-- main end-->
+
+	#parse("/system/pop-up-org.vm")
+
+#parse("/common/footer.vm")
+
+
+

@@ -1,0 +1,10 @@
+
+#set($siteAudits = $pageInfo.data)
+
+#parse("/localsetting/siteAuditInfo-list.vm")
+
+<script type="text/javascript">
+	$(function() {
+		$('#siteAudit-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

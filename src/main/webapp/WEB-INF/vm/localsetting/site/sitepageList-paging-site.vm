@@ -1,0 +1,17 @@
+#set($sites = $!sitePageInfo.data)
+#parse("/localsetting/site/sitepageList-list-site.vm")
+<script type="text/javascript">
+	$(function() {
+		var json = {
+			formId : "addeventForm",
+			divId : "div2",
+			asyncFlag : true,
+			prefix : "2",
+			 currentPage:$!sitePageInfo.pageNo,
+			 totalPage:$!sitePageInfo.totalPages,
+			 count:$!sitePageInfo.totalRecords,
+			 pageSize:$!sitePageInfo.pageSize
+		};
+		initPageTab(json);
+	});
+</script>

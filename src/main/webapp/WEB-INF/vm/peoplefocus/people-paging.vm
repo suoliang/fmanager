@@ -1,0 +1,9 @@
+#set($boards = $pageInfo.data) 
+
+#parse("/localsetting/homepageList-list-board.vm")
+
+<script type="text/javascript">
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

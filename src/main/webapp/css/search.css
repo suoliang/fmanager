@@ -1,0 +1,56 @@
+.c_search_warp{ width:800px; margin:0 auto;overflow:hidden;}
+.c_search_warp .c_chang_name{ margin:5px 0;overflow: hidden;}
+.c_search_warp .c_chang_name a{ display:block; float:left; width:60px; height:25px; line-height:25px; text-align:center; font-size:14px; color:#000; border-radius:2px;}
+.c_search_warp .c_chang_name a:hover,.c_search_warp .c_chang_name .active{ background-color:#F9993B; color:#fff;}
+.c_search_warp .c_search_tab{overflow:hidden;}
+.c_search_warp .c_search_tab .c_search_inpnt{border: 1px solid #E2E1E1;width:550px;height:38px; border-radius:2px 0 0 2px; background-color:#FFF;}
+.c_search_warp .c_search_tab .c_search_inpnt input{width:550px; border:none;height:38px; line-height:38px; font-size:14px;color:#7F7F7F;font-family:Microsoft YaHei, SimHei;}
+.c_search_warp .c_search_tab .c_search_but{ background-color:#4FA3AE; cursor:pointer; height:40px; line-height:40px; width:120px; color:#FFF; font-size:20px; text-align:center;border-radius:0 2px 2px 0;}
+.c_search_warp .c_search_tab .c_search_more{ color:#4FA3AE; cursor:pointer;}
+.c_search_warp .c_search_tab .c_search_more .c_more_icon{ color:#999; font-size:9px;}
+/*以下更多筛选条件*/
+.c_search_con{border-top:1px solid #E2E1E1;overflow:hidden;}
+.c_search_con .c_search_summary{margin-right:220px;}
+.c_search_con .c_search_summary .c_summary_box{ width:100%;}
+
+
+/*以下更多历史过滤器*/
+.c_search_con .c_search_history{ width:200px;border-left:1px solid #E2E1E1; padding-left:15px;}
+.c_search_con .c_search_history .c_search_title{ color:#F16D4F;}
+.c_search_con .c_search_history .c_his_input{overflow: hidden; }
+.c_search_con .c_search_history .c_his_input input{color:#7F7F7F;background-color:#FFF;width:170px;}
+.c_his_block{ height:132px; overflow:auto;}
+.c_search_con .c_search_history .c_his_list{ font-size:12px; height:25px; padding-left:5px; cursor:pointer;}
+.c_search_con .c_search_history .c_his_list:hover,.c_search_con .c_search_history .c_his_active{ background-color:#FFF;}
+.c_search_con .c_search_history .c_his_list .c_list_con{ width:150px;}
+.c_search_con .c_search_history .c_his_list i{ font-size:12px; margin-right:10px; width:11px; height:13px; background-position:-60px -200px; margin-top:5px;}
+/****************20150422 修改********************/
+/*以下table表格*/
+.c_tab_th1{ width:40%;}
+.c_tab_th2{ width:9%;}
+.c_tab_th3{ width:6%;}
+.c_tab_th4{ width:5%;}
+.c_tab_th5{ width:5%;}
+.c_tab_th6{ width:5%;}
+.c_tab_th7{ width:15%;}
+.c_tab_th8{ width:15%;}
+
+.c_selsct_w01{width:78px;}
+.c_selsct_w01 ul{ width:76px;}
+.c_tab4 div a{color:#3399FF;}
+/****************20150512 修改********************/
+.c_cloud_th1{ width:100%;}
+
+.c_tab1 .c_choice_icon,.c_tab2 .c_choice_icon{ width:10px; height:10px; margin:13px 5px 0 15px; background-position:-20px -200px;cursor:pointer;}
+.c_tab1 .c_choice_icon.active,.c_tab2 .c_choice_icon.active{background-position:-5px -200px;}
+
+/*ie11 10  去掉input后面的叉叉*/
+.input_away_fork_ie::-ms-clear{display: none;width : 0;height: 0;}
+
+
+
+
+
+
+
+

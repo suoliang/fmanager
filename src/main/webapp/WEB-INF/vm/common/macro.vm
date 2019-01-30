@@ -1,0 +1,81 @@
+#macro(showCustomerStatus $status)
+
+#end
+
+#macro(generateMenu $menus $level)
+	#if($level == 1)
+	
+		<ul class="c_menu">
+			#foreach($menu in $menus)
+				<li tag="menu-item" oid="$menu.id" level="$level" #if($menu.id == $!MENU_SELECTED.id)open="true"#end>
+					<a id="$menu.id" #if($menu.url) href="${rc.getContextUrl($menu.url)}" onclick="_czc.push(['_trackEvent', '$menu.name', '$!CUSTOMER.name', '$!LOGIN_USER.realName', '', '$menu.id']);" #else href="javascript:void(0);" #end 
+						#if($menu.id == $!MENU_SELECTED.id) class="c_nav active" #else class="c_nav" #end>
+						<i class="$!menu.icon c_sprite"></i>
+						<span>$menu.name</span>
+						<p class="c_sprite"></p>
+					</a>
+					#if($menu.children)
+					    #generateMenu($!menu.children, 2)
+					#end
+				</li>
+			#end
+		</ul>
+	
+	#elseif($level == 2)
+	
+		<ul class="c_sub_menu" style="display:none">
+			#foreach($menu in $menus)
+				<li tag="menu-item" oid="$menu.id" level="$level">
+					<a id="$menu.id" #if($menu.url) href="${rc.getContextUrl($menu.url)}" onclick="_czc.push(['_trackEvent', '$menu.name', '$!CUSTOMER.name', '$!LOGIN_USER.realName', '', '$menu.id']);" #else href="javascript:void(0);" #end 
+						#if($menu.id == $!MENU_SELECTED.id) class="c_sub_nav active" #else class="c_sub_nav" #end>
+						<i class="c_file c_sprite"></i>
+						<span>$menu.name</span>
+						<span class="c_dot c_sprite"></span>
+					</a>
+					#if($menu.children)
+					    #generateMenu($!menu.children, 3)
+					#end
+				</li>
+			#end
+		</ul>
+	
+	#elseif($level == 3)
+	
+		<ul class="c_sub2_menu">
+			#foreach($menu in $menus)
+				<li tag="menu-item" oid="$menu.id" level="$level">
+					<a id="$menu.id" #if($menu.url) href="${rc.getContextUrl($menu.url)}" onclick="_czc.push(['_trackEvent', '$menu.name', '$!CUSTOMER.name', '$!LOGIN_USER.realName', '', '$menu.id']);" #else href="javascript:void(0);" #end 
+						#if($menu.id == $!MENU_SELECTED.id) class="c_sub2_nav active" #else class="c_sub2_nav" #end>
+						<i class="c_sign c_sprite"></i>
+						<span>$menu.name</span>
+						<i href="#" class="c_number">16</i>
+					</a>
+					#if($menu.children)
+					    #generateMenu($!menu.children, 4)
+					#end
+				</li>
+			#end
+		</ul>
+		
+	#else
+		#foreach($menu in $menus)
+			$menu.name
+		#end
+	#end
+ #end
+
+#macro(paging $prop $value)
+<div class="c_page c_fr c_mt15 c_mb15 #if($prop=="class")$value#end" #if($prop!="class")$prop="$value"#end>
+	<div tag="paging-item" oid="paging-item"></div>
+	<div class="c_page_goto">
+		共<span tag="paging-info" oid="totalsize"></span>条
+	</div>
+	<div class="c_page_goto">跳转至</div>
+	<div class="c_page_input">
+		<input type="text" tag="paging-input" oid="pageNo">
+	</div>
+	<div class="c_page_goto" tag="paging-button" oid="gotoNo">
+		<i>GO</i>
+	</div>
+</div>
+#end

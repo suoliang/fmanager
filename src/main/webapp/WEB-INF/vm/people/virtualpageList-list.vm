@@ -1,0 +1,14 @@
+#foreach($!virtual in $!virtuals)
+#set($index = $velocityCount + ($!queryRest.currentPage - 1) * 20)
+
+<ul class="c_tab2 c_tab_top">
+      <li class="c_tab_per_false1 c_tc"><div>$velocityCount</div></li>
+      <li class="c_tab_per_false2"><div class="c_omit c_amore"><a href="javascript:void(0)" class="c_amore" id="$!virtual.id">$!virtual.nickname</a></div></li>
+      <li class="c_tab_per_false3"><div class="c_mr10 c_omit">$!virtual.siteIdName</div></li><!-- $!tag.getWebsiteName($!virtual.siteId)fm暂时没有提供方法 -->
+      <li class="c_tab_per_false4"><div class="c_mr10 c_omit">$!const.getName("MediaType",$!virtual.mediaType.toString())</div></li><!-- 媒体类型 -->
+      <li class="c_tab_per_false5"><div class="c_mr10 c_omit">$!virtual.content</div></li>
+      <li class="c_tab_per_false6"><div class="c_tab_state" onclick="javascript:status($!virtual.id,$!virtual.statusId,$!queryRest.pageNo);" >$!virtual.status</div></li>
+      <li class="c_tab_per_false7"><div class="c_mr10 c_omit">$!virtual.createrId</div></li>           
+      <li class="c_tab_per_false8"><div><a href="javascript:updateVirtualIdentity($!virtual.id,$!queryRest.pageNo);" class="c_mr10 c_color_cyan c_alert_btn02">$!virtual.operationas </a></div></li>
+</ul>
+#end

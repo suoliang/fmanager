@@ -1,0 +1,120 @@
+#parse("/common/header.vm")
+
+<style>
+<!--
+.ui-menu .ui-menu-item {
+	position: relative;
+	font-family: Microsoft YaHei, SimHei;
+	font-size: 12px;
+	margin: 0;
+	padding: 3px 1em 3px .4em;
+	cursor: pointer;
+	min-height: 0;
+}
+-->
+</style>
+<link href="${rc.getContextUrl('/css/jquery-ui.css')}" rel="stylesheet" type="text/css" />
+ <!-- sidebar end-->
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+    	<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="person_true.html">人物</span><span> > </span><span href="person_relation.html">身份关联</span></p>
+		</h3>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+     <div class="c_fl"><span>真实身份：</span><input type="text" class="c_keywds c_ml5" id="trueIdentity_id" value="#foreach($relation in $relations) $!relation.siteIdName #end"/>
+     	<span class="c_ml10">虚拟身份：</span><input type="text" class="c_keywds c_ml5" id="virtualIdentity_id"/>
+     	<a type="button" class="c_button c_ml10 c_fl" id="searchBtn">查询</a></div>
+     <div class="c_fr"><a href="javascript:void(0)" class="c_search_link c_search_sys2 c_fl c_alert_btn" id="openRelationBtn">新增关联</a></div> 
+    </div>
+   <!--search box end-->
+   <div class="c_mt15"></div>
+   <div class="c_tab_block">
+      <ul class="c_tab1">
+      <li class="c_tab_per_rel1 c_tc">序号</li>
+      <li class="c_tab_per_rel2">真实身份</li>
+      <li class="c_tab_per_rel3">虚拟身份</li>
+      <li class="c_tab_per_rel4">站点</li>
+      <li class="c_tab_per_rel5">操作</li>
+      </ul>
+       <!-- 身份关联抽出代码 -->
+      <div id="virtualTable_id">
+		#set($relations = $pageInfo.data) 
+		#parse("/people/personRelationPage-list.vm")
+      </div>
+    </div>
+		<input id="currentPage_id" type="hidden" value="$!queryRest.pageNo"/>
+   		#paging("id", "relationpage-paging") 
+		
+   
+
+<!-- 以下弹出框新增关联-->
+<div class="c_alt_box c_w330 c_alert_theme c_postion_w330" id="peopleIDBox">
+  <div class="c_alt_tit">
+    <div class="c_fl c_alt_titTag c_w300 c_h30"><i class=" c_sprite c_tit_icon02"></i><span>关联虚拟身份</span></div>
+    <ul class="c_fr"><li><a href="#" class="c_sprite c_tit_close close"></a></li></ul>
+  </div>
+  <div class="c_alt_con c_pr">
+				<div class="c_f12 c_m10 c_cb">
+					<div class="c_cb c_h30">
+						<div class="c_fl c_w80 c_tr c_mt5">真实身份：</div>
+						<div class="c_fl c_ml5 c_pr">
+							<input type="text" id="trueentity" class="input c_w200">
+							<input type="hidden" id="peopleId">
+							<div id="showRealName" style="position: absolute; top: 24px; left: 0px;"></div>
+						</div>
+					</div>
+					<div class="c_cb ">
+						<div class="c_ml85 c_color_red" id="trueNone">真实身份不能为空</div>
+						<div class="c_ml85 c_color_red" id="trueNone1">真实身份不存在!请重新输入。</div>
+					</div>
+					<div class="c_cb c_h30 c_mt5">
+						<div class="c_fl c_w80 c_tr c_mt5">站点：</div>
+						<div id="site-select"
+							class="c_divselect c_fl c_divselect_alt c_ml5">
+							<div class="cite" id="CustSiteSelect">
+								<div class="citeT"></div>
+							</div>
+							<ul id="selectul">
+								<li><a href="javascript:;" selectid="" def="true" id="def-option">请选择</a></li>
+								#foreach($custSite in $custSites)
+								<li><a href="javascript:;" selectid="$!custSite.id">$custSite.name</a></li>
+								#end
+							</ul>
+							<input name="siteId" type="hidden" id="site-select-input" />
+						</div>
+					</div>
+					<div class="c_cb ">
+						<div class="c_ml85 c_color_red" id="zhandianNone">站点不能为空</div>
+					</div>
+					<div class="c_cb c_h30 c_mt5">
+						<div class="c_fl c_w80 c_tr c_mt5">虚拟身份：</div>
+						<div class="c_fl c_ml5">
+							<input type="text" class="input c_w200" id="virtualentity">
+							<input type="hidden" id="virtualId">
+							<div id="showVirtualName" style="position: absolute; top: 94px; left: 95px;"></div>
+						</div>
+					</div>
+					<div class="c_cb ">
+						<div class="c_ml85 c_color_red" id="xuninNone" style.display:none>虚拟身份不能为空</div>
+						<div class="c_ml85 c_color_red" id="xuninNone1" style.display:none>虚拟身份不存在!请重新输入。</div>
+					</div>
+				</div>
+				<div class="c_cb c_change_butbg"><div class="c_change_but c_change_but01"><a href="#" class="c_but_ok c_mr10">确定</a><a href="#" class="c_but_no">取消</a></div></div>
+  </div><!--c_alt_con-->
+  
+  
+</div><!--c_main-->
+<link href="${rc.getContextUrl('/css/person.css')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${rc.contextPath}/js/people/relationPeople.js"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#relationpage-paging").paging("setInfo", $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>
+
+#parse("/common/footer.vm")

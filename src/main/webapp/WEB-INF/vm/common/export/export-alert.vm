@@ -1,0 +1,33 @@
+<div class="c_alt_box c_w400 c_h300 c_alert_theme_02" tag="export-box" oid="export-picker" style="display: none;">
+	<div class="c_alt_tit">
+		<div class="c_fl c_alt_titTag c_w300 c_h30">
+			<i class="c_sprite c_tit_icon02"></i><span>文件详情</span>
+		</div>
+		<ul class="c_fr">
+			<li><a href="javascript:void(0);" class="c_sprite c_tit_close box-close"></a></li>
+		</ul>
+	</div>
+	<div class="c_alt_con  c_m10">
+		<a class="c_bc c_mb10 c_w50 c_button" tag="exportStart" oid="$!LOGIN_USER.id">生成文件</a>
+		<div class="c_color_red c_tc c_mt5 c_mb10 c_f14 c_none">文件正在生成中...请稍等。</div>
+		<div style="height: 180px;overflow:auto">
+		<div class="c_tab_block">
+	      <ul class="c_tab1">
+		      <li class="c_tc col_2">导出状态</li>
+		      <li class="c_tc col_6">文件</li>
+		      <li class="c_tc col_2">操作</li>		      
+	      </ul>
+	      <div tag="task-list">
+		      <ul class="c_tab2 c_tab_top">
+<!-- 			      <li class="c_tc col_2"><div class="c_omit">一般该好好</div></li> -->
+<!-- 			      <li class="c_tc col_6"><div class="c_omit">5246542696566</div></li> -->
+<!-- 			      <li class="c_tc col_2"> -->
+<!-- 			      	<div class="c_fl c_mr5">下载</div> -->
+<!-- 			      	<div class="c_fl ">删除</div> -->
+<!-- 			      </li> -->
+		      </ul>
+	      </div>
+	    </div>
+	    </div>
+	</div>
+</div>

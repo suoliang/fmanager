@@ -1,0 +1,26 @@
+#foreach($manual in $manuals)
+#set($index = $velocityCount + ($!queryRest.currentPage - 1) * 20)
+	<ul class="c_tab2 c_tab_top">
+		<li class="c_tab_peop1 c_tc"><div class="c_omit">$velocityCount</div></li>
+		<li class="c_tab_peop2 "><div class="c_mr10 c_omit c_amore"><a href="javascript:void(0)" class="c_amore">$!manual.title</a></div></li>
+		<li class="c_tab_peop3">
+			<div class="c_mr10 c_omit">
+				#foreach($category in $categoryMap.entrySet())
+					#if($!category.key == $!manual.category)
+						$!category.value
+					#end
+				#end
+			</div>
+		</li>
+		<li class="c_tab_peop4"><div class="c_mr10 c_omit">$!date.format('yyyy-MM-dd HH:mm:ss',$manual.reportTime)</div></li>
+		<li class="c_tab_peop5"><div class="c_mr10 c_omit">$!date.format('yyyy-MM-dd HH:mm:ss',$manual.createTime)</div></li>
+		<li class="c_tab_peop6">
+			<div>
+				<a href="javascript:void(0)" class="c_color_cyan c_mr10 yd" tag="onlineRead" oid="$!manual.id">在线阅读</a>
+				<a href="javascript:void(0)" class="c_mr10 c_color_deeporange " tag="download" oid="$!manual.id">下载</a>
+			</div>
+		</li>
+	</ul>  
+
+#end
+

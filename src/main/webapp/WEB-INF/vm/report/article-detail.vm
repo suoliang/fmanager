@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="true; charset=utf-8"/>
+<meta name="referrer" content="never">
+<title>详情信息</title>
+<script type="text/javascript">
+	var ctx = "${rc.contextPath}";
+</script>
+<link href="${rc.contextPath}/favicon.ico" rel="shortcut icon" />
+
+<link href="${rc.contextPath}/css/base.css" rel="stylesheet" type="text/css" />
+<link href="${rc.contextPath}/css/layout.css" rel="stylesheet" type="text/css" />
+<link href="${rc.contextPath}/css/common.css" rel="stylesheet" type="text/css" />
+<link href="${rc.contextPath}/css/msg_con.css" rel="stylesheet" type="text/css" />
+<link href="${rc.contextPath}/css/alert.css" rel="stylesheet" type="text/css" />
+
+<script src="${rc.contextPath}/js/common/jquery-1.11.1.min.js" type="text/javascript" ></script>
+<script src="${rc.contextPath}/js/common/jquery-ui.min.js" type="text/javascript" ></script>
+<script src="${rc.contextPath}/js/common/jquery.nicescroll.js" type="text/javascript" ></script>
+<script src="${rc.contextPath}/js/common/tinyscrollbar.js" type="text/javascript" ></script>
+<script src="${rc.contextPath}/js/common/layer/layer.min.js" type="text/javascript"></script>
+
+<script src="${rc.contextPath}/js/gengeral.js" type="text/javascript" ></script>
+<script src="${rc.contextPath}/js/global-standard.js" type="text/javascript" ></script>
+<script src="${rc.contextPath}/js/global-application.js" type="text/javascript" ></script>
+
+<script src="${rc.contextPath}/js/common/jquery.toTop.min.js" type="text/javascript" ></script>
+
+
+<script>
+$(function() {	
+//******************** 页面数据控制 ********************//
+	var showArticleDetail;
+	(function() {
+		var findArticle = function(guid, keyword, fun) {
+			assert.exists(guid, "guid", "search.findArticle");
+			assert.isFun(fun.success, "success", "search.searchArticle");
+
+			if (util.isNull(keyword)) {
+				keyword = '';
+			}
+
+			ajaxCommFunText(std.u("/report/findArticle.htm"), "guid=" + guid + "&keyword=" + keyword, function(response) {
+				if (response.type == dict.action.suc) {
+					fun.success(response.data, response.message);
+				} else {
+					alertMsg(response.message);
+					if ($.isFunction(fun.error)) {
+						fun.error(response.message, response.attrs);
+					}
+				}
+			});
+		};
+
+		showArticleDetail = function(guid, keyword) {
+				findArticle(guid, keyword, {
+					success : function(html) {
+						$('.article-content').html(html);
+					}
+				});
+		}
+		
+		showArticleDetail("$!guid", "$!keyword");
+		
+	})();
+
+
+})
+
+</script>
+
+
+</head>
+<body>
+	<div class="article-content"></div>
+
+</body>
+</html>

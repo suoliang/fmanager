@@ -1,0 +1,10 @@
+
+#set($reports = $pageInfo.data) 
+
+#parse("/report/brief-index-list-report.vm")
+
+<script type="text/javascript">
+	$(function() {
+		$('#report-brief-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

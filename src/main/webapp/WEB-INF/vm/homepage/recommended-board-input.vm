@@ -1,0 +1,26 @@
+<div>
+	<div class="c_fl c_change_title">类别：</div>
+	<div id="board_hot_select" class="c_divselect c_fl c_ml10">
+		<div class="cite">
+			<div class="citeT"></div>
+		</div>
+		<ul>
+			#foreach($bean in $!recommendeds)
+			<li><a href="javascript:;" selectid="$bean.name" websiteTagId="$bean.value" #if($!bean.value == $!type) def="true" #end>$bean.name</a></li>
+			#end
+		</ul>
+		<!-- type用于区分 国内、国际、社会...等九个板块 -->
+		<input type="hidden" name="type" id="websiteTagId"/>
+		<input type="hidden" name="boardName" id="boardName" value="板块名称"/>
+		<input type="hidden" id="board_article_conditionId" validate-js="notNull" validate-msg="不能为空" value="推荐"/>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$.divselect("#board_hot_select","#boardName",function(txt, value){
+		var websiteTagId=$("a[selectid='"+value+"']").attr("websiteTagId");
+		$("#websiteTagId").val(websiteTagId);
+	});
+	
+});
+</script>

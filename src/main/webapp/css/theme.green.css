@@ -1,0 +1,21 @@
+.c_container .c_top{background:#43939E;}
+.c_sidebar{background: #4FA3AE;}
+.c_button{ background:#58B5C4; display:block; height:25px; line-height:25px; padding:0 15px; font-size:12px; color:#fff; border-radius:2px;}
+.c_button:hover{ background-color:#50ABB6;}
+.c_down_btn{ text-decoration:none;width:90px; height:32px; line-height:32px; cursor:pointer; background:#fff; border:1px solid #8cbe66; color:#8cbe66;border-radius:5px; text-align:center; display:block; float:left;}
+.c_list_con .c_list_block .c_artical h4 a{color:#1F6B78;}
+.c_top ul.c_fr .c_input{ background:#54AAB7;}
+.c_top ul.c_fr .c_input input{background: #54AAB7;}
+.c_top ul.c_fr .c_input i{background-position:-39px -7px;}
+.c_top ul.c_fr .c_list{background-position:-66px -10px;}
+.c_top ul.c_fr .c_msg{background-position:-97px -9px;}
+.c_top ul.c_fr .c_help{background-position:-123px -4px;}
+.c_top ul.c_fr .c_hi{border-right: 1px solid #74C2CC;}
+/*以下绿色框架内容主题色*/
+.c_bg_block{ background-color:#fff;}
+.c_bg_titbg{ background-color:#57B6C3; color:#fff;}
+
+::selection{ background-color:#56B6C4; color:#fff;}
+::-moz-selection{background-color:#56B6C4; color:#fff;}
+
+

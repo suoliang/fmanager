@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.cyyun</groupId>
+		<artifactId>pom-root</artifactId>
+		<version>1.1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>fmanager</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>${project.artifactId}</name>
+	<url>http://www.cyyun.com</url>
+
+	<properties>
+		<build.version>3.0.0-SNAPSHOT</build.version>
+		<common-core.version>1.1.0-SNAPSHOT</common-core.version>
+		<authim.version>1.0.0-SNAPSHOT</authim.version>
+		<customer.version>1.0.0-SNAPSHOT</customer.version>
+		<base.version>1.0.0-SNAPSHOT</base.version>
+		<article.version>1.0.0-SNAPSHOT</article.version>
+		<process.version>1.0.0-SNAPSHOT</process.version>
+		<event.version>1.0.0-SNAPSHOT</event.version>
+		<fm.version>1.0.0-SNAPSHOT</fm.version>
+		<message.version>1.0.0-SNAPSHOT</message.version>
+		<flib.version>2.65</flib.version>
+	</properties>
+
+	<dependencies>
+		<!-- servlet api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- velocity -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+		</dependency>
+
+		<!-- dubbo -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-common-core</artifactId>
+			<version>${common-core.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>mybatis</artifactId>
+					<groupId>org.mybatis</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>mybatis-spring</artifactId>
+					<groupId>org.mybatis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-authim-spec</artifactId>
+			<version>${authim.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-customer-spec</artifactId>
+			<version>${customer.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-base-spec</artifactId>
+			<version>${base.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-process-spec</artifactId>
+			<version>${process.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-event-people-spec</artifactId>
+			<version>${event.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-article-spec</artifactId>
+			<version>${base.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-fm-spec</artifactId>
+			<version>${fm.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.cyyun</groupId>
+			<artifactId>m-message-spec</artifactId>
+			<version>${message.version}</version>
+		</dependency>
+
+		<!-- flib -->
+		<dependency>
+			<groupId>com.cyyun.webmon</groupId>
+			<artifactId>flib</artifactId>
+			<version>${flib.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-beanutils-core</artifactId>
+					<groupId>commons-beanutils</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>xml-apis</artifactId>
+					<groupId>xml-apis</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- 分析词云start -->
+		<dependency>
+            <groupId>com.cyyun.common</groupId>
+            <artifactId>algorithm</artifactId>
+            <version>1.0</version>
+<!--             <exclusions> -->
+<!--             	<exclusion> -->
+<!--             		<artifactId>nlp-lang</artifactId> -->
+<!--             		<groupId>org.nlpcn</groupId> -->
+<!--             	</exclusion> -->
+<!--             </exclusions> -->
+		</dependency>
+		<!-- 分析词云end -->
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<version>1.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+			<version>5.10.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<version>2.2.4.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-scratchpad</artifactId>
+		    <version>3.13</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.13</version>
+		</dependency>
+		
+<!-- <dependency> -->
+<!-- 	<groupId>org.apache.ant</groupId> -->
+<!-- 	<artifactId>ant</artifactId> -->
+<!-- 	<version>1.8.2</version> -->
+<!-- </dependency> -->
+		<dependency>
+			<groupId>net.sourceforge.rtftemplate</groupId>
+			<artifactId>rtftemplate</artifactId>
+			<version>1.0.1-b13</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>velocity</artifactId>
+					<groupId>velocity</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-beanutils</artifactId>
+					<groupId>commons-beanutils</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-digester</artifactId>
+					<groupId>commons-digester</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jxls</groupId>
+			<artifactId>jxls-core</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>fmanager</finalName>
+
+		<filters>
+			<filter>src/main/resources/filters/filter-${env}.properties</filter>
+		</filters>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.xsd</include>
+					<include>**/*.properties</include>
+					<include>**/*.vm</include>
+					<include>**/*.xls</include>
+					<include>**/*.freq</include>
+					<include>**/*.list</include>
+				</includes>
+				<excludes>
+					<exclude>filters/*.*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+					<include>logback.xml</include>
+				</includes>
+				<excludes>
+					<exclude>filters/*.*</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+				</includes>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<server>tomcat7</server>
+					<url>http://127.0.0.1:8080/manager</url>
+					<port>8090</port>
+					<path>/fm</path>
+					<contextReloadable>false</contextReloadable>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,166 @@
+/*以下table表格--专题模块宽度*/
+.c_tab_th1{ width:1%; text-align:center;}
+.c_tab_th2{ width:5%;text-align:center;}
+.c_tab_th3{ width:22%;}
+.c_tab_th4{ width:20%;}
+.c_tab_th5{ width:20%;}
+.c_tab_th6{ width:10%;}
+.c_tab_th7{ width:22%;}
+/*以下table表格--分类模块宽度*/
+.c_tab_event1{width:4%; text-align:center;}
+.c_tab_event2{width:20%;}
+.c_tab_event3{width:58%;}
+.c_tab_event4{width:10%;}
+.c_tab_event5{width:8%;}
+/*以下table表格--首页模块宽度*/
+.c_tab_home1{width:5%;text-align:center;}/*暂时没有第一列 把5%加给了c_tab_home4*/
+.c_tab_home2{width:5%;}
+.c_tab_home3{width:15%;}
+.c_tab_home4{width:62%;}
+.c_tab_home5{width:10%;}
+.c_tab_home6{width:8%;}
+/*以下table表格--栏目模块宽度*/
+.c_tab_main1{width:5%; text-align:center;} 
+.c_tab_main2{width:65%;}
+.c_tab_main3{width:20%;}
+.c_tab_main4{width:10%;}
+.c_tab_main4 a{color:#437FFF}
+/*以下子菜单-切换*/
+.c_nav_pag{ height:40px;border:1px solid #e2e1e1; background-color:#fff;}
+.c_nav_pag div{ float:left; margin-top:8px; margin-left:10px;}
+.c_nav_pag div a{ display:block; height:30px; line-height:30px; font-size:12px; color:#7F7F7F; padding:0 20px;background-color:#fff;border-top:#fff solid 2px; border-left:solid 1px #fff;border-right:solid 1px #fff;}
+.c_nav_pag div a:hover,.c_nav_pag div .nav_pag_active{ border-top:#FA9A3B solid 2px; border-left:solid 1px #e2e1e1;border-right:solid 1px #e2e1e1; border-bottom:#fff solid 1px; color:#FA9A3B;}
+.c_nav_bock{border-left:solid 1px #e2e1e1;border-right:solid 1px #e2e1e1;background-color:#fff; height:5px;}
+.c_tab_main_sub1{width:5%; text-align:center;}
+.c_tab_main_sub2{width:25%;}
+.c_tab_main_sub3{width:70%;}
+.c_nav_but{ height:34px; background-color:#F7F7F7; padding-left:20px;}
+/*下拉框-搜索框*/
+.c_divselect{width:100px;}
+.c_divselect .cite{ width:98px;}
+.c_divselect .cite .citeT{ width:68px;}
+.c_divselect ul{width:98px;}
+.c_divselect ul li a{width:88px;height:25px;line-height:25px }
+.c_divselect ul li a:hover{background-color:#77C4CE; color:#fff;}
+/*下拉框-新增表单*/
+.c_divselectR{width:202px; margin-left:5px;}
+.c_divselectR .cite{ width:200px;}
+.c_divselectR .cite .citeT{ width:170px;}
+.c_divselectR ul{width:200px;}
+.c_divselectR ul li a{width:190px;height:25px;line-height:25px }
+.c_divselectR ul li a:hover{background-color:#77C4CE; color:#fff;}
+
+/*以下table表格--站点模块宽度*/
+.c_tab_site1{ width:3%; text-align:center;}/*暂时没有第一列 把3%加给了c_tab_site5*/
+.c_tab_site2{ width:3%;}
+.c_tab_site3{ width:9%;}
+.c_tab_site4{ width:44%;}
+.c_tab_site5{ width:16%;}
+.c_tab_site6{ width:8%;}
+.c_tab_site7{ width:10%;}
+.c_tab_site8{ width:10%;}
+/*以下table表格-IM管理模块宽度*/
+.c_tab_sys_sub1{width:5%; text-align:center;}
+.c_tab_sys_sub2{width:12%;}
+.c_tab_sys_sub3{width:10%;}
+.c_tab_sys_sub4{width:10%;}
+.c_tab_sys_sub5{width:13%;}
+.c_tab_sys_sub6{width:18%;}
+.c_tab_sys_sub7{width:8%;}
+.c_tab_sys_sub8{width:12%;}
+.c_tab_sys_sub9{width:12%;}
+/*以下table表格-用客户户管理模块宽度*/
+.c_tab_sys4_sub1{width:5%; text-align:center;}
+.c_tab_sys4_sub2{width:15%;}
+.c_tab_sys4_sub3{width:10%;}
+.c_tab_sys4_sub4{width:10%;}
+.c_tab_sys4_sub5{width:15%;}
+.c_tab_sys4_sub6{width:25%;}
+.c_tab_sys4_sub7{width:8%;}
+.c_tab_sys4_sub8{width:12%;}
+/*以下table表格--用户组管理模块宽度--刘军武*/
+.c_tab_sys5_sub1{width:40%; text-indent:10px;}
+.c_tab_sys5_sub2{width:40%;}
+.c_tab_sys5_sub3{width:20%;}
+/*以下table表格--组织管理模块宽度*/
+.c_tab_sys2_sub1{width:5%; text-align:center;}
+.c_tab_sys2_sub2{width:79%;}
+.c_tab_sys2_sub3{width:8%;}
+.c_tab_sys2_sub4{width:8%;}
+/*以下table表格--角色管理模块宽度*/
+.c_tab_sys3_sub1{width:8%; text-indent:10px;}
+.c_tab_sys3_sub2{width:72%;}
+.c_tab_sys3_sub3{width:10%;}
+.c_tab_sys3_sub4{width:10%;}
+/*以下table表格--角色管理-新增角色模块宽度*/
+.c_tab_sys3_add_sub1{width:5%; text-indent:10px;}
+.c_tab_sys3_add_sub2{width:95%;}
+/****************20150602更新**********************/
+/*以下table表格--站点审核*/
+.c_tab_app1{width:5%;}
+.c_tab_app2{width:10%;}
+.c_tab_app3{width:10%;}
+.c_tab_app4{width:10%;}
+.c_tab_app5{width:25%;}
+.c_tab_app6{width:10%;}
+.c_tab_app7{width:10%;}
+.c_tab_app8{width:10%;}
+.c_tab_app9{width:10%;}
+/****************20150713更新**********************/
+/*设置-专题-采集关键词*/
+.c_edit_key{ border-left:solid 1px #E1E1E1;min-height:502px; margin-left:581px;} 
+.c_editKey_tit{background-color:#f5f5f5;}
+.c_editKey_add{width:20px; height:20px;background:url(../images/add_icon01.png);background-size:cover;cursor:pointer;}
+.c_editKey_del{width:15px; height:31px;background:url(../images/del_icon01.png) center no-repeat;cursor:pointer; margin-right:17px;}
+
+.c_editKey_con{min-height:432px; background-color:#fff;}
+.c_editKey_con .c_editKey_list{line-height:26px;color: #686868; padding:5px 0px;}
+.c_editKey_con .c_editKey_list.active{background-color:#ffffdf;}
+.c_editKey_con .c_editKey_lis .c_key_num{ width:30px;}
+.c_key_judge{ width:40px; font-size:22px;color:#CCC;}
+.c_key_icon01{ width:15px; height:15px; background-position:-374px -109px;}
+.c_key_icon02{ width:21px; height:15px; background-position:-409px -109px;}
+.c_key_summary{ margin-right:40px;}
+
+.c_edit_bck{ width:580px;min-height:486px;}
+.c_edit_list{min-height:446px;}
+.c_key_text{ width:420px; min-height:100px;}
+.c_key_text2{border: #E1E1E1 1px solid;line-height: 23px;color: #7F7F7F;font-size: 12px; width:420px;min-height:100px;word-wrap: break-word; }
+
+/****************20150716更新**********************/
+/*设置-专题-操作日志*/
+.c_tab_special1{width:5%;text-indent:10px;}
+.c_tab_special2{width:36%;}
+.c_tab_special3{width:36%;}
+.c_tab_special4{width:10%;}
+.c_tab_special5{width:13%;}
+/*专业版-专题设置*/
+.c_key_text3{;min-height:177px;}
+
+/*以下table表格 专业版--专题模块宽度*/
+.c_tab_pro1{ width:3%; text-align:center;}
+.c_tab_pro2{ width:3%;}
+.c_tab_pro3{ width:24%;}
+.c_tab_pro4{ width:30%;}
+.c_tab_pro5{ width:6%;}
+.c_tab_pro6{ width:10%;}
+.c_tab_pro7{ width:10%;}
+.c_tab_pro8{ width:14%;}
+
+/*设置-专题-详情列表右边的采集关键词*/
+.c_setupmsg_key{min-height:270px; margin-left:581px;background-color:#fff;border-right:#E1E1E1 1px solid;border-left:#E1E1E1 1px solid;} 
+.c_setupmsg_key .c_editKey_tit{background-color:#f5f5f5;}
+.c_setupmsg_key .c_setupmsg_con .c_editKey_list .c_key_num{ width:30px;}
+.c_setupmsg_key .c_setupmsg_con .c_editKey_list{line-height:26px;color: #686868; padding:5px 0px;}
+.c_setupmsg_bck{width:580px;min-height:270px;}
+
+
+
+
+
+
+
+
+
+
+

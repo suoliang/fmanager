@@ -1,0 +1,43 @@
+#set($pagecss = ["focus.css"]) #parse("/common/header.vm")
+<div class="c_main">
+	<input type="hidden" id="similarGuidGroup" value="${similarGuidGroup}"/>
+	<input type="hidden" id="similarGuid" value="${similarGuid}"/>
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="#">相似文</span></p>
+			</h3>
+		</div>
+	</div>
+		<div class="c_tab_block c_mt10 c_search_ok" style="line-height:35px; background:#f5f5f5; width:99%;  border-top:1px solid #e1e1e1">
+			<div class="c_fl c_f12 c_color_gay " style="margin-left: 10px">为您找到相关结果约<span class=" c_color_blue c_ml5 c_mr5"><i class="c_color_blue c_ml5 c_mr5" id="count-Show-i"></i></span>个</div>   
+          <div class="c_fr c_mt5" style="height:30px">
+          	<div class="c_fr c_mr10"><a tag="returnBack" class="c_button c_ml10">返回</a></div>
+            <!-- <div class="c_fr c_mr10"><a href="javascript:history.go(-1)" class="c_button c_ml10">返回</a></div> -->
+		    <br class="c_cb">
+		  </div>
+		  <br class="c_cb">
+        </div>
+		
+		<!--c_alt_box-->
+		<div class="similar-list-container">
+			#set($articles = $pageInfo.data)
+			#parse("/similar/index-list-article.vm")
+
+		</div> 
+		#if($!articles.size()>0)
+		<div class="c_mr15">
+		#paging("id", "similar-message-paging")
+        </div>
+        #end
+	</div>
+	
+<script type="text/javascript" src="${rc.contextPath}/js/similar/similar-interface.js"></script> 
+<script type="text/javascript" src="${rc.contextPath}/js/similar/similar.js"></script> 
+
+<script type="text/javascript">
+	$(function() {
+		$('#similar-message-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>
+
+#parse("/common/footer.vm")

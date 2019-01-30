@@ -1,0 +1,14 @@
+<div class="c_alt_box c_w700 c_h450 c_alert_theme c_postion_w700" tag="popup-box" oid="topic" style="display: none;">
+	<div class="c_alt_tit">
+		<div class="c_fl c_alt_titTag c_w670 c_h30">
+			<i class=" c_sprite c_tit_icon02"></i><span>选择专题</span>
+		</div>
+		<ul class="c_fr">
+			<li><a href="javascript:void(0);" class="c_sprite c_tit_close box-close"></a></li>
+		</ul>
+	</div>
+
+	#set($firstOptionName = "选择专题")
+	#parse("/search/pop-up-option.vm")
+
+</div>

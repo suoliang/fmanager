@@ -1,0 +1,477 @@
+ 
+#set($pagecss = ["search.css"])
+
+#parse("/common/header.vm")
+
+<style>
+#startTimeInput::-ms-clear{display:none;}
+#endTimeInput::-ms-clear{display:none;}
+.c_search_more{cursor: pointer;}
+</style>
+<div class="c_main search-container" tag="search-container" oid="search-container">
+	<div class="c_list">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0);">搜索</span></p>
+			</h3>
+		</div>
+		<div class="c_search_box">
+			<input type="hidden" name="action" id="action" value="$request.getParameter('action')"/>
+			<div class="c_search_warp">
+				<div class="c_chang_name c_mb10">
+					<a href="javascript:void(0);" class="active">站内</a><a href="${rc.contextPath}/CloudSearch/index.htm">全网</a> 
+				</div>
+				<div class="c_search_tab c_cb">
+					<div class="c_search_inpnt c_fl">
+						<input type="text" id="keywordInput" />
+					</div>
+					<div class="c_search_but c_fl" tag="article-search" oid="article-search">搜索</div>
+					<!--  -->
+				</div>
+				<div class="c_summary_tab c_cl c_color_gay c_none" id="count-Show">为您找到相关结果约<i class="c_color_blue c_ml5 c_mr5" id="count-Show-i"></i>个</div>     
+				<form id="search-advanced">
+					<!-- 关键字 -->
+					<input type="hidden" id="keyword" name="keyword" />
+					<!-- 条件ID -->
+					<input type="hidden" id="conditionId" name="conditionId" />
+					<!-- 条件名称 -->
+					<input type="hidden" id="conditionName" name="conditionName" />
+					<!-- 开始时间 -->
+					<input type="hidden" id="startTime" name="startTime" />
+					<!-- 结束时间 -->
+					<input type="hidden" id="endTime" name="endTime" />
+					<!-- 时间 -->
+					<div tag="condition-form" oid="time"></div>
+					<!-- 主题 -->
+					<div tag="condition-form" oid="topic"></div>
+					<!-- 行业 -->
+					<div tag="condition-form" oid="industry"></div>
+					<!-- 地域 -->
+					<div tag="condition-form" oid="area"></div>
+					<!-- 站点 -->
+					<div tag="condition-form" oid="site"></div>
+					<!-- 站点名称 -->
+					<div tag="condition-form" oid="siteName"></div>
+					<!-- 境内、境外-->
+					<div tag="condition-form" oid="siteScope"></div>
+					<!-- 媒体类型 -->
+					<div tag="condition-form" oid="media"></div>
+					<!-- 情绪 -->
+					<div tag="condition-form" oid="sentiment"></div>
+					<!-- 作者 -->
+					<div tag="condition-form" oid="author"></div>
+					<!-- 排序字段 -->
+					<input type="hidden" id="orderField" name="orderField" />
+					<!-- 排序类型 -->
+					<input type="hidden" id="orderType" name="orderType" />
+					<!-- 推荐板块类型 -->
+					<input type="hidden" name="websiteTagId" value="$!websiteTagId"/>
+					<!-- 热点板块跳转标识 -->
+					<input type="hidden" name="hot" value="$!hot"/>
+					<!-- 过滤相似文 -->
+					<div tag="condition-form" oid="filterSimilar"></div>
+				</form>
+			</div>
+			<div class="c_search_con c_pt10 c_pb10" id="search-option" style="display: block;">
+				<div class="c_search_history c_fr">
+					<h3 class="c_search_title c_f14">保存为个人搜索历史</h3>
+					<div class="c_his_input c_mt5 c_mb5">
+						<input type="text" class="input" id="filterName" name="filterName" maxlength="20">
+					</div>
+					<div class="c_change_but c_cb">
+						<a href="javascript:void(0);" class="c_but_ok" tag="filter-save" oid="filter-save">确定</a>
+					</div>
+					<h3 class="c_search_title c_f14">历史搜索记录</h3>
+					<div class="c_his_block  c_mt5 filter-container">
+						#foreach($filter in $filters)
+						<div class="c_his_list" tag="filter-item" oid="$filter.id" name="$filter.name">
+							<div class="c_fl c_list_con c_omit" title="$filter.name" tag="filter-show" oid="$filter.id">$filter.name</div>
+							<i class="c_clearfix c_sprite c_fr" tag="filter-delete" oid="$filter.id"></i>
+						</div>
+						<div class="c_cb"></div>
+						#end
+					</div>
+				</div>
+				
+				
+					
+				<div class="c_search_summary">
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">时间：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con1">
+									#foreach($meta in ${timeType.keySet()})
+									<div class="c_tab_choice c_fl" scope="option" tag="time" oid="${timeType.get($meta)}">
+										<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="${timeType.get($meta)}"></div>
+										<div class="c_choice_tag c_fl" type="metaname">$meta</div>
+										<div class="c_cb"></div>
+									</div>
+									#end
+									<div class="c_tab_choice c_fl" tag="btn-time-custom">
+										<div class="c_choice_tag c_fl" type="metaname">自定义</div>
+										<div class="c_cb"></div>
+									</div>
+									<div class="c_tab_input c_none" tag="ctx-time-custom">
+										<input type="text" class="input c_cal_icon c_w170" id="startTimeInput">
+										<i class="c_clearfix c_fl c_mr5 c_ml5">-</i>
+										<div id="endTimeInputCtx"><input type="text" class="input c_cal_icon c_w170" id="endTimeInput"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">类型：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con1">
+								<div class="c_tab_choice c_fl" scope="option" tag="site-item" oid="0" selct="false" >
+											<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="site-hook" oid="0" value="0"></div>
+											<div class="c_fl" title="全部" tag="site-name" oid="0" type="metaname">全部</div>
+											<div class="c_cb"></div>
+										</div>
+									#foreach($bean in $const.list("MediaType"))
+										<div class="c_tab_choice c_fl"  scope="option" tag="media" oid="$bean.value" selct="false">
+											<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="option-hook" oid="$bean.value" value="$bean.value"></div>
+											<div class="c_choice_tag c_fl" title="$bean.name" tag="option-name" oid="$bean.value" type="metaname">$bean.name</div>
+											<div class="c_cb"></div>
+										</div>
+										#end
+<!-- 										<div class="c_tab_choice2"> -->
+<!-- 										<input type="text" class="input c_mt5  c_mr5 c_w150 input_away_fork_ie" id="siteNameInput" placeholder="多个站点用空格分开 "> -->
+<!-- 										<div class="c_choice2_w c_omit" scope="option" tag="site" type="info"></div> -->
+<!-- 									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">专题：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con2">
+									<div class="c_tab_choice1 c_fl" tag="search-popup" oid="topic">
+										<div class="c_sprite c_choice_icon active c_fl"></div>
+										<div class="c_fl c_tag_active">请选择专题</div>
+										<div class="c_cb"></div>
+									</div>
+									<div class="c_tab_choice2">
+										<div class="c_choice2_w c_omit" scope="option" tag="topic" type="info"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">行业：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con2">
+									<div class="c_tab_choice1 c_fl" tag="search-popup" oid="industry">
+										<div class="c_sprite c_choice_icon active c_fl"></div>
+										<div class="c_fl c_tag_active">请选择行业</div>
+										<div class="c_cb"></div>
+									</div>
+									<div class="c_tab_choice2">
+										<div class="c_choice2_w c_omit" scope="option" tag="industry" type="info"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">地域：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con2">
+									<div class="c_tab_choice1 c_fl" tag="search-popup" oid="area">
+										<div class="c_sprite c_choice_icon active c_fl"></div>
+										<div class="c_fl c_tag_active">请选择地域</div>
+										<div class="c_cb"></div>
+									</div>
+									<div class="c_tab_choice2">
+										<div class="c_choice2_w c_omit" scope="option" tag="area" type="info"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl">站点：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con2">
+									<div class="c_tab_choice1 c_fl" tag="search-popup" oid="site">
+										<div class="c_sprite c_choice_icon active c_fl"></div>
+										<div class="c_fl c_tag_active">请选择站点</div>
+										<div class="c_cb"></div>
+									</div>
+									<div class="c_tab_choice2">
+										<input type="text" class="input c_mt5  c_mr5 c_w150 input_away_fork_ie" id="siteNameInput" placeholder="多个站点用空格分开 ">
+										<div class="c_choice2_w c_omit" scope="option" tag="site" type="info"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> -->
+					
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">站点：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con1">
+									<div class="c_tab_choice c_fl" scope="option" tag="siteScopeAll" oid="0" selct="false" >
+										<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="site-hook" oid="0" value="0"></div>
+										<div class="c_fl" title="全部" tag="site-name" oid="0" type="metaname">全部</div>
+										<div class="c_cb"></div>
+									</div>
+									<div class="c_tab_choice c_fl" scope="option" tag="siteScope" oid="2">
+										<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="2"></div>
+										<div class="c_fl" type="metaname">境内</div>
+										<div class="c_cb"></div>
+									</div>
+									<div class="c_tab_choice c_fl" scope="option" tag="siteScope" oid="1">
+										<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="1"></div>
+										<div class="c_fl" type="metaname">境外</div>
+										<div class="c_cb"></div>
+									</div>							
+									<div class="c_tab_input">
+										<input type="text" class="input c_mt5  c_ml5 c_w150 input_away_fork_ie" id="siteNameInput" placeholder="多个站点用空格分开 ">
+		<!-- 										<div class="c_choice2_w c_omit" scope="option" tag="site" type="info"></div> -->
+							        </div>
+					        	</div>
+					        </div>
+						</div>
+					</div>
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">褒贬：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con1">
+									<div class="c_tab_choice c_fl" scope="option" tag="sentimentAll" oid="-1" selct="false" >
+										<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="sentimentAll" oid="-1" value=""></div>
+										<div class="c_fl" title="全部" tag="sentimentAll" oid="-1" type="metaname">全部</div>
+										<div class="c_cb"></div>
+									</div>
+									#foreach($bean in $const.list("Sentiment"))
+									<div class="c_tab_choice c_fl" scope="option" tag="sentiment" oid="$bean.value">
+										<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="$bean.value"></div>
+										<div class="c_fl" type="metaname">$bean.name</div>
+										<div class="c_cb"></div>
+									</div>
+									#end
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">相似文：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con1">
+									<div class="c_tab_choice c_fl" scope="option" tag="filterSimilar" oid="true" selct="false">
+										<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="true"></div>
+										<div class="c_fl" type="metaname">包含</div>
+										<div class="c_cb"></div>
+									</div>
+									<div class="c_tab_choice c_fl" scope="option" tag="filterSimilar" oid="false" selct="false">
+										<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="false"></div>
+										<div class="c_fl" type="metaname">不包含</div>
+										<div class="c_cb"></div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="c_summary_box">
+						<div class="c_summary_tab c_cl">
+							<div class="c_tab_title c_fl c_w50 c_tr">作者：</div>
+							<div class="c_tab_rg">
+								<div class="c_tab_con1">
+									<div class="c_tab_input">
+										<input type="text" class="input c_ml5 input_away_fork_ie" id="authorInput" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="c_search_more  c_f12 c_mt10 c_tc" id="show-search-advanced">
+				<i id="filterCondition">隐藏筛选条件</i>
+				<i class="c_more_icon c_mr15">▲</i>
+			</div>
+		</div>
+		<div class="c_search_box c_mt10 fixed" id="search-condition" style="top:-10px;">
+			<div class="c_over_hidden">
+				<div class="c_have_tit c_fl">已选条件:</div>
+				<div class="c_have_con">
+					<div class="c_have_con2">
+						<div class="c_have_but c_fr">
+							<a href="javascript:void(0);" class=" c_mr10 c_color_orange" id="save-search-advanced">保存</a><a href="javascript:void(0);" class="c_color_green" id="clear-search-advanced">清空</a>
+						</div>
+						<ul class="c_have_list condition-container">
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="time">日期：<em tag="condition-info" oid="time"></em><i class="c_sprite" tag="condition-cancel" oid="time"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="time-scope">日期：从<em tag="condition-info" oid="start-time"></em>至<em tag="condition-info" oid="end-time"></em><i class="c_sprite" tag="condition-cancel" oid="time-scope"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="media">媒体类型：<em tag="condition-info" oid="media"></em><i class="c_sprite" tag="condition-cancel" oid="media"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="topic">专题：<em tag="condition-info" oid="topic"></em><i class="c_sprite" tag="condition-cancel" oid="topic"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="industry">行业：<em tag="condition-info" oid="industry"></em><i class="c_sprite" tag="condition-cancel" oid="industry"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="area">地域：<em tag="condition-info" oid="area"></em><i class="c_sprite" tag="condition-cancel" oid="area"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="siteScope">站点：<em tag="condition-info" oid="siteScope"></em><i class="c_sprite" tag="condition-cancel" oid="siteScope"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="siteName">站点名称：<em tag="condition-info" oid="siteName"></em><i class="c_sprite" tag="condition-cancel" oid="siteName"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="sentiment">褒贬：<em tag="condition-info" oid="sentiment"></em><i class="c_sprite" tag="condition-cancel" oid="sentiment"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="filterSimilar">相似文：<em tag="condition-info" oid="filterSimilar"></em><i class="c_sprite" tag="condition-cancel" oid="filterSimilar"></i></li>
+							<li class="c_fl c_omit" style="display: none;" tag="condition-item" oid="author">作者：<em tag="condition-info" oid="author"></em><i class="c_sprite" tag="condition-cancel" oid="author"></i></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+        </div>			
+		</div>
+		<div class="c_over_hidden c_mb10 c_mt10">
+<!-- 	    <div class="c_fr"><a href="#" onclick="batchExport2();" class="c_button c_ml10 c_fl">批量导出Excel</a></div> -->
+<!-- 		<div class="c_fr"><a href="#" onclick="batchExport();" class="c_button c_ml10 c_fl">批量导出Word</a></div> -->
+	    <div class="c_fr">
+<!-- 	    	<a class="c_button c_ml10 c_fl" tag="all-article-word" oid="$!LOGIN_USER.id">导出全部Word</a> -->
+	     	<a class="c_button c_ml10 c_fl" tag="all-article-excel" oid="$!LOGIN_USER.id">导出全部Excel</a>
+<!-- 	    	<a href="#" onclick="batchExport();" class="c_button c_ml10 c_fl">导出选定(Word)</a> -->
+	    	<a href="#" onclick="batchExport2();" class="c_button c_ml10 c_fl">导出选定Excel</a>
+	    </div>
+		</div>
+		<div class="c_tab_block search-list-head">
+			<ul class="c_tab1">
+				<li class="c_tab_th1"><div class="c_sprite c_choice_icon c_fl" id="selectall"></div>标题</li>
+				<li class="c_tab_th2">站点</li>
+				<li class="c_tab_th3">作者</li>
+				<li class="c_tab_th4">褒贬</li>
+				<li class="c_tab_th5" style="cursor: pointer;" tag="btn-sort" oid="4">阅读<i class="c_sprite c_sort c_ml5" tag="icon-sort" oid="4"></i></li>
+				<li class="c_tab_th6" style="cursor: pointer;" tag="btn-sort" oid="3">回复<i class="c_sprite c_sort c_ml5" tag="icon-sort" oid="3"></i></li>
+				<li class="c_tab_th7" style="cursor: pointer;" tag="btn-sort" oid="1">发布时间<i class="c_sprite c_sort c_ml5" tag="icon-sort" oid="1"></i></li>
+				<li class="c_tab_th8" style="cursor: pointer;" tag="btn-sort" oid="7">重要性得分<i class="c_sprite c_sort c_ml5" tag="icon-sort" oid="7"></i></li>
+			</ul>
+		</div>
+		<div class="search-list-container">
+			#set($articles = $pageInfo.data)
+			#parse("/search/index-list-article.vm")
+		</div>
+		<div class="c_cb"></div>
+		<div class="c_con_add c_mt15 search-list-mask">
+			<div class="c_icon_add">正在加载中，请稍后...</div>
+		</div>
+		#paging("class", "search-list-paging")
+	</div>
+</div>
+
+#parse("/search/pop-up-topic.vm")
+
+#parse("/search/pop-up-area.vm")
+
+#parse("/search/pop-up-site.vm")
+
+#parse("/search/pop-up-industry.vm")
+
+#parse("/report/pop-up-brief-picker.vm")
+
+#parse("/report/pop-up-brief-input.vm")
+
+#parse("/common/export/export-alert.vm")
+
+<link rel="stylesheet" href="${rc.contextPath}/js/utils/poshyTip/tip-yellow/tip-yellow.css" type="text/css" />
+<link rel="stylesheet" href="${rc.contextPath}/js/utils/poshyTip/tip-violet/tip-violet.css" type="text/css" />
+<link rel="stylesheet" href="${rc.contextPath}/js/utils/poshyTip/tip-darkgray/tip-darkgray.css" type="text/css" />
+<link rel="stylesheet" href="${rc.contextPath}/js/utils/poshyTip/tip-skyblue/tip-skyblue.css" type="text/css" />
+<link rel="stylesheet" href="${rc.contextPath}/js/utils/poshyTip/tip-yellowsimple/tip-yellowsimple.css" type="text/css" />
+<link rel="stylesheet" href="${rc.contextPath}/js/utils/poshyTip/tip-twitter/tip-twitter.css" type="text/css" />
+<link rel="stylesheet" href="${rc.contextPath}/js/utils/poshyTip/tip-green/tip-green.css" type="text/css" />
+<script type="text/javascript" src="${rc.contextPath}/js/utils/poshyTip/jquery.poshytip.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/report-interface.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/pop-up-brief-picker.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/pop-up-brief-input.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/search/search-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/search/sh-index.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/search/pop-up-option.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/search/pop-up-site.js" async></script>
+		
+<script type="text/javascript" src="${rc.contextPath}/js/common/export/export-alert.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/common/export/export-interface.js" async></script>
+<script type="text/javascript">
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+		#if($condition)
+		page.options.set($condition);
+		page.currentParam = page.options.serialize();
+		#end
+		page.list.reloadStyle();
+	})
+	
+	
+	$("#selectall").bind("click",function(){//selectall为表示全选的框  
+      var son=$("[type='son']");
+        if($('#selectall').hasClass('active')==false){
+          for(var i=0;i<son.length;i++){
+           $(son[i]).addClass("active");
+          }
+         $('#selectall').addClass("active"); 
+        }
+        else{
+          for(var i=0;i<son.length;i++){
+           $(son[i]).removeClass("active");
+          }
+        $('#selectall').removeClass("active");
+        }
+    });
+    
+
+  function batchExport(){
+    $(".c_main").append("<form id='param-form' action='"+ctx+"/topic/findArticles.htm' method='post'></form>");
+    $("[type='son']").each(function(i,obj){
+      if($(obj).hasClass("active")){
+        $("#param-form").append("<input type='hidden' name='guids' value='"+$(obj).attr("value")+"'/>");
+      }
+    });
+    if($("input[type='hidden'][name='guids']").length > 0){
+      $("#param-form").submit();
+    }else{
+      $.msg.warning("请选择要导出的文章！");
+    }
+    $("#param-form").remove();
+  }
+  
+  function batchExport2(){
+	    $(".c_main").append("<form id='param-form' action='"+ctx+"/topic/listExportExcel.htm' method='post'></form>");
+	    $("[type='son']").each(function(i,obj){
+	      if($(obj).hasClass("active")){
+	        $("#param-form").append("<input type='hidden' name='guids' value='"+$(obj).attr("value")+"'/>");
+	      }
+	    });
+	    if($("input[type='hidden'][name='guids']").length > 0){
+	      $("#param-form").submit();
+	    }else{
+	      $.msg.warning("请选择要导出的文章！");
+	    }
+	    $("#param-form").remove();
+	  }
+  
+	/**已选条件锚点固定TOP*/
+	$(document).ready(function(e) {		
+		t = $('.fixed').offset().top;
+		mh = $('.c_main').height();
+		mw = $('.c_main').width();
+		fh = $('.fixed').height();
+		$(window).scroll(function(e){
+			s = $(document).scrollTop();	
+			if(s > t - 10){
+				$('.fixed').css('position','fixed');
+				$('.fixed').css('width',mw-22);
+			}else{
+				$('.fixed').css('position','');
+			}
+		});
+	});
+  
+</script>
+
+#parse("/common/footer.vm")

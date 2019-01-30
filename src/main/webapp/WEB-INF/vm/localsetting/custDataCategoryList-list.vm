@@ -1,0 +1,35 @@
+  
+##标题   
+<ul class="c_tab1">
+    <li class="c_tab_event1">排序</li>
+    <li class="c_tab_event2">分类名称</li>
+    <li class="c_tab_event3">分类描述</li>
+    <li class="c_tab_event4">创建时间</li>
+    <li class="c_tab_event5">操作</li>
+</ul>
+
+##行记录
+#foreach($beanVO in $!page.data)
+ #set ($colnum = $velocityCount % 2) 
+<ul class="c_tab2 c_tab_top">
+  <li class="c_tab_event1">
+     <div>
+        <input type="text" class="c_tab_sort" value="$!{beanVO.index}" id="index_$!{beanVO.index}"  value="$!{beanVO.index}"
+         onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"  
+         onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"
+         onblur="indexBlur(${beanVO.id},this,${beanVO.index});" />
+     </div>
+  </li>
+  <li class="c_tab_event2">
+  <div class="c_mr10 c_omit" title="${beanVO.name}" >${beanVO.name}</div></li>
+  <li class="c_tab_event3">
+   <div class="c_mr10 c_omit" title="$!{beanVO.remark}" >$!{beanVO.remark}</div></li>
+  <li class="c_tab_event4"><div>$!date.format('yyyy-MM-dd',${beanVO.createTime})</div></li>
+  <li class="c_tab_event5">
+   <div>
+        <a href="javascript:addAndUpdWin(${type},${beanVO.id});" class="c_mr10 c_color_deeporange">编辑</a>
+        <a href="#" class="c_mr10 c_amore" onclick="deleteCustDataCategory(${beanVO.id});" >删除</a>
+   </div>
+  </li>
+</ul>     
+ #end

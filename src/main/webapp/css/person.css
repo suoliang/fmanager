@@ -1,0 +1,52 @@
+/*以下table表格--真实身份的宽度*/
+.c_tab_per_true1{ width:5%;}
+.c_tab_per_true2{ width:11%;}
+.c_tab_per_true3{ width:37%;}
+.c_tab_per_true4{ width:10%;}
+.c_tab_per_true5{ width:6%;}
+.c_tab_per_true6{ width:6%;}
+.c_tab_per_true7{ width:15%;}
+.c_tab_per_true8{ width:10%;}
+/*以下table表格--虚拟身份的宽度*/
+.c_tab_per_false1{width:5%;}
+.c_tab_per_false2{width:20%;}
+.c_tab_per_false3{width:10%;}
+.c_tab_per_false4{width:10%;}
+.c_tab_per_false5{width:30%;}
+.c_tab_per_false6{width:10%;}
+.c_tab_per_false7{width:10%;}
+.c_tab_per_false8{width:5%;}
+/*以下table表格--身份关联的宽度*/
+.c_tab_per_rel1{width:8%;}
+.c_tab_per_rel2{width:26%;}
+.c_tab_per_rel3{width:26%;}
+.c_tab_per_rel4{width:30%;}
+.c_tab_per_rel5{width:10%;}
+/*以下table表格--真实身份相关事件的宽度*/
+.c_tab_per_trueabout1{width:7%;}
+.c_tab_per_trueabout2{width:45%;}
+.c_tab_per_trueabout3{width:38%;}
+.c_tab_per_trueabout4{width:10%;}
+
+
+/*下拉框*/
+.c_divselect{width:100px;}
+.c_divselect .cite{ width:98px;}
+.c_divselect .cite .citeT{ width:68px;}
+.c_divselect ul{width:98px;max-height:100px;}
+.c_divselect ul li a{width:88px;}
+
+/*下拉框-新增表单*/
+.c_divselectR{width:202px; margin-left:5px;*margin-left:10px}
+.c_divselectR .cite{ width:200px;}
+.c_divselectR .cite .citeT{ width:170px;}
+.c_divselectR ul{width:200px;}
+.c_divselectR ul li a{width:190px;}
+
+/*下拉框-新增表单01*/
+.c_divselect_alt{width:202px;}
+*+html .c_divselect_alt{ margin-left:10px;}/**IE 7**/
+.c_divselect_alt .cite{ width:200px;}
+.c_divselect_alt .cite .citeT{ width:170px;}
+.c_divselect_alt ul{width:200px;}
+.c_divselect_alt ul li a{width:190px;}

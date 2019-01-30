@@ -1,0 +1,26 @@
+
+.c_search_box input.c_keywds{ width:110px;}
+/*下拉框*/
+.c_divselect{width:100px;}
+.c_divselect .cite{ width:98px;}
+.c_divselect .cite .citeT{ width:68px;}
+.c_divselect ul{width:98px;}
+.c_divselect ul li a{width:88px;}
+.c_list_con{margin-right:265px;}
+/*云*/
+.c_cloud{ height:258px; width:248px;}
+.c_cloud .c_block_title .c_icon_cloud{ width:16px; height:12px; background-position:-145px -171px;}
+.c_cloud .c_cloud_con{ height:228px;width:248px;position:relative;font-size:12px;color:#333;margin:0 auto;text-align:center;}
+#tagscloud a{position:absolute;top:0px;left:0px;color:#333;margin:0 10px 15px 10px;line-height:18px;text-align:center;font-size:12px;padding:1px 5px;display:inline-block;border-radius:3px;}
+#tagscloud a.tagc1{background:#fa9a3b;color:#fff;}
+#tagscloud a.tagc2{background:#F16E50;color:#fff;}
+#tagscloud a.tagc5{background:#78cd51;color:#fff;}
+#tagscloud a:hover{color:#fff;background:#0099ff;}
+/*相关*/
+.c_list_con .c_list_block .c_list_tit .c_about a{color:#F16D4F; margin:0 5px; cursor:default;}
+/*预警-搜索结果选择框*/
+.c_search_ok .c_choice_icon{ width:10px; height:10px; margin:4px 5px 0 10px; background-position:-20px -200px;cursor:pointer;}
+.c_search_ok .c_choice_icon.active{background-position:-5px -200px;}
+/*预警-文章选择框*/
+.c_title_word .c_choice_icon{ width:10px; height:10px; margin:14px 5px 0 0; background-position:-20px -200px;cursor:pointer;}
+.c_title_word .c_choice_icon.active{background-position:-5px -200px;}

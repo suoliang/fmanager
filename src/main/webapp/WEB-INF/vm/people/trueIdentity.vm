@@ -1,0 +1,250 @@
+#parse("/common/header.vm")
+<!-- sidebar end-->
+
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0)">人物</span><span> > </span><span href="javascript:void(0)">真实身份</span></p>
+			</h3>
+		</div>
+		<form action="TrueIdentity.htm" id="addeventForm" method="post">
+			
+	<div class="c_search_box">
+	
+		<div class="c_fl">
+		  <span class="c_ml10">真实身份：</span>
+			<input type="text" id="trueIdentity_id" class="c_keywds c_ml5" />
+		</div>
+	  
+      <div class="c_fl"> <span class="c_ml10">分类：</span>
+       <div id="divselect7" class="c_divselect c_fl">
+            <div class="cite"><div class="citeT"></div></div>
+            <ul>
+            <li><a href="javascript:;" selectid="" def="true">全部</a></li>
+            #foreach($!type in $!pageInfo2.data)
+		     <li><a href="javascript:void(0);" selectid="$!type.id" id="peopleSiteSelect_id" title="$!type.name" >$!type.name</a></li>
+		  	#end  
+            </ul>
+            <input name="" type="hidden" value="3" id="inputselect7"/>
+        </div>  
+       </div>  
+       
+       <div class="c_fl "><span class="c_ml10">维护状态：</span>
+        <div id="divselect8" class="c_divselect c_fl">
+            <div class="cite"><div class="citeT"></div></div>
+            <ul>
+             <li><a href="javascript:;" selectid="" def="true">全部</a></li>
+		     <li><a href="javascript:void(0);" selectid="1" >维护中</a></li>
+		     <li><a href="javascript:void(0);" selectid="0" >停止维护</a></li>
+            </ul>
+            <input name="" type="hidden" value="3" id="inputselect8"/>
+        </div>       
+       </div>
+      
+       <div class="c_fl"><span class="c_ml10">来源：</span>
+        <div id="divselect9" class="c_divselect c_fl">
+            <div class="cite"><div class="citeT"></div></div>
+            <ul>
+             <li><a href="javascript:;" selectid="3" def="true">全部</a></li>
+		     <li><a href="javascript:void(0);" selectid="0">系统授权</a></li>
+		     <li><a href="javascript:void(0);" selectid="1">自定义</a></li>
+            </ul>
+            <input name="" type="hidden" value="3" id="inputselect9"/>
+        </div>       
+       </div>
+       
+        <a type="button" href="javascript:search($!pageInfo.pageNo);" class="c_button c_ml10 c_fl" id="keyword">查询</a>
+        <div class="c_fr"><a href="javascript:addTrueIdentity();" class="c_search_link c_search_sys2 c_fl">新增真实身份</a></div>
+     
+    </div>
+			
+			<!--search box end-->
+			<div class="c_mt15"></div>
+			<div class="c_tab_block">
+				<ul class="c_tab1">
+					<li class="c_tab_per_true1 c_tc">序号</li>
+					<li class="c_tab_per_true2">真实身份</li>
+					<li class="c_tab_per_true3">分类</li>
+					<li class="c_tab_per_true4">维护状态</li>
+					<li class="c_tab_per_true5">相关事件</li>
+					<li class="c_tab_per_true6">虚拟身份</li>
+					<li class="c_tab_per_true7">来源</li>
+					<li class="c_tab_per_true8">操作</li>
+				</ul>
+
+				<script language="javascript">
+		var sys_globePath="${rc.contextPath}";
+     //进入分类数据设置弹窗
+	var  category=function(eventId){
+	var fun = function(resp) {     
+    var html="";
+    jQuery.each(resp.data.catList,function(index, item) {
+        var name=item.name;
+        var catId=item.id;
+        var checked="";
+
+		var flag = false;
+        jQuery.each(resp.data.custdataList,function(custindex, custitem) {
+        	//判断数据库返回的数据，是否选中。选中flag=true
+              if(custitem.cateId==catId){
+            	  flag = true;
+              }
+         });
+        
+        html=html+'' + //
+        '<div class="c_tab_choice c_fl">' + //
+        '	<div class="c_sprite c_choice_icon '+(flag ? 'active' : '')+' c_fl" onclick="addSiteName(this);" type="check_div" name="catId" oid="'+item.id+'"></div>' + //
+        '	<div class="c_fl c_tag_active c_w90" onclick="addSiteName($(this).prev());" value="'+catId+'">'+name+'</div>' + //
+        '	<div class="c_cb"></div>' + //
+        '</div>';
+    });
+    html=html+'<input type="hidden" name="eventId" id="eventId"  value='+eventId+'  />';
+    
+    jQuery("#custdatacategoryList").html(html);
+    
+    var index = $.box('#categoryEvent', {}, {});
+}
+  ajaxCommFun(sys_globePath + "/people/setCategory.htm","dataId="+eventId+"&type=2" , fun);
+}
+     
+     
+//提交分类结果
+	var submitSetCategory=function(){
+	    var catIds="";
+	    $("div[name=catId]").each(function(prop,value){
+	    if($(value).hasClass("active")){//当选中时才有"active"这个样式。
+	    	 catIds=catIds+$(value).attr("oid")+","//所以这句代码的意思是拿到选中的oid
+	    }	
+	    });
+	    var eventId=$("#eventId").val();
+	    //if(catIds==""){  
+	    	
+	    //}else{
+	        var fun=function(resp){
+	        	//分类完成后,请求到站点跟路径。
+	        	// location.href='${rc.getContextUrl('/people/TrueIdentity.htm')}'
+	              if(resp.type=="success"){
+	                  layer.closeAll();
+	                  layer.msg("分类设置成功！",2,10,function(){
+	                	  //search();
+	                	  asyncSubmit('addeventForm', $("[name='currentPage']").val());//异步刷新列表
+	                  });
+	                   /*  $.layer({
+			            title: false,
+			            offset: ['10px', '800px'],
+			            area: ['300px', 'auto'],
+			            time:1,
+			            border: [0],
+			            shade: [0],
+			            closeBtn: [0],
+			            fix: true,
+			            bgcolor: '#1C5C78',
+			            zIndex: 100000,
+			            shift: 'right-top',
+			            dialog: {
+				            type: 16
+	           			},end:function(){
+	           				$('#listSite_id').submit();
+	           			}
+	       			}); */
+	              }
+	        }
+	        ajaxCommFun(sys_globePath + "/people/submitSetCategory.htm",
+	        "type=2&dataId="+eventId+"&catIds="+catIds.substr(0,catIds.length-1), fun);  
+	    //}
+	}
+</script>
+
+				<!-- 真实人物分类div开始 -->
+				<div id="categoryEvent" style="display: none">
+					<div class="c_alt_box c_w700 c_h450">
+						<div class="c_alt_tit">
+							<div class="c_fl c_alt_titTag c_w670 c_h30">
+								<i class=" c_sprite c_tit_icon02"></i><span>指定分类</span>
+							</div>
+							<ul class="c_fr">
+								<li><a href="javaScript:layer.closeAll();" class="c_sprite c_tit_close"></a></li>
+							</ul>
+						</div>
+						<div class="c_alt_con c_h420 c_pr">
+							<div class="c_con_tag" style="display: none">
+								<!-- 先隐藏点已选 -->
+								<div class="c_mr5 c_fl c_mt5">已选:</div>
+								<ul class=" c_con_tit c_ml40">
+									<li>腾讯新闻<i class="c_sprite"></i></li>
+								</ul>
+							</div>
+							<!-- 查询站点的先隐藏掉 -->
+							<div class="c_fr c_con_search c_mr10" style="display: none">
+								<input type="text" class="input" value="腾讯" onFocus="if(this.value == this.defaultValue) this.value = '';" onBlur="if(this.value == '') this.value = this.defaultValue;"><a href="#" class="c_search c_ml5">查询</a>
+							</div>
+							<div class="c_alt_content c_cb c_alert_theme2 c_mt10 c_ml5">
+								<ul class="c_h270">
+									<div id="scrollbar02" class="c_w700">
+										<div class="scrollbar c_mr10">
+											<div class="c_scrol_track">
+												<div class="c_scrol_thumb">
+													<div class="c_scrol_end"></div>
+												</div>
+											</div>
+										</div>
+										<div class="c_scrol_viewport  c_h270 c_w680">
+											<div class="c_scrol_overview c_w680">
+												<div class="c_con_tit c_m10">分类名称</div>
+												<div class="c_con_list c_cb c_m10 c_f12" id="custdatacategoryList">
+													<div class="c_tab_choice c_fl">
+														<div class="c_sprite c_choice_icon  c_fl"></div>
+														<div class="c_fl c_tag_active c_w90"></div>
+														<div class="c_cb"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</ul>
+							</div>
+							<div class="c_alt_but c_w700 c_change_butbg">
+								<div class="c_change_but c_change_but01">
+									<a href="JavaScript:submitSetCategory();" class="c_but_ok c_mr10">确定</a><a href="javaScript:layer.closeAll();" class="c_but_no">取消</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="sitectx_id">
+					#parse("/people/peoplepageList-list.vm") <input id="currentPage_id" type="hidden" value="$!queryRest.pageNo">
+					<script type="text/javascript">
+						 $(function(){
+							 var json = 
+							 {
+									 formId:"addeventForm",
+									 divId:"div2",
+									 asyncFlag:true,
+									 replaceId:"sitectx_id",
+									 prefix:"2",
+									 currentPage:$!pageInfo.pageNo,
+									 totalPage:$!pageInfo.totalPages,
+									 count:$!pageInfo.totalRecords,
+									 pageSize:$!pageInfo.pageSize
+							 };
+							 initPageTab(json);
+						 });
+    				</script>
+				</div>
+			</div>
+			
+			<!--c_tab_block-->
+			<div class="c_page c_fr c_mt15 c_mb15" id="div2">#parse("/common/page-templet-fm.vm")</div>
+			<!--c_page end-->
+		</form>
+	</div>
+	<!--c_list end-->
+</div>
+<!-- main end-->
+
+
+<link href="${rc.getContextUrl('/css/person.css')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${rc.contextPath}/js/people/trueIdentity.js"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+#parse("/common/footer.vm")

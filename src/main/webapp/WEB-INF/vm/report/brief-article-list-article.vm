@@ -1,0 +1,34 @@
+ #foreach($article in $articles)
+<div class="c_tab_block #if($velocityCount % 2 == 0)c_bg_ye#end">
+	<ul class="c_tab2 c_cb">
+		<li class="c_tab_list1 c_omit c_th1_tit" title="$!esc.xml($!article.title)"><span class="c_ml15"></span><a class="c_atit" href="javascript:void(0);" tag="article-link" oid="$!article.guid">$!esc.xml($!article.title)</a></li>
+		<li class="c_tab_list2 c_omit" title="$!article.websiteName">$!tag.getWebsiteName($article.websiteId)</li>
+		<li class="c_tab_list3 c_omit" title="$!article.author">$!article.author</li>
+		<li class="c_tab_list4 c_omit" title="$!const.getName('Sentiment', $article.custAttrs.get($CUSTOMER.id.toString()).sentiment)">$!const.getName("Sentiment", $article.custAttrs.get($CUSTOMER.id.toString()).sentiment)</li>
+		<li class="c_tab_list5 c_omit" title="$!article.readCount">$!article.readCount</li>
+		<li class="c_tab_list6 c_omit" title="$!article.replyCount">$!article.replyCount</li>
+		<li class="c_tab_list7 c_omit">$date.format("yyyy-MM-dd HH:mm:ss",$!article.postTime)</li>
+	</ul>
+	<div class="c_tab3 c_cb c_ml15 c_mr15 c_omit">$!esc.xml($!article.abContent)</div>
+	<div class="c_tab3 c_tab4 c_cb c_ml15 c_mr15 c_omit">
+		<div class="c_fl c_tab4_con c_mr15">
+<!-- 			<a href="$!article.url" title="$!article.url" target="_blank" style="color: #3399FF;">访问原文</a> -->
+				<a href="$!article.url" class="c_clearfix c_fl c_omit c_link_word" target="_blank" style="color: #3399FF;">$!article.url</a>
+		</div>
+		<div class="c_fl c_tab4_con c_mr15">
+			预警:#if($const.getName("WarnLevel", $article.custAttrs.get($CUSTOMER.id.toString()).warnLevel))<span>$!const.getName("WarnLevel", $article.custAttrs.get($CUSTOMER.id.toString()).warnLevel)</span>#else<span>未预警</span>#end
+		</div>
+		<div class="c_fl c_tab4_con">
+			所属专题:#if($tag.getCustTopicName($article.custAttrs.get($CUSTOMER.id.toString()).custTopicIds, ","))<span>$!tag.getCustTopicName($article.custAttrs.get($CUSTOMER.id.toString()).custTopicIds, ",")</span>#else<span>暂无</span>#end
+		</div>
+		<div class="c_fr">
+			<div class="c_tab_nav c_fl  c_mt5  c_mr5 c_selsct_w01" tag="ctx-btn">
+				<div class="c_set c_omit c_color_blue" tag="btn-option">转操作</div>
+				<ul class="c_new c_bd_gay" id="c_new01" style="display: none;">
+					<li class="c_omit c_color_red" tag="btn-delete-brief-article" oid="$!article.guid">删除</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+#end

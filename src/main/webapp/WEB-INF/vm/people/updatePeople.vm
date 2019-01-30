@@ -1,0 +1,51 @@
+#parse("/common/header.vm")
+<!-- sidebar end-->
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+    <h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0)">人物</span><span> > </span><span href="javascript:void(0)">虚拟身份</span><span> > </span><span href="javascript:void(0)">修改虚拟身份</span></p>
+    </h3>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl"><span>修改虚拟身份</span></div>
+      <div class="c_fr"><a href="JavaScript:back();" class="c_search_link c_search_sys2 c_fl">返回</a></div> 
+    </div>
+   <!--search box end-->
+   <div class="c_tab_block">
+    #set($addPeoples = $!queryRest)
+    #foreach($!t in $addPeoples)
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">虚拟身份：</div><div class="c_fl c_ml5"><input type="text" id="virtualIdentity_id" value="$!t.nickname" class="input c_w200"></div><div class="c_fl c_ml5 c_mt5 c_color_red ">修改站点的昵称，不能为空</div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">所属站点：</div>
+       <div id="divselect7" class="c_divselect c_fl c_divselectR">
+          <div class="cite"><div class="citeT" id="peopleSite_id"></div></div>
+          	
+         <ul>
+          #set($addPeople = $!queryRest2)
+		  #foreach($!tt in $addPeople)
+		   
+		   <input name="" type="hidden" value="$!tt.siteId" id=""/>
+		   
+		    <li><a href="javascript:void(0);" selectid="$!tt.siteId" id="peopleSiteSelect_id" #if($!t.siteId==$!tt.siteId) def="true" #end >$!tt.siteIdName</a></li>
+		    <input type="hidden" id = "updateSite_id" value="$!tt.siteId" /><!-- 所属站点的属性 -->
+			<input type="hidden" id = "update_id" value="$!tt.siteIdName" /><!-- 所属站点的名字 -->
+			<input type="hidden" id = "updates_id" value="$!t.Id" /><!-- 需要修改的行 -->
+			
+			<input name="" type="hidden" value="$!tt.siteId" id="inputselect7"/>
+			#end 
+          </ul>
+          
+            
+      </div>
+      <div class="c_fl c_ml5 c_mt5 c_color_red ">所属站点不能为空</div>
+    </div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">备注：</div><div class="c_fl c_ml5"><textarea class="c_textarea c_w800 c_h100 c_p5" id="remarks_id">$!t.content</textarea></div></div>
+    #end
+    <div class="c_cb c_change_butbg"><div class="c_change_but c_change_ml105"><a href="javascript:updatePeople($!queryRest.currentPage);" class="c_but_ok c_mr10">确定</a><a href="JavaScript:back();" class="c_but_no">取消</a></div></div>
+   </div><!--c_tab_block--> 
+  </div><!--c_list end-->
+  </div><!-- main end-->
+
+<link href="${rc.getContextUrl('/css/person.css')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${rc.contextPath}/js/people/updatePeople.js"></script>
+#parse("/common/footer.vm")

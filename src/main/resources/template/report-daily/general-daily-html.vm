@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>互联网信息监测系统</title>
+<link href="${contextPath}/favicon.ico" rel="shortcut icon" />
+<link href="${contextPath}/css/base.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/layout.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/theme.green.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/common.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/report.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/alert.css" rel="stylesheet" type="text/css" />
+<link href="${contextPath}/css/framework/layout.sidebar.shrinkage.css" id="def" rel="stylesheet" type="text/css">
+<script src="${contextPath}/js/common/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="${contextPath}/js/common/jquery-ui.min.js" type="text/javascript"></script>
+<script src="${contextPath}/js/common/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="${contextPath}/js/common/tinyscrollbar.js" type="text/javascript"></script>
+<script src="${contextPath}/js/common/layer/layer.min.js" type="text/javascript"></script>
+<script src="${contextPath}/js/gengeral.js" type="text/javascript"></script>
+<script src="${contextPath}/js/global-standard.js" type="text/javascript"></script>
+<script src="${contextPath}/js/global-application.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var ctx = "${contextPath}";
+</script>
+</head>
+<body>
+	<div class="c_list">
+		<div class="c_search_box">
+			<span class="c_fb">舆情概述</span>
+		</div>
+		<div class="c_border c_report_list c_p10">
+			<p class="c_report_p c_f12">$!date.format("M月d日", $report.dailyDate)凌晨0点至$!date.format("H", $report.dailyDate)点，监测到相关舆情共$!report.articleTotal篇，$!report.newsTotal篇来自新闻，$!report.appTotal篇来自APP新闻，$!report.weixinTotal篇来自微信，$!report.weiboTotal篇来自微博，$!report.forumTotal篇来自论坛，$!report.blogTotal篇来自博客，$!report.paperTotal篇来自纸媒，$!report.wendaTotal篇来自问答，$!report.shipinTotal篇来自视频。</p>
+			<p class="c_report_p c_f12">本日发现负面舆情$!report.negativeTotal篇，正面舆情$!report.positiveTotal篇，其中预警舆情$!report.warningTotal篇</p>
+		</div>
+		<div class="c_mt10"></div>
+		<div class="c_search_box c_border_botno">
+			<div class="c_fl"><span class="c_fb">专题分布<i class="c_color_red c_f12 c_ml5">TOP10</i></span></div>
+		</div>
+		<div class="c_border  c_bg_white c_over_hidden">
+		#foreach($statCustTopic in $report.statCustTopics)
+			#if($velocityCount % 4 == 1)
+			<div class="c_border_top c_re_block">
+			#end
+				<div class="c_f12 c_re_special c_fl">
+					<div class="c_omit c_reSp_list c_fl c_ml10" oid="$statCustTopic.topicId">$!statCustTopic.name</div>
+					<a class="c_reSp_num c_fl c_color_blue c_ml5">($!statCustTopic.count)</a>
+					<div class="c_cb"></div>
+				</div>
+			#if($velocityCount % 4 == 0 || !$foreach.hasNext)
+			</div>
+			#end
+		#end
+		</div>
+		<div class="c_mt10"></div>
+		<div class="c_search_box">
+			<span class="c_fb">当日预警<i class="c_color_red c_f12 c_ml5">TOP10</i></span>
+		</div>
+		<div class="c_list_con">
+			#foreach($focusArticleInfo in $report.focusArticleInfos)
+			<div class="c_list_block #if($velocityCount % 2 == 0)c_bg_ye#end">
+				<div class="c_list_tit">
+					<div class="c_title_word c_fl">
+						<a href="javascript:void(0);" tag="article-title" oid="$!focusArticleInfo.articleBean.guid" class="c_word_name c_omit c_fl c_alert_btn" title="$!focusArticleInfo.focusInfoBean.title"> <i class="c_sprite c_mr5 c_icon_word1"></i>$!focusArticleInfo.focusInfoBean.title
+						</a>
+						#if($!focusArticleInfo.focusInfoBean.level == 1)
+						<i class="c_emergency c_fl c_mt10">紧急</i>
+						#elseif($!focusArticleInfo.focusInfoBean.level == 2)
+						<i class="c_important c_fl c_mt10">重要</i>
+						#elseif($!focusArticleInfo.focusInfoBean.level == 3)
+						<i class="c_general c_fl c_mt10">一般</i>
+						#elseif($!focusArticleInfo.focusInfoBean.level == 4)
+						<i class="c_automatic  c_fl c_mt10">自动</i>
+						#end
+					</div>
+				</div>
+				<p>$!focusArticleInfo.focusInfoBean.title</p>
+				<div class="c_link">
+					<div class="c_fl c_mr15">
+						<a class="c_color_darkgay" href="$!focusArticleInfo.articleBean.url" target="_blank">访问原文</a>
+					</div>
+					<div class="c_fl c_mr15">$date.format("yyyy-MM-dd HH:mm:ss",$!focusArticleInfo.focusInfoBean.createTime)</div>
+				</div>
+			</div>
+			#end
+		</div>
+		<!--c_list_con-->
+		<div class="c_mt15"></div>
+		<div class="c_search_box">
+			<span class="c_fb">当日热点文章<i class="c_color_red c_f12 c_ml5">TOP10</i></span>
+		</div>
+		<div class="c_tab_block">
+			<ul class="c_tab1">
+				<li class="c_report_date1"><span class="c_ml15"></span>排行</li>
+				<li class="c_report_date2">标题</li>
+				<li class="c_report_date3">站点</li>
+				<li class="c_report_date4">作者</li>
+				<li class="c_report_date5">阅读</li>
+				<li class="c_report_date6">回复</li>
+				<li class="c_report_date7">发布时间</li>
+			</ul>
+		</div>
+		#foreach($topArticle in $report.topArticles)
+		<div class="c_tab_block #if($velocityCount % 2 == 0)c_bg_ye#end">
+			<ul class="c_tab2 c_cb">
+				<li class="c_report_date1 c_omit"><span class="c_ml15"></span>$velocityCount</li>
+				<li class="c_report_date2 c_omit c_th1_tit"><a class="c_atit" tag="article-title" oid="$!topArticle.guid">$!topArticle.title</a></li>
+				<li class="c_report_date3 c_omit">$!tag.getWebsiteName($topArticle.websiteId)</li>
+				<li class="c_report_date4 c_omit">$!topArticle.author</li>
+				<li class="c_report_date5 c_omit">$!topArticle.readCount</li>
+				<li class="c_report_date6 c_omit">$!topArticle.replyCount</li>
+				<li class="c_report_date7 c_omit">$date.format("yyyy-MM-dd HH:mm:ss",$!topArticle.postTime)</li>
+			</ul>
+			<div class="c_tab3 c_cb c_ml15 c_mr15">
+				<div class="c_report_date c_omit">$!topArticle.abContent</div>
+			</div>
+			<div class="c_tab3 c_tab4 c_cb c_ml15 c_mr15">
+				<div class="c_report_date">
+					<div class="c_fl c_mr15">
+<!-- 						<a style="color: #3399FF;" href="$!topArticle.url" target="_blank">访问原文</a> -->
+							<a href="$!topArticle.url" class="c_clearfix c_fl c_omit c_w300 c_link_word" target="_blank">$!topArticle.url</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		#end
+		<div class="c_h15"></div>
+	</div>
+
+<script type="text/javascript">
+	$(function() {
+		$('[tag=article-title]').click(function() {
+			$(".c_list").append("<form id='param-form' target='_blank' method='post' action='" + std.u('/search/openArticleDetail.htm') + "'></form>");
+			$("#param-form").append("<input type='hidden' name='guid' value='" + std.oid(this) + "'/>");
+			document.createElement("a").onclick = $("#param-form").submit();
+			$("#param-form").remove();
+		});
+	});
+</script>
+</body>
+</html>

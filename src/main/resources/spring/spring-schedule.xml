@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<bean id="intervalHourInOneMonth" class="com.cyyun.fm.analyze.task.IntervalHourInOneMonth"></bean>
+	<bean id="intervalHourInToday" class="com.cyyun.fm.analyze.task.IntervalHourInToday"></bean>
+	<bean id="intervalDayInMonth" class="com.cyyun.fm.analyze.task.IntervalDayInMonth"></bean>
+	<bean id="intervalToday" class="com.cyyun.fm.analyze.task.IntervalToday"></bean>
+
+	<!-- 每天 执行 同步 今天的 小时数据 -->
+	<bean id="sync_StatMedia_hour_today" class="com.cyyun.base.task.SyncStatTaskItem">
+		<property name="intervalName" value="intervalHourInToday" />
+		<property name="taskName" value="syncStatMediaTask" />
+	</bean>
+
+	<!-- 每天 执行 同步 今天的 一天数据 -->
+	<bean id="sync_StatWebsite_hour_today" class="com.cyyun.base.task.SyncStatTaskItem">
+		<property name="intervalName" value="intervalToday" />
+		<property name="taskName" value="syncStatWebsiteTask" />
+	</bean>
+
+	<!-- 每十天 执行 同步 近一个月 的 小时数据 -->
+	<bean id="sync_StatMedia_hour_10day" class="com.cyyun.base.task.SyncStatTaskItem">
+		<property name="intervalName" value="intervalHourInOneMonth" />
+		<property name="taskName" value="syncStatMediaTask" />
+	</bean>
+	
+	<!-- 每10秒 执行 查询平台今日采集数任务 -->
+	<bean id="query_platformTotalNumToday_10s" class="com.cyyun.fm.homepage.task.QueryPlatformTalNumTaskItem">
+		<property name="taskName" value="queryPlatformTalNumTask" />
+	</bean>
+	
+	<task:scheduler id="fmanagerScheduler" pool-size="1" />
+
+	<task:scheduled-tasks scheduler="fmanagerScheduler">
+		<task:scheduled ref="sync_StatMedia_hour_today" method="execute" cron="0 5 * * * *" />
+		<task:scheduled ref="sync_StatMedia_hour_10day" method="execute" cron="0 0 2 * * *" />
+<!-- 		<task:scheduled ref="sync_StatWebsite_hour_today" method="execute" cron="0 5 * * * *" /> -->
+		
+		<task:scheduled ref="query_platformTotalNumToday_10s" method="execute" cron="${platform.totalNum.task.time}" />
+	</task:scheduled-tasks>
+	
+</beans>

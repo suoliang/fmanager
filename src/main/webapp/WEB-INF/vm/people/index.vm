@@ -1,0 +1,138 @@
+#parse("/common/header.vm")
+ <!-- sidebar end-->
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0)">人物</span><span> > </span><span href="javascript:void(0)">虚拟身份</span></p>
+      </h3>
+    </div>
+     <form action="VirtualIdentity.htm"  id = "addeventForm" method="post"> 
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_cb">
+      <div class="c_fr"><a href="javascript:addVirtualIdentity();" class="c_search_link c_search_sys2 c_fl">新增虚拟身份</a></div>
+      
+       <!-- <div class="c_summary_tab" id="status_id">
+          <div class="c_tab_title c_fl c_w70 c_tr">维护状态：</div>
+          <div class="c_tab_rg c_fl">
+          <div class="c_tab_con1">
+          active,c_tag_active
+                 <div class="c_tab_choice c_fl"><div id ="selectall_id" class="c_sprite c_choice_icon c_fl active" oid="" onclick="selectStatus(this,'selectall_id','status_id')"></div><div id="allName_id" onclick="selectStatus(this,'selectall_id','status_id')" value="" class="c_fl">全部</div><div class="c_cb"></div></div>
+                 <div class="c_tab_choice c_fl"><div id ="selectStatusActive_id" class="c_sprite c_choice_icon c_fl" oid="1" onclick="selectStatus(this,'selectStatusActive_id','status_id')"></div><div class="c_choice_tag c_fl " id="statused_id" onclick="selectStatus(this,'selectStatusActive_id','status_id')" value="1">维护中</div><div class="c_cb"></div></div>
+                 <div class="c_tab_choice c_fl"><div id ="selectStatusedActive_id" class="c_sprite c_choice_icon c_fl" oid="0" onclick="selectStatus(this,'selectStatusedActive_id','status_id')"></div><div class="c_choice_tag c_fl " id="statusing_id" onclick="selectStatus(this,'selectStatusedActive_id','status_id')" value="0">停止维护</div><div class="c_cb"></div></div>
+          </div>c_tab_con1
+          </div>c_tab_rg       
+       </div>c_summary_tab  -->  
+        <!-- <div class="c_summary_tab c_cl" id="create_id">
+          <div class="c_tab_title c_fl c_w70 c_tr">来源：</div>
+          <div class="c_tab_rg c_fl">
+          <div class="c_tab_con1">
+                 <div class="c_tab_choice c_fl"><div id="selectCreateAll_id" class="c_sprite c_choice_icon c_fl active" oid="" onclick="selectStatus(this,'selectCreateAll_id','create_id')"></div><div class="c_fl" onclick="selectStatus(this,'selectCreateAll_id','create_id')">全部</div><div class="c_cb"></div></div>
+                 <div class="c_tab_choice c_fl"><div id="selectCreaterActive_id" class="c_sprite c_choice_icon c_fl" oid="0" onclick="selectStatus(this,'selectCreaterActive_id','create_id')"></div><div class="c_choice_tag c_fl" onclick="selectStatus(this,'selectCreaterActive_id','create_id')" value="0">系统授权</div><div class="c_cb"></div></div>
+                 <div class="c_tab_choice c_fl"><div id="selectCustomActive_id" class="c_sprite c_choice_icon c_fl" oid="1" onclick="selectStatus(this,'selectCustomActive_id','create_id')"></div><div class="c_choice_tag c_fl" onclick="selectStatus(this,'selectCustomActive_id','create_id')" value="1">自定义</div><div class="c_cb"></div></div>
+          </div>c_tab_con1
+          </div>c_tab_rg       
+       </div>c_summary_tab  -->
+        
+       <div class="c_fl">
+        <div class="c_fl"><span class="c_ml10">虚拟身份：</span><input type="text" id="virtualIdentity_id" class="c_keywds"/>
+       </div>
+       
+       <div class="c_fl"> <span class="c_ml10">站点：</span>
+       <div id="divselect7" class="c_divselect c_fl">
+            <div class="cite"><div class="citeT"></div></div>
+            <ul>
+            <li><a href="javascript:;" selectid="" def="true">全部</a></li>
+            #set($addPeople = $!queryRestList)
+		    #foreach($!tt in $addPeople)
+		     <li><a href="javascript:void(0);" selectid="$tt.id" id="peopleSiteSelect_id" >$!tt.name</a></li>
+			 <input type="hidden" id = "update_id" value="$!tt.siteIdName" />
+		  	#end  
+            </ul>
+            <input name="" type="hidden" value="3" id="inputselect7"/>
+        </div>  
+       </div>
+       
+       <div class="c_fl"><span class="c_ml10">维护状态：</span>
+        <div id="divselect8" class="c_divselect c_fl">
+            <div class="cite"><div class="citeT"></div></div>
+            <ul>
+             <li><a href="javascript:;" selectid="" def="true">全部</a></li>
+		     <li><a href="javascript:void(0);" selectid="1">维护中</a></li>
+		     <li><a href="javascript:void(0);" selectid="0">停止维护</a></li>
+            </ul>
+            <input name="" type="hidden" value="3" id="inputselect8"/>
+        </div>       
+       </div>
+
+       <div class="c_fl"><span class="c_ml10">来源：</span>
+        <div id="divselect9" class="c_divselect c_fl">
+            <div class="cite"><div class="citeT"></div></div>
+            <ul>
+             <li><a href="javascript:;" selectid="3" def="true">全部</a></li>
+		     <li><a href="javascript:void(0);" selectid="0">系统授权</a></li>
+		     <li><a href="javascript:void(0);" selectid="1">自定义</a></li>
+            </ul>
+            <input name="" type="hidden" value="3" id="inputselect9"/>
+        </div>       
+       </div>
+       
+        <a type="button" class="c_button c_ml10 c_fl" href="JavaScript:queryPeople($!queryRest.pageNo);">查询</a></div>
+       
+      </div>
+                     
+    </div>
+   <!--search box end-->
+   <div class="c_mt15"></div>
+   <div class="c_tab_block">
+      <ul class="c_tab1">
+      <li class="c_tab_per_false1 c_tc">序号</li>
+      <li class="c_tab_per_false2">虚拟身份</li>
+      <li class="c_tab_per_false3">站点</li>
+      <li class="c_tab_per_false4">媒体类型</li>  
+      <li class="c_tab_per_false5">备注</li>          
+      <li class="c_tab_per_false6">维护状态</li>
+      <li class="c_tab_per_false7">来源</li>
+      <li class="c_tab_per_false8">操作</li>
+      </ul>
+      <!-- 虚拟人物抽出代码 -->
+      <div id="virtualTable_id">
+      #set($index = $velocityCount + ($!queryRest.pageNo - 1) * 20)
+		#set($virtuals = $!queryRest.data)
+		#parse("/people/virtualpageList-list.vm")
+		
+		<input id="currentPage_id" type="hidden" value="$!queryRest.pageNo">
+		
+			<script type="text/javascript">
+			 $(function(){
+				 var json = 
+				 {
+						 formId:"addeventForm",
+						 divId:"div2",
+						 asyncFlag:true,
+						 replaceId:"virtualTable_id",
+						 prefix:"2",
+						 currentPage:$!queryRest.pageNo,
+						 totalPage:$!queryRest.totalPages,
+						 count:$!queryRest.totalRecords,
+						 pageSize:$!queryRest.pageSize
+				 };
+				 initPageTab(json);
+			 });
+    		</script>
+      </div>
+    </div>
+     
+     <!--c_tab_block-->
+     <div class="c_page c_fr c_mt15 c_mb15" id="div2">#parse("/common/page-templet-fm.vm")</div>
+     <!--c_page end-->
+		
+     </form>
+  </div><!--c_list end-->
+  </div><!-- main end-->
+
+<link href="${rc.getContextUrl('/css/person.css')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${rc.contextPath}/js/people/people.js"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+#parse("/common/footer.vm")

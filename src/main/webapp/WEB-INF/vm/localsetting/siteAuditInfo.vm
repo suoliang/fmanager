@@ -1,0 +1,121 @@
+#set($pagecss = ["setup.css"])
+
+#parse("/common/header.vm")
+ <!-- sidebar end-->
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="setup.html">设置</span><span>></span><span href="setup_approval.html">站点审核</span></p>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl">
+        <span>客户：</span><input type="text" class="c_keywds c_mr10  c_w130" id="inputCustomerName"/>
+        <span>站点名称：</span><input type="text" class="c_keywds c_mr10 c_w130" id="inputSiteName"/>
+        <span>URL：</span><input type="text" class="c_keywds c_mr10 c_w130" id="inputUrl"/>
+        <span>状态：</span>
+        <div id="divselect7" class="c_divselect c_fl">
+            <div class="cite"><div class="citeT"></div></div>
+            <ul>
+             <li><a href="javascript:;" selectid="" def="true">全部</a></li>
+             <li><a href="javascript:;" selectid="0">待审核</a></li>
+             <li><a href="javascript:;" selectid="2">待处理</a></li>
+             <li><a href="javascript:;" selectid="1">已处理</a></li>
+             <li><a href="javascript:;" selectid="3">已驳回</a></li>
+            </ul>
+            <input name="" type="hidden" value="3" id="status-select-item"/>
+        </div>
+        <a type="button" class="c_button c_ml10 c_fl" id="searchBtn">查询</a>
+        </div>
+      </div>
+      
+      <form id="siteAudit-form">
+			<!-- 客户名称 -->
+			<input type="hidden" id="customerName" name="customerName" />
+			<!-- 站点名称 -->
+			<input type="hidden" id="name" name="name" />
+			<!-- URL -->
+			<input type="hidden" id="url" name="url" />
+			<!-- 状态 -->
+			<input type="hidden" id="procStatus" name="procStatus" />
+	  </form>
+   <!--search box end-->
+   <div class="c_mt15"></div>
+   <div class="c_tab_block">
+      <ul class="c_tab1">
+      <li class="c_tab_app1 c_tc">序号</li>
+      <li class="c_tab_app2">客户名称</li>
+      <li class="c_tab_app3">CID</li>
+      <li class="c_tab_app4">站点名称</li>
+      <li class="c_tab_app5">URL</li>
+      <li class="c_tab_app6">关联FID</li>
+      <li class="c_tab_app7">媒体类型</li>
+      <li class="c_tab_app8">处理状态</li>
+      <li class="c_tab_app9">操作</li>
+      </ul>
+      
+      <div id="siteAuditTable_id">
+			#set($siteAudits = $pageInfo.data)
+			#parse("/localsetting/siteAuditInfo-list.vm")
+      </div>
+    </div><!--c_tab_block-->
+    	#paging("id", "siteAudit-paging")
+  </div><!--c_list end-->
+  </div><!-- main end-->
+ </div>
+</div>
+<!-- 以下弹出框审核需求-->
+<div class="c_alt_box c_w700 c_h450 c_alert_theme c_postion_w700" id="needAuditBox">
+  <div class="c_alt_tit">
+    <div class="c_fl c_alt_titTag c_w670 c_h30"><i class=" c_sprite c_tit_icon02"></i><span>审核需求</span></div>
+    <ul class="c_fr"><li><a href="#" class="c_sprite c_tit_close close"></a></li></ul>
+  </div>
+  <div class="c_alt_con c_h420 c_pr">
+   <div class="c_cb c_m10 c_f12">
+     <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr">站点名称：</div><div class="c_fl c_ml5 c_form_text" id="needAuditBox-name"></div></div>
+     <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr">站点URL：</div><div class="c_fl c_ml5 c_form_text c_omit c_w500" id="needAuditBox-url"></div></div>
+     <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr">审核结果：</div><div class="c_fl c_ml5 c_form_text">
+		     <span class="c_mr10"><input type="radio" class="c_mr5 c_vm" name="radio-result" value="2">通过</span>
+		     <span><input type="radio" class="c_mr5 c_vm" name="radio-result" value="3" checked="checked">驳回</span>
+     </div>
+     </div> 
+     <div class="c_cb c_alt_form c_mt5"><div class="c_fl c_form_name c_tr">备注：</div><div class="c_fl c_ml5 c_form_text"><textarea class="c_form_word c_textarea" id="remark" placeholder="驳回时必填" maxlength="300" title="必须小于300个字符！"></textarea></div></div>
+   </div><!--c_alt_content-->
+   <div class="c_alt_but c_w700 c_change_butbg"><div class="c_change_but c_change_but01"><a href="#" class="c_but_ok c_mr10">确定</a><a href="#" class="c_but_no">取消</a></div></div>
+  </div><!--c_alt_con-->
+</div><!--c_alt_box-->
+<!-- 以下弹出框指关于FID-->
+<div class="c_alt_box c_w700 c_h450 c_alert_theme_02 c_postion_w700" id="FID-Box">
+  <div class="c_alt_tit">
+    <div class="c_fl c_alt_titTag c_w670 c_h30"><i class=" c_sprite c_tit_icon02"></i><span>关联FID</span></div>
+    <ul class="c_fr"><li><a href="#" class="c_sprite c_tit_close close"></a></li></ul>
+  </div>
+  <div class="c_alt_con c_h420 c_pr">
+   <div class="c_cb c_m10 c_f12">
+     <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr">站点名称：</div><div class="c_fl c_ml5 c_form_text" id="needAuditBox-name-FID"></div></div>
+     <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr">站点URL：</div><div class="c_fl c_ml5 c_form_text c_omit c_w500" id="needAuditBox-url-FID"></div></div>
+     <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr"><span class="c_color_red">*</span>
+     	关联FID：</div><div class="c_fl c_ml5 c_form_text"><input type="text" class="input c_w500" id="input-FID"><br/>
+     	<div class="c_fl c_ml5 c_mt5 c_color_red "  id = "Hint-FID" style="display: none;">FID不存在，请重新输入！</div>
+     	<div class="c_fl c_ml5 c_mt5 c_color_red "  id = "Hint-FID1" style="display: none;">请输入FID！</div>
+     </div></div>
+   </div><!--c_alt_content-->
+   <div class="c_alt_but c_w700 c_change_butbg"><div class="c_change_but c_change_but01"><a href="#" class="c_but_ok c_mr10">确定</a><a href="#" class="c_but_no">取消</a></div></div>
+  </div><!--c_alt_con-->
+</div><!--c_alt_box-->
+
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/siteAuditInfo.js" ></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/siteAuditInfo-interface.js" ></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/gengeral.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/common/layer/layer.min.js')}"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#siteAudit-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	});
+</script>
+#parse("/common/footer.vm")
+
+
+

@@ -1,0 +1,217 @@
+<style>
+.thumbnail-item { 
+	/* position relative so that we can use position absolute for the tooltip */
+	position: relative; 
+	float: left;  
+	margin: 0px 5px; 
+}
+.thumbnail-item a { 
+	display: block; 
+}
+.thumbnail-item img.thumbnail {
+	border:3px solid #ccc;	
+}
+.tooltip { 
+	/* by default, hide it */
+	display: none; 
+	/* allow us to move the tooltip */
+	position: absolute; 
+	/* align the image properly */
+	padding: 8px 0 0 8px;
+	
+}
+.tooltip span.overlay { 
+	/* the png image, need ie6 hack though */
+	background: url(../images/overlay.png) no-repeat; 
+	/* put this overlay on the top of the tooltip image */
+	position: absolute; 
+	top: 0px; 
+	left: 0px; 
+	display: block; 
+	width: 350px; 
+	height: 200px;
+}
+</style>
+
+<div class="c_container">
+    <div class="c_fr c_msgbox_rg">
+    	 <div class="c_boxrg_tit"><span class="c_boxrg_tit_icon"></span> 系统标签</div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">推送时间：</div><div class="c_fl c_list_msg">
+    	 		$!date.format("yyyy-MM-dd HH:mm:ss",$recommendContentBean.createTime)
+    	 	</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">所属栏目：</div><div class="c_fl c_list_msg">
+    	 		$!ColumnBean.name
+    	 	</div><div class="c_cb"></div></div>
+    	 <div class="c_boxrg_list"><div class="c_fl c_list_name">栏目分类：</div><div class="c_fl c_list_msg">
+    	 		$!ColumnBean.typeDesc
+    	 	</div><div class="c_cb"></div></div>
+    </div>
+    <div class="c_over_hidden">
+        <div class="c_msgbox_lf">
+        	 <h4 class="c_mb10" title="$!recommendContentBean.title">$!recommendContentBean.title</h4>
+             <div  class=" c_f12 c_omit c_mb10 c_color_blue  c_tc "><a class="c_color_blue" href="$!recommendContentBean.url" target="_blank">$!recommendContentBean.url</a></div>
+             <div class="c_con_word">
+<!--                   <ul class="c_con_img"> -->
+<!--                   	  <li><img src="http://ww4.sinaimg.cn/large/bd314bb7gw1f53qwb2kcqj20zk0qojvc.jpg" /></li> -->
+<!--                   	  <li><img src="http://ww4.sinaimg.cn/large/bd314bb7gw1f53qwbnnqsj20qo0zk792.jpg" /></li> -->
+<!--                   	  <li><img src="http://ww4.sinaimg.cn/large/bd314bb7gw1f53qwalhrij20qo0zkjvk.jpg" /></li> -->
+<!--                   	  <li><img src="http://ww2.sinaimg.cn/large/e443e56egw1f5475qzm7hj20ku0kuawj.jpg" /></li> -->
+<!--                       <li><img src="http://ww4.sinaimg.cn/large/bd314bb7gw1f53qwbnnqsj20qo0zk792.jpg" /></li> -->
+<!--                   </ul> -->
+					<!-- 原始显示图片方式 -->
+				   #if($!recommendContentBean.mainPicUrl && $!recommendContentBean.mainPicUrl >0)
+		                <input type="hidden" value="$!recommendContentBean.mainPicUrl.size()" id="imageUrlsSize"/>
+			            <div class="c_image clearfix" id="img_block_display" style="background:#fff">
+			                <span class="c_arrows_left fl" id="c_arrows_left_id" title="向左切换"><i class="icon-angle-left"></i></span>
+			                <span class="c_arrows_right fr"  id="c_arrows_right_id"  title="向右切换"><i class="icon-angle-right">></i></span>
+			                <div class="c_body">
+			                    <div class="c_roll">
+			                    	#foreach($img in $!recommendContentBean.mainPicUrl)
+			                    	<div class="thumbnail-item" >
+			                        <img tag="insets" style="display:none;" width="114.5" height="120" index="$!{velocityCount}" src="$img">
+				                       	<div class="tooltip">
+											<img src="$img" alt="" width="330" height="185" />
+											<span class="overlay"></span>
+										</div> 
+									</div> 
+			                        #end
+			                    </div>
+			                </div>
+			                <div class="c_cb"></div>
+			            </div>
+		            #end
+
+                  <p>$!recommendContentBean.contentWeb</p>
+             </div>
+             <div class="msg_close" onclick="window.close();">[关闭此页]</div>
+        </div>
+    </div>
+    <a class="to-top" title="回到顶部"></a>
+</div>
+
+<script type="text/javascript">
+
+//********************* 图片悬浮放大控制 ********************//
+$(document).ready(function () {
+	var height = null;
+	if(!$("#img_block_display").height()){
+		height = $("[oid='article-detail']").height()-$(".c_alt_tit").height()-$("h4").height()-$("#urldiv").height()-$("img_block_display").height()-45;
+	}
+	$("#c_alt01").height(height);
+	$("#contentul").height(height);
+	$("#contentdiv").height(height);
+	$("#scrollbardiv").height(height);
+	// Get all the thumbnail
+	$('div.thumbnail-item').mouseenter(function(e) {
+
+		// Calculate the position of the image tooltip
+		x = e.pageX - $(this).offset().left;
+		y = e.pageY - $(this).offset().top;
+
+		// Set the z-index of the current item, 
+		// make sure it's greater than the rest of thumbnail items
+		// Set the position and display the image tooltip
+		$(this)
+		.css('z-index','15')
+		.children("div.tooltip")
+		.css({
+// 			'top': y + 10
+// 			,'left': x + 20
+// 			,
+			'display':'block'
+// 			,'position':'absolute'
+// 			,'z-index':9
+			});
+		
+	}).mousemove(function(e) {
+		
+		// Calculate the position of the image tooltip			
+		x = e.pageX - $(this).offset().left;
+		y = e.pageY - $(this).offset().top;
+		
+		// This line causes the tooltip will follow the mouse pointer
+		$(this).children("div.tooltip").css({'top': y + 10,'left': x + 20});
+		
+	}).mouseleave(function() {
+		
+		// Reset the z-index and hide the image tooltip 
+		$(this).css('z-index','1')
+		.children("div.tooltip")
+		.animate({"opacity": "hide"}, "fast");
+	});
+
+});
+
+//******************** 图片切换实现 ********************//
+	$(function(e){
+		//初始化图片
+		var _img = $("#img_block_display");
+		var _imgCount = $("#imageUrlsSize").val();
+		if(_img[0] != undefined){
+			_img.find("img").each(function(){
+				var _thisImg = $(this);
+				var _index = _thisImg.attr("index");
+				if(parseInt(_index) <= 5){
+					_thisImg.css("display","inline-block");
+				}
+			});
+			
+			var _2left = $("#c_arrows_left_id");
+			_2left.click(function(){
+				if(parseInt(_imgCount)>5){
+					var _preImg;
+					_img.find("img").each(function(){
+						if(_preImg){
+							return;
+						}
+						if($(this).is(":visible")){
+							_preImg = $(this);
+						}
+					});
+					if(_preImg && $($(_preImg.parents()[0]).prev()).find('img[tag="insets"]')[0]!=undefined){
+						var _preImgIndex = _preImg.attr("index");
+						var _2hid = parseInt(_preImgIndex)+4;
+						$($($(_preImg.parents()[0]).prev()).find('img[tag="insets"]')[0]).css('display','inline-block');
+						_img.find("img[index="+_2hid+"]").css('display','none');
+					}
+				}
+			});
+			
+			var _2right = $("#c_arrows_right_id");
+			_2right.click(function(){
+				if(parseInt(_imgCount)>5){
+					var _nextImg;
+					_img.find('img[tag="insets"]').each(function(){
+						if($(this).is(":visible")){
+							_nextImg = $(this);
+						}
+					});
+					if(_nextImg && $($(_nextImg.parents()[0]).next()).find('img[tag="insets"]')[0]!=undefined){
+						var _nextImgIndex = _nextImg.attr("index");
+						var _2hid = parseInt(_nextImgIndex)-4;
+						$($($(_nextImg.parents()[0]).next()).find('img[tag="insets"]')[0]).css('display','inline-block');
+						_img.find("img[index="+_2hid+"]").css('display','none');
+					}
+				}
+			});
+		}
+	});
+//******************** 页面操作  ********************//
+	$(function() {
+		//返回顶部
+		$('.to-top').toTop();
+		
+		//******************** 页面样式控制 ********************//
+		//左边导航 自适应左边高度
+		function autoHeight() 
+	     {
+		    var h = $(window).height()-60; 
+			var h_old = 300;
+			 if (h > h_old) { $(".c_msgbox_lf").css('min-height', h); } 
+			 else { return false; } 
+		}
+		autoHeight();
+		$(window).resize(autoHeight); 
+	});
+	
+</script>

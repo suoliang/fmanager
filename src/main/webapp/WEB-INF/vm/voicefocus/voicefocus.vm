@@ -1,0 +1,287 @@
+#set($pagecss = ["focus.css"]) #parse("/common/header.vm")
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="#">预警</span></p>
+			</h3>
+		</div>
+	</div>
+		<!--location line end -->
+		<div class="c_search_box c_mr15">
+			<div class="c_fl">
+				<form id="voicefocus_id" action="${rc.contextPath}/focusing/QueryInfo.htm" method="post">
+				
+					<input type="hidden" name="scopeFlag" id="scopeFlag" value="0">
+					
+					<input type="hidden" name="source" id="source">
+					<!-- 时间 -->
+				    <input type="text" id="timeType" name="timeType" value="$!{defaultTimeType}" style="display: none;"/>
+				    
+				    <!-- 媒体类型 -->
+			    	<div tag="mediaType-form" oid="media">
+						<input type="hidden" id="mediaType" name="mediaType"/>
+					</div>
+					<!-- 预警等级 -->
+					<div tag="condition-form" oid="warningLevel">
+						<input type="hidden" id="warningLevel" name="warningLevel"/>
+					</div>
+					
+					<div class="c_fl c_w50 c_tr c_f12">搜索：</div>
+					<div class="c_fl">
+					<input class="c_keywds c_mr10" type="text" value="" id="input_1" name="keyword"></input>
+					</div>
+					
+<!-- 					<div class="c_calendar_bar c_ml10"> -->
+<!-- 					<span>时间：</span> -->
+<!-- 						<input type="text" readonly="readonly" class="input laydate-icon c_w110" name="startTimeInput" value="$!request.getParameter('startTimeInput')" id="startTimeInput"> -->
+<!-- 						<i class="c_clearfix c_fl c_mr5 c_ml5">-</i> -->
+<!-- 						<input type="text" readonly="readonly" class="input laydate-icon c_w110" name="endTimeInput" value="$!request.getParameter('endTimeInput')" id="endTimeInput"> -->
+<!-- 					</div> -->
+					<div class="c_calendar_bar c_ml10 c_none" >
+						<span>预警类型：</span>
+						<div id="typeSelect" class="c_divselect c_fl">
+							<div class="cite">
+								<div class="citeT"></div>
+							</div>
+							<ul>
+								<li><a href="javascript:void(0);" name="YJDJ" id="YJDJ_00" selectid="" def="true">全部</a></li>
+								<li><a href="javascript:void(0);" name="YJDJ" id="YJDJ_01" selectid="1">人工</a></li>
+								<li><a href="javascript:void(0);" name="YJDJ" id="YJDJ_01" selectid="2">自动</a></li>
+							</ul>
+							<input name="source" type="hidden" id="focustype" /><!-- 预警类型隐藏 -->
+						</div>
+					</div>
+					
+					<div class="c_calendar_bar c_ml10" #if(!$!scopeflag) style="display:none" #end>
+						<span>预警范围：</span>
+						<div id="scopeSelect" class="c_divselect c_fl">
+							<div class="cite">
+								<div class="citeT"></div>
+							</div>
+							<ul>
+								<li><a href="javascript:void(0);" name="YJDJ" id="YJDJ_00" selectid="0" def="true">我的预警</a></li>
+								<li><a href="javascript:void(0);" name="YJDJ" id="YJDJ_01" selectid="1">所有预警</a></li>
+							</ul>
+							<input name="scopeFlag" type="hidden" value="0" id="alertscope" /><!-- 预警范围隐藏 -->
+						</div>
+					</div>
+					<a type="button" class="c_button c_ml10 c_fl" id="search_id" href="javascript:Search();">查询</a>
+					 <a type="button" class="c_button c_ml10 c_fl" id="clean">清空</a></div>
+					 <div class="c_cb"></div>
+		<!-- 预警等级复选框 -->
+		<div class="c_summary_tab c_mt5 c_border_top">
+			<div class="c_tab_title c_fl c_w70 c_tr">预警等级：</div>
+			<div class="c_tab_rg c_fl">
+				<div class="c_tab_con1" >
+						<div class="c_tab_choice c_fl" scope="option" tag="warningLevel-all" oid="all" selct="true" selct="true">
+							<div class="c_sprite c_choice_icon  active c_fl" type="checkbox" tag="warningLevel-hook" oid="all"></div>
+							<div class="c_fl c_tag_active" title="$meta" tag="warningLevel-name" oid="all" type="metaname">全部</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_choice c_fl"  scope="option" tag="warningLevel-item" oid="1">
+							<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="1"></div>
+							<div class="c_choice_tag c_fl" title="紧急" type="metaname">紧急</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_choice c_fl"  scope="option" tag="warningLevel-item" oid="2">
+							<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="2"></div>
+							<div class="c_choice_tag c_fl" title="重要" type="metaname">重要</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_choice c_fl"  scope="option" tag="warningLevel-item" oid="3">
+							<div class="c_sprite c_choice_icon c_fl" type="checkbox" value="3"></div>
+							<div class="c_choice_tag c_fl" title="一般" type="metaname">一般</div>
+							<div class="c_cb"></div>
+						</div>
+				</div>
+			</div>
+		</div>
+		<!-- 时间复选框 -->
+		<div class="c_summary_tab">
+	          <div class="c_tab_title c_fl c_w70 c_tr">时间：</div>
+	          <div class="c_tab_rg c_fl">
+	          <div class="c_tab_con1">
+	          		 #foreach($meta in ${timeType.keySet()})  
+	                 <div class="c_tab_choice c_fl" scope="option" tag="time" oid="${timeType.get($meta)}" type="time">
+	                 		<div class="c_sprite c_choice_icon c_fl " type="checkbox" value="${timeType.get($meta)}" id="check"></div>
+	                 		<div class="c_fl" type="metaname" id="checkName" value="${timeType.get($meta)}">$meta</div>
+	                 		<div class="c_cb"></div>
+	                 </div>
+	                 #end
+		             <div class="c_tab_choice c_fl" id="c_timeck01"><div class="c_sprite c_choice_icon  c_fl" id="customCheck" type="customCheck"></div>
+		             	<div class="c_choice_tag c_fl" type="custom" id="custom">自定义</div><div class="c_cb"></div>
+		             </div> 
+	                 <div class="c_fl c_none" id="c_timeck02"> 
+	                 <div class="c_tab_input c_fl" >
+	                 	<input type="text" class="input c_cal_icon c_w170" id="startTimeInput"  name="startTime" value="$!request.getParameter('startTimeInput')" >
+	                 	<div class="c_mr5 c_ml5 c_fl">-</div>
+	                 	<input type="text" class="input c_cal_icon c_w170" id="endTimeInput"  name="endTime" value="$!request.getParameter('endTimeInput')" >
+	                 </div>                                 
+	                 <div class="c_tab_choice c_fl "><a type="button" class="c_tab_time c_fl c_mt5" id="search_id" href="javascript:Search();">时间筛选</a></div>
+	                 </div>
+	                 
+	          </div><!--c_tab_con1-->
+	          </div><!--c_tab_rg-->       
+	     </div>
+		 
+		 <div class="c_summary_tab">
+			<div class="c_tab_title c_fl c_w70 c_tr">媒体：</div>
+			<div class="c_tab_rg c_fl">
+				<div class="c_tab_con1" >
+						<div class="c_tab_choice c_fl" scope="option" tag="site-item" oid="all" selct="true" selct="true">
+							<div class="c_sprite c_choice_icon  active c_fl" type="checkbox" tag="site-hook" oid="all" value="0"></div>
+							<div class="c_fl c_tag_active" title="$meta" tag="site-name" oid="all" type="metaname">全部</div>
+							<div class="c_cb"></div>
+						</div>
+						#foreach($bean in $const.list("MediaType"))
+						<div class="c_tab_choice c_fl"  scope="option" tag="option-item" oid="$bean.value" selct="false">
+							<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="option-hook" oid="$bean.value" value="$bean.value"></div>
+							<div class="c_choice_tag c_fl" title="$bean.name" tag="option-name" oid="$bean.value" type="metaname">$bean.name</div>
+							<div class="c_cb"></div>
+						</div>
+						#end
+				</div>
+			</div>
+		</div>
+
+			</div>
+			<div class="c_fr" style="display:none">
+				<span>排序：</span>
+				<div id="alertSortSelect" class="c_divselect c_fl">
+					<div class="cite">
+						<div class="citeT"></div>
+					</div>
+					<ul>
+						<li><a href="javascript:sorting();" selectid="1" def="true">按时间</a></li>
+						<li><a href="javascript:sortingTime();" selectid="2">按时间升序</a></li>
+						<li><a href="javascript:sorting();" selectid="3">按预警等级</a></li>
+					</ul>
+					<input name="" type="hidden" value="3" id="alertSort" />
+				</div>
+			</div>
+		</form>
+		
+		
+		<div class="c_mt10"></div>
+		<div class="c_over_hidden c_search_ok c_ml10">
+			<div class="c_fl c_f12 c_color_gay ">为您找到相关结果约<span class=" c_color_blue c_ml5 c_mr5"><i class="c_color_blue c_ml5 c_mr5" id="count-Show-i"></i></span>个</div>   
+		</div>
+		
+		<div class="c_tab_block c_mt10 c_search_ok" style="line-height:35px; background:#f5f5f5; width:99%;  border-top:1px solid #e1e1e1">
+          <div class="c_sprite c_choice_icon c_fl" id="selectall" style="margin-top:13px"></div><span class="c_fl">全选</span>
+          <div class="c_fr c_mt5" style="height:30px">
+            <div class="c_fr"><a class="c_button c_ml10 c_fl" href="#" onclick="batchExport2();">导出选定Excel</a></div>
+<!-- 		    <div class="c_fr"><a class="c_button c_ml10 c_fl" href="#" onclick="batchExport();">导出选定(Word)</a></div> -->
+            <div class="c_fr"><a class="c_button c_ml10 c_fl" tag="all-article-excel" oid="$!LOGIN_USER.id">导出全部Excel</a></div>
+<!--             <div class="c_fr"><a class="c_button c_ml10 c_fl" tag="all-article-word" oid="$!LOGIN_USER.id">导出全部Word</a></div> -->
+		    <br class="c_cb">
+		  </div>
+		  <br class="c_cb">
+        </div>
+		
+		<div class="c_alt_box c_w980 c_h560 focus-list-head" tag="guidpopup-box" oid="guidarticle-detail"   id="voicefocusDiv" style="display: none">
+			 <div class="c_alt_tit">
+				<div class="c_fl c_alt_titTag c_w950 c_h30" move="ok" style="cursor: move;">	 
+				<i class=" c_sprite c_tit_icon01"></i>
+				<span>文章详情</span>
+				</div>
+				<ul class="c_fr">
+					<li><a href="javaScript:closeDiv();" class="c_sprite c_tit_close"></a>
+				</ul>
+			</div>
+			<div class="c_alt_con c_bg_gay guidarticle-content"></div>
+			<!--c_alt_con-->
+		</div>
+		<!--c_alt_box-->
+		<div class="voice-ctx" id="obj">
+			#set($articles = $pageInfo.data)
+			#parse("/voicefocus/index-list-article.vm")
+		</div> 
+
+		<form id="focusing_id" method="post">
+			<td><input id="ab" oid="$!queryList.id" type="hidden" name="hab" value=""></input></td>
+		</form>
+
+		<!-- one c_list_block end-->
+		<div class="c_con_add c_mt15 focus-list-mask c_mr15" style="display: none;">
+			<div class="c_icon_add">正在加载中，请稍后...</div>
+		</div>
+        <div class="c_mr15">
+		#paging("class", "focus-list-paging")
+        </div>
+	</div>
+	<!--c_list_con end-->
+</div>
+</div>
+<!--c_list end-->
+</div>
+#parse("/report/pop-up-brief-picker.vm")
+#parse("/common/export/export-alert.vm")
+#parse("/report/pop-up-brief-input.vm")
+
+<!-- main end-->
+<script type="text/javascript" src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/voicefocus/voicefocus-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/voicefocus/voicefocus.js"></script>
+
+<script type="text/javascript" src="${rc.contextPath}/js/report/report-interface.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/pop-up-brief-picker.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/pop-up-brief-input.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/common/export/export-alert.js" async></script>
+<script type="text/javascript" src="${rc.contextPath}/js/common/export/export-interface.js" async></script>
+
+
+<script type="text/javascript">
+	$(function() {
+		setPageInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	
+	$("#selectall").bind("click",function(){//selectall为表示全选的框  
+	      var son=$("[type='son']");
+	        if($('#selectall').hasClass('active')==false){
+	          for(var i=0;i<son.length;i++){
+	           $(son[i]).addClass("active");
+	          }
+	         $('#selectall').addClass("active"); 
+	        }
+	        else{
+	          for(var i=0;i<son.length;i++){
+	           $(son[i]).removeClass("active");
+	          }
+	        $('#selectall').removeClass("active");
+	        }
+	    });
+		
+	});
+
+	  function batchExport(){
+	    $(".c_main").append("<form id='param-form' action='"+ctx+"/topic/findArticles.htm' method='post'></form>");
+	    $("[type='son']").each(function(i,obj){
+	      if($(obj).hasClass("active")){
+	        $("#param-form").append("<input type='hidden' name='guids' value='"+$(obj).attr("value")+"'/>");
+	      }
+	    });
+	    if($("input[type='hidden'][name='guids']").length > 0){
+	      $("#param-form").submit();
+	    }else{
+	      $.msg.warning("请选择要导出的文章！");
+	    }
+	    $("#param-form").remove();
+	  }
+	  
+	  function batchExport2(){
+		    $(".c_main").append("<form id='param-form' action='"+ctx+"/topic/listExportExcel.htm' method='post'></form>");
+		    $("[type='son']").each(function(i,obj){
+		      if($(obj).hasClass("active")){
+		        $("#param-form").append("<input type='hidden' name='guids' value='"+$(obj).attr("value")+"'/>");
+		      }
+		    });
+		    if($("input[type='hidden'][name='guids']").length > 0){
+		      $("#param-form").submit();
+		    }else{
+		      $.msg.warning("请选择要导出的文章！");
+		    }
+		    $("#param-form").remove();
+		  }
+	</script>
+</script>
+#parse("/common/footer.vm")

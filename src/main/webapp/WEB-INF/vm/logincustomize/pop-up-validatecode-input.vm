@@ -1,0 +1,20 @@
+<div class="c_alt_box c_login_alt_box c_alert_theme " tag="popup-box" oid="validatecode-input" style="display: none;">
+  <div class="c_login_alt_tit">
+      <div class="c_fl c_login_alt_tit1">短信验证</div>
+      <div class="c_fr c_login_alt_tit2"><a href="#" class="c_sprite  close"></a></div>
+      <div class="c_cb"></div>
+  </div>
+  <div class="c_login_alt_log">
+      <div class="c_fl c_login_alt_name">手机号：</div>
+      <div class="c_fl c_login_alt_input"><input type="text" name="mobile" class="c_w250" placeholder="仅支持中国大陆的号码" /></div>
+      <div class="c_cb"></div>  
+  </div>
+  <div class="c_login_alt_log">
+      <div class="c_fl c_login_alt_name">验证码：</div>
+      <div class="c_fl c_login_alt_input"><input type="text" name="securitycode" class=" c_w160" /></div>
+      <div class="c_fl c_login_alt_yzm c_ml10" id="getsecuritycode">获取验证码</div>
+      <div class="c_cb"></div>  
+  </div>
+  <div class="c_login_alt_pd" id="validateCode-error-message">验证码输入错误</div>
+  <div class="c_login_alt_but" id="validateCodeCheck">验 证</div> 
+</div>

@@ -1,0 +1,25 @@
+<div class="c_page c_fr c_mt15 c_mb15 search-list-paging">
+		
+			<div tag="paging-item" id="pagingitem_prefix">
+			
+			</div>
+			<div class="c_page_goto">
+				共<span tag="paging-info" oid="totalpage" id="totalpage_prefix"></span>条
+			</div>
+			<div class="c_page_goto">跳转至</div>
+			<div class="c_page_input">
+				<input type="text" tag="paging-input" oid="pageNo" id=pageNo_prefix value="currentPageAlias">
+			</div>
+			<div class="c_page_goto" tag="paging-button" oid="gotoNo" id="gotoNo_prefix">
+				<i>GO</i>
+			</div>
+</div>
+
+
+
+
+<input id="currentPageHid_prefix" type="hidden" name="currentPage" value="currentPageAlias" class="pageTxt" />
+<input id="pageSizeHid_prefix" type="hidden" name="pageSize" value="pageSizeAlias" class="pageTxt" />
+<input id="asyncFlagHid_prefix" type="hidden" name="asyncFlag" value="asyncFlagAlias" class="pageTxt" />
+<input id="aliasHid_prefix" type="hidden" name="alias" value="aliasAlias" class="pageTxt" />
+<input id="replaceId_prefix" type="hidden" name="replaceId" value="replaceIdAlias" class="pageTxt" />

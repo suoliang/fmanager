@@ -1,0 +1,10 @@
+#parse("/common/header.vm")
+
+##右边模块开始
+<div style="float:right;">
+    <img id="u44_img" class="img " src="${rc.getContextUrl('/images/u0.jpg')}" style="width:700px;"/>
+</div>
+
+##右边模块结束
+</div>
+#parse("/common/footer.vm")

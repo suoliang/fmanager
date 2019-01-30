@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop.xsd
+			http://www.springframework.org/schema/util
+			http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="userRealm" class="com.cyyun.authim.shiro.realm.UserRealm">
+		<property name="systemCode" value="${system.code}" /> 
+		<property name="userService" ref="userService" />
+		<property name="roleService" ref="roleService" />
+		<property name="permissionService" ref="permissionService" />
+	</bean>
+
+	<bean id="permissionsAuthorizationFilter"
+		class="com.cyyun.authim.shiro.filter.PermissionsAuthorizationFilter">
+	</bean>
+	 
+    <bean id="filterChainManager" class="com.cyyun.authim.shiro.CustomDefaultFilterChainManager">
+        <property name="loginUrl" value="/login.htm"/>
+        <property name="successUrl" value="/index.htm"/>
+        <property name="unauthorizedUrl" value="/unauthorized.htm"/>
+        <property name="customFilters">
+            <util:map>
+                <entry key="perms" value-ref="permissionsAuthorizationFilter"/>
+            </util:map>
+        </property>
+        <property name="defaultFilterChainDefinitions">
+            <value>
+            	/focusing/weiboSourceCallback.htm = anon
+				/druid/** = anon
+				/js/** = anon
+				/css/** = anon
+				/img/** = anon
+				/images/** = anon
+				/login.htm = anon
+				/doLogin.htm = anon
+				/doSignatureLogin.htm = anon
+				/doSignatureAuthForPc.htm = anon
+				/doSignatureAuthForPc2.htm = anon
+				/validateCodeSend.htm = anon
+				/validateCodeCheck.htm = anon
+            	/** = authc
+            </value>
+        </property>
+    </bean>
+
+    <bean class="com.cyyun.authim.shiro.ShiroFilerChainManager">
+        <property name="filterChainManager" ref="filterChainManager"/>
+        <property name="systemCode" value="${system.code}" /> 
+		<property name="permResourceService" ref="permResourceService" />
+    </bean>
+
+    <bean id="filterChainResolver" class="com.cyyun.authim.shiro.PathMatchingFilterChainResolver">
+        <property name="filterChainManager" ref="filterChainManager"/>
+    </bean>
+    	 
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="shiroFilter"/>
+        <property name="targetMethod" value="setFilterChainResolver"/>
+        <property name="arguments" ref="filterChainResolver"/>
+    </bean>
+        
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"/>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm" />
+		<property name="cacheManager" ref="shiroCacheManager" />
+		<!-- 
+		<property name="sessionMode" value="native" />
+		<property name="sessionManager" ref="sessionManager"/>
+		 -->
+	</bean>
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+		<property name="arguments" ref="securityManager" />
+	</bean>
+
+	<bean id="sessionValidationScheduler"
+		class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+		<property name="interval" value="1800000" />
+	</bean>
+	<bean id="sessionDAO"
+		class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+		<property name="activeSessionsCacheName" value="activeSessionCache" />
+	</bean>
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="sessionDAO" />
+		<property name="globalSessionTimeout" value="3600000" />
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+	</bean>
+  	
+</beans>

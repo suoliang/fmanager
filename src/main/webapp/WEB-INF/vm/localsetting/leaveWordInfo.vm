@@ -1,0 +1,55 @@
+#set($pagecss = ["setup_message.css"])
+
+#parse("/common/header.vm")
+<!-- sidebar end-->
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name">
+      <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="${rc.contextPath}/setting/leaveWord/index.htm">设置</span><span>></span><span href="${rc.contextPath}/setting/leaveWord/index.htm">留言</span></p>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fr">
+      <a class="c_search_link c_search_sys2 c_fl" id="u86_input">我要留言</a>
+      </div> 
+    </div>
+   <!--search box end-->
+   <div class="c_mt15"></div>
+   <div class="c_tab_block">
+      <ul class="c_tab1">
+      <li class="c_tab_msg1">序号</li>
+      <li class="c_tab_msg2">留言标题</li>
+      <li class="c_tab_msg3">留言时间</li>
+      <li class="c_tab_msg4">处理状态</li>
+      </ul>
+      	<div class="leaveWord-list-container">
+			#set($messages = $pageInfo.data)
+			#parse("/localsetting/leaveWordInfo-list.vm")
+		</div>
+		
+    </div><!--c_tab_block-->
+		#paging("id", "leaveWord-message-paging")
+  </div><!--c_list end-->
+  </div><!-- main end-->
+
+
+
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/leaveWordInfo-interface.js" ></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/leaveWordInfo.js" ></script>
+
+<script type="text/javascript">
+	$(function() {
+		initPage();
+		$('#leaveWord-message-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	});
+	function initPage() {
+		$("#u86_input").click(function(){
+			window.location.href="${rc.contextPath}/setting/leaveWord/leaveWordOn.htm";
+		});
+	}
+</script>
+#parse("/common/footer.vm")
+
+
+

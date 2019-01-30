@@ -1,0 +1,13 @@
+#foreach($!truePeople in $!pageInfo.data)
+#set($index = $velocityCount + ($!queryRest.currentPage - 1) * 20)
+      <ul class="c_tab2 c_tab_top">
+      <li class="c_tab_per_true1 c_tc"><div>$velocityCount</div></li>
+      <li class="c_tab_per_true2"><div class="c_omit c_amore"><a href="javascript:void(0)" class="c_amore">$!truePeople.realName</a></div></li>
+      <li class="c_tab_per_true3"><div class="c_mr10 c_omit">$!truePeople.categoryName</div></li>
+      <li class="c_tab_per_true4"><div class="c_tab_state" id="$!truePeople.id"  oid="$!truePeople.status" onclick="changeStatus(this,$!pageInfo.pageNo);">$!truePeople.statusName</div></li>
+      <li class="c_tab_per_true5"><div class="c_mr10 c_omit"><a href="javascript:void(0)" class="c_color_green">0</a></div></li>
+      <li class="c_tab_per_true6"><div class="c_mr10 c_omit"><a href="${rc.contextPath}/people/Relationentity.htm?id=$!truePeople.id" class="c_amore">$!truePeople.virtualListSize</a></div></li>
+      <li class="c_tab_per_true7"><div class="c_mr10 c_omit">$!truePeople.createrIdName</div></li>           
+      <li class="c_tab_per_true8"><div><a onclick="category($!truePeople.id);" class="c_mr10 c_color_cyan c_alert_btn02">分类</a><a href="javascript:details($!truePeople.id,$!pageInfo.pageNo)" class="c_mr10 c_color_deeporange">详情</a></div></li>
+      </ul>
+#end

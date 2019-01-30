@@ -1,0 +1,21 @@
+
+#set($virtuals = $!queryRest.data)
+#parse("/people/virtualpageList-list.vm")
+
+<script type="text/javascript">
+			 $(function(){
+				 var json = 
+				 {
+						 formId:"addeventForm",
+						 divId:"div2",
+						 asyncFlag:true,
+						 replaceId:"virtualTable_id",
+						 prefix:"2",
+						 currentPage:$!queryRest.pageNo,
+						 totalPage:$!queryRest.totalPages,
+						 count:$!queryRest.totalRecords,
+						 pageSize:$!queryRest.pageSize
+				 };
+				 initPageTab(json);
+			 });
+</script>

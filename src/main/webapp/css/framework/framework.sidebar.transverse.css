@@ -1,0 +1,55 @@
+.c_cont{background:#2D7F8A;}
+.c_main{margin:0 ; padding:0 15px; clear:both;}
+.c_sidebar{width:100%; background:#2D7F8A; height:41px; z-index:99; float:none;border-bottom: 1px solid #1F6B78;}
+.c_sidebar .c_search{ height:40px; background:#2585c6; display:none;}
+.c_sidebar .c_search .c_input{ position:relative; border:1px solid #3d9ad8;height:18px; width:150px; float:left; margin:10px; border-radius:10px; }
+.c_sidebar .c_search .c_input input{ position:absolute; height:18px; border:none; outline:none; background:#2585c6; color:#fff; width:110px; display:block; margin-left:10px;}
+.c_sidebar .c_search .c_input i{ position:absolute; background-position:-155px -9px; width:17px; height:17px;right:0; display:block; float:right; cursor:pointer; margin-right:5px;}
+.c_sidebar .c_search .c_hide{float:left; background-position:-172px -11px; width:19px; height:14px;  margin:13px 0 0 8px; cursor:pointer;}
+.c_sidebar .c_search .c_vl{width:1px; height:40px; background:#1f79b6; float:left;}
+.c_sidebar .c_menu{ min-width:1200px;}
+.c_sidebar .c_menu li{ display:block; float:left;}
+.c_sidebar .c_menu .c_sub_menu li{ float:none;}
+.c_sidebar .c_menu li a{ height:40px;}
+.c_sidebar .c_menu i{ display:block; float:left;width:20px; height:17px; margin:12px 10px 0 0;}
+.c_sidebar .c_menu li .c_icon_sy{ background-position:-10px -70px; }
+.c_sidebar .c_menu li .c_icon_jj{ background-position:-30px -70px; }
+.c_sidebar .c_menu li .c_icon_search{background-position:-50px -70px;}
+.c_sidebar .c_menu li .c_icon_sj{background-position:-70px -70px;}
+.c_sidebar .c_menu li .c_icon_rw{background-position:-100px -70px;}
+.c_sidebar .c_menu li .c_icon_fx{background-position:-120px -70px;}
+.c_sidebar .c_menu li .c_icon_bg{background-position:-150px -70px;}
+.c_sidebar .c_menu li .c_icon_tj{background-position:-174px -70px;}
+.c_sidebar .c_menu li .c_icon_sz{background-position:-200px -70px;}
+.c_sidebar .c_menu li span{ white-space:nowrap;font-size:14px; color:#fff; line-height:40px; display:block;float:left;}
+.c_sidebar .c_menu li p.c_sprite{background-position:-281px -51px; width:6px; height:6px; display:block; float:right; margin:18px 10px 0 10px; cursor:pointer;}
+
+.c_sidebar .c_menu li ul.c_sub_menu{ background:#418c9c; position:absolute; display:none;z-index:99999;}/**/
+.c_sidebar .c_menu li li.c_sub_menu{ height:40px; line-height:40px;}
+.c_sidebar .c_menu li .c_nav{ padding-left:20px; min-width:95px;cursor:pointer; display:block;}
+.c_sidebar .c_menu li .c_nav.active,
+.c_sidebar .c_menu li .c_nav:hover,
+.c_sidebar .c_menu li .c_sub_menu .c_sub_nav.active,
+.c_sidebar .c_menu li .c_sub_menu .c_sub_nav:hover{background:#1F6B78}
+.c_sidebar .c_menu .c_nav:after{content:".";height:0;clear:both;visibility:hidden;}
+.c_sidebar .c_menu li .c_sub_menu li{ position:relative;}
+.c_sidebar .c_menu li .c_sub_menu li .c_sub_nav{padding-left:20px; padding-right:10px;height:40px;width:140px; cursor:pointer; display:block;}
+.c_sidebar .c_menu li .c_sub_menu .c_sub_nav span{ color:#9CE6F1;}
+
+.c_sidebar .c_menu li .c_sub_menu li .c_sub2_menu{ display:none;background: #418c9c;position:absolute; left:170px; top:0px;}
+.c_sidebar .c_menu li .c_sub_nav span,
+.c_sidebar .c_menu li .c_sub2_nav span{width:80px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.c_sidebar .c_menu li .c_sub_menu .c_sub_nav:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.c_sidebar .c_menu .c_sub_menu .c_file{ background-position:-351px -8px;}
+.c_sidebar .c_menu .c_sub_menu .c_folder{ background-position:-374px -8px;}
+.c_sidebar .c_menu li p.c_arr_down{background-position: -281px -51px;}
+.c_sidebar .c_menu li .c_sub_menu .c_dot{ background-position:-425px -10px; width:16px; height:13px; float:left; display:none; margin:14px 0 0 10px;}
+.c_sidebar .c_menu .c_sub2_menu .c_sign{ background-position:-410px -5px;width:12px; height:18px;margin: 6px 5px 0 5px;}
+.c_sidebar .c_menu .c_sub2_menu.active { background-position:-396px -5px; width:12px; height:18px;}
+
+/*首页*/
+.c_index{ width:100%;overflow: hidden;}
+.c_block{ width:32.6%; height:246px;margin-bottom:1%;}
+.c_mr_pre07{margin-right: 0.5%;}
+
+

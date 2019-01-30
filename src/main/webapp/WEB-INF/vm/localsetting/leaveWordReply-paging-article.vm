@@ -1,0 +1,10 @@
+
+#set($messages = $pageInfo.data)
+
+#parse("/localsetting/leaveWordReplyInfo-list.vm")
+
+<script type="text/javascript">
+	$(function() {
+		$('#leaveWord-message-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

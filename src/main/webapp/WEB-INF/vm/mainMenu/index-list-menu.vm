@@ -1,0 +1,12 @@
+#foreach($listMenu in $!listMenuSys)
+ #if($listMenu.parentId==0)
+  <ul class="c_tab2 c_tab_top" tag="menu-row" oid="$listMenu.id" id="$listMenu.needShow" index="$listMenu.index">
+      <tr>
+	      <td><li class="c_tab_main1"><div><input type="text" class="c_tab_sort" tag="tag_sort_id" index="$listMenu.index" id="indexInput_id" name="indexInput" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"   value="$listMenu.index" oid="$listMenu.id"></div></li></td>
+	      <td><li class="c_tab_main2"><div class="c_mr10 c_omit">$listMenu.name</div></li></td><!-- $listMenu.id $listMenu.index -->
+	      <td><li class="c_tab_main3"><div onclick="needShow($listMenu.id,$listMenu.needShow,$listMenu.index,'$listMenu.name');" tag="tag_id" id="$listMenu.needShow" class="c_tab_state c_state_active">$listMenu.needShow</div></li></td>
+	      <td><li class="c_tab_main4"><div class=""><a href="#" tag="up-action" oid="$listMenu.id" id="$listMenu.needShow" index="$listMenu.index" class="c_mr10">向上</a><a tag="down-action" oid="$listMenu.id" id="$listMenu.needShow" index="$listMenu.index" href="#">向下</a></div></li></td>
+      </tr>
+  </ul> 
+ #end
+#end

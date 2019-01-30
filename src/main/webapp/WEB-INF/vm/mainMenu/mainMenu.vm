@@ -1,0 +1,30 @@
+#parse("/common/header.vm")
+ <!-- sidebar end-->
+ <div class="c_main" id ="mainMenuTable_id"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span>设置</span> > <span>栏目</span> > <span>主菜单设置</span></p>
+      </h3>
+    </div>
+    <!--location line end-->   
+   <div class="c_tab_block"> 
+   <tr>
+      <ul class="c_tab1">
+      <td><li class="c_tab_main1">排序</li></td>
+      <td><li class="c_tab_main2">菜单名</li></td>
+      <td><li class="c_tab_main3">是否显示</li></td>
+      <td><li class="c_tab_main4">排序</li></td>
+      </ul>
+   </tr>
+	   	<div id="menuList">
+	  	  #parse("/mainMenu/index-list-menu.vm")
+	    </div>
+    </div><!--c_tab_block-->
+    <div class="c_fl c_tool c_mt15 c_mb15"><a href="#" id="seveOrder">保存排序</a><div class="c_fl c_f12 c_mt5 c_color_gay"><i class="c_color_red c_mr5">*</i>菜单设置完成后，下次登录生效！</div></div>
+    
+  </div><!--c_list end-->
+  </div><!-- main end-->
+  <link href="${rc.getContextUrl('/css/setup.css')}" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="${rc.contextPath}/js/jquery.nicescroll.js"></script>
+  <script src="${rc.contextPath}/js/mainMenu/mainMenu.js"></script>
+#parse("/common/footer.vm")

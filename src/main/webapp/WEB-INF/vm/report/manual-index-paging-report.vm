@@ -1,0 +1,10 @@
+
+#set($manuals = $pageInfo.data) 
+
+#parse("/report/manual-index-list-report.vm")
+
+<script type="text/javascript">
+	$(function() {
+		$('#report-manual-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

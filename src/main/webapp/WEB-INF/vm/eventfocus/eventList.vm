@@ -1,0 +1,54 @@
+
+<ul class="c_tab1">
+  <li class="c_tab_th1"><input type="checkbox" class="c_check" name="allcheck" value="0"  />选择</li>
+  <li  class="c_tab_th2">排序</li>
+  <li  class="c_tab_th3">事件名称</li>
+  <li class="c_tab_th4">分类</li>
+  <li  class="c_tab_th5">关键字</li>
+  <li class="c_tab_th6">状态</li>
+  <li  class="c_tab_th7">事件介绍</li>
+  <li class="c_tab_th8">来源</li>
+  <li class="c_tab_th9">操作</li>
+</ul>
+  #foreach($beanVO in $!page.data)
+   #set ($colnum = $velocityCount % 2) 
+
+<ul class="c_tab2 c_tab_top">
+<li class="c_tab_th1"><div><input type="checkbox" class="c_check" name="subcheck" value="${beanVO.id}"  id="sub_${beanVO.id}" /></div></li>
+<li  class="c_tab_th2"><div><input type="text" class="c_tab_sort" value="1"></div></li>
+<li  class="c_tab_th3">
+<div class="">
+<div class="c_fl c_sprite c_icon_open c_mt10 c_mr5"></div>
+<div class="c_omit c_mr5">
+<a href="${rc.getContextUrl('/incident/presentSituation.htm?id=')}$beanVO.id" >$!beanVO.name</a>
+</div>
+</div>
+</li>
+<li class="c_tab_th4"><div class="c_mr10 c_omit">$!beanVO.custDataCatNames</div></li>
+<li class="c_tab_th5"><div class="c_mr10 c_omit">$!beanVO.keywords</div></li>
+<li class="c_tab_th6">
+        #if($!beanVO.status == 0)
+         持续
+        #else
+         结束
+        #end
+</li>
+<li  class="c_tab_th7"><div class="c_omit">$!beanVO.content</div></li>
+<li class="c_tab_th8"><div class="c_omit">#if($beanVO.createrId == 0) 系统创建 #else $!{beanVO.creatorName} #end</div></li>
+<li class="c_tab_th9"><div>
+<a href="${rc.getContextUrl('/incident/addEvent.htm?id=')}${beanVO.id}" class="c_mr10" >编辑</a>
+<a  class="c_color_gay" href="javascript:void(0);" onclick="eventSetCategory(${beanVO.id});">分类</a></div></li>
+</ul>  
+
+  #end   
+
+
+<script type="text/javascript">
+<!--
+  $(function () {   
+      //调用全选插件  
+      $.fn.check({ checkall_name: "allcheck", checkbox_name: "subcheck" }) ;
+      $("#event-paging").paging("setInfo", $!page.pageNo, $!page.pageSize, $!page.totalPages, $!page.totalRecords); 
+  });	
+//-->
+</script>

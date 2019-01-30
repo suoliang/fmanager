@@ -1,0 +1,134 @@
+#parse("/common/header.vm")
+
+<link href="${rc.contextPath}/css/setup.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript"
+	src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+<!-- 			<h3 class="c_name">用户管理</h3> -->
+			<p class="c_location">
+				<i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span
+					href="javaScript:void(0);">设置</span><span>></span><span
+					href="#">个人信息</span>
+			</p>
+		</div>
+		<!--location line end-->
+	  <div class="c_search_box c_border_botno">
+      <div class="c_fl"><span>编辑信息</span></div>
+      <div class="c_fr"><a class="c_search_link c_search_sys2 c_fl" href="javaScript:history.go(-1)">返回</a></div>
+    </div>
+
+		    <div class="c_nav_pag">
+      <div><a href="#" name="navi" rel="navi1" onClick="return changeTab(this);" #if($!updateType!="updatePwd") class="nav_pag_active"  #end>个人信息</a></div>
+      <div><a href="#" name="navi" rel="navi2" #if($!updateType=="updatePwd") class="nav_pag_active"  #end onClick="return changeTab(this);">修改密码</a></div>    
+    </div> 
+   <div class="c_tab_block" id="navi1"  #if($!updateType=="updatePwd") style="display:none;" #end>
+    <div class="c_cb c_tab_list"><div class="c_fl c_list_name c_tr">登录账号：</div><div class="c_fl c_ml5 c_mt5">$!user.username</div><input type="text" id="username" class="input c_w200" value="$!user.username" style="display: none;"></div>
+    <div class="c_cb c_tab_list"><div class="c_fl c_list_name c_tr">真实姓名：</div><div class="c_fl c_ml5"><input type="text" id="realName" value="$!user.realName" class="input c_w200" maxlength="25" title="必须小于25个字符！"></div><div class="c_fl c_ml5 c_color_red">请输入您的真实姓名</div></div>
+    <div class="c_cb c_tab_list"><div class="c_fl c_list_name c_tr">手机：</div><div class="c_fl c_ml5"><input type="text" id="mobile" value="$!user.mobile" class="input c_w200" maxlength="15" title="必须小于15个字符！"></div></div>
+    <div class="c_cb c_tab_list"><div class="c_fl c_list_name c_tr">邮箱：</div><div class="c_fl c_ml5"><input type="text" id="email"  value="$!user.email" class="input c_w200" maxlength="50" title="必须小于50个字符！"></div></div>
+    <div class="c_cb c_tab_list c_over_hidden c_mb5"><div class="c_fl c_list_name c_tr">备注：</div><div class="c_fl c_ml5"><textarea id="remark"  class="c_textarea c_w800 c_h100">$!user.remark</textarea></div></div>
+    <div class="c_cb c_change_butbg"><div class="c_change_but c_change_ml105"><a href="javaScript:void(0);" onclick="updateUser($!user.id,1)" class="c_but_ok c_mr10">确定</a><a href="javaScript:history.go(-1);" class="c_but_no">取消</a></div></div>
+  </div>
+  <div class="c_tab_block" id="navi2" #if($!updateType!="updatePwd") style="display:none;" #end>
+    <div class="c_cb c_tab_list"><div class="c_fl c_list_name c_tr">原始密码：</div><div class="c_fl c_ml5"><input type="password" id="passwordOld" class="input c_w200"></div></div>
+    <div class="c_cb c_tab_list"><div class="c_fl c_list_name c_tr">新密码：</div><div class="c_fl c_ml5"><input type="password"  id="passwordNew1" class="input c_w200" maxlength="20"></div><div class="c_fl c_ml5 c_color_red">必须同时包含字母和数据，长度6~20，不能和登陆账号相同</div></div>
+    <div class="c_cb c_tab_list c_over_hidden c_mb5"><div class="c_fl c_list_name c_tr">确认密码：</div><div class="c_fl c_ml5"><input type="password" id="passwordNew2"  class="input c_w200"></div></div> 
+    <div class="c_cb c_change_butbg"><div class="c_change_but c_change_ml105"><a href="javaScript:void(0);"  onclick="updateUser($!user.id,2)" class="c_but_ok c_mr10">确定</a><a href="javaScript:history.go(-1);" class="c_but_no">取消</a></div></div>
+  </div>
+		<!--c_tab_block-->
+	</div>
+</div>
+<!--c_alt_box-->
+<script type="text/javascript">
+var updateUser = function(userid,type){
+	var fun = function(msg) {
+		if (msg.result == "success") {
+			window.location.href="${rc.contextPath}/userMange/showUserInfo.htm";
+		} else {
+			layer.alert(msg.result);
+		}
+	}
+	var passwordOld = $.trim($("#passwordOld").val());
+	var passwordNew1 =$.trim($("#passwordNew1").val());
+	var passwordNew2 =$.trim($("#passwordNew2").val());
+	var realName = $.trim($("#realName").val());
+	var mobile = $.trim($("#mobile").val());
+	var email = $.trim($("#email").val());
+	var remark = $.trim($("#remark").val());
+	
+	if(type=="2"){
+		if(passwordOld==""){
+			layer.alert("原始密码不能为空");
+			return false;
+		}
+		if(passwordNew1==''||passwordNew1==''){
+			layer.alert("新密码不能为空");
+			return false;
+		}
+		if(passwordNew2==''||passwordNew1==''){
+			layer.alert("确认密码不能为空");
+			return false;
+		}
+		if(passwordNew2!=passwordNew1){
+			layer.alert("两次密码输入不一致");
+			return false;
+		}
+		if(passwordOld==passwordNew1){
+			layer.alert("新密码不能和旧密码相同");
+			return false;
+		}
+		 //必须包含数字和字母正则表达式
+	 	 var reg_pwd =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+			
+			if(!reg_pwd.test(passwordNew1)){
+				layer.alert("密码格式不符");
+				return false;
+			}
+			
+			var userName =$.trim($("#username").val());
+			if(passwordNew1==userName){
+				layer.alert("密码不能和登录账号相同");
+				return false;
+			}
+	}else{
+		if(realName==''){
+			layer.alert("真实姓名不能为空");
+			return false;
+		}
+		
+// 		if(mobile==''){
+// 			layer.alert("手机号码不能为空");
+// 			return false;
+// 		}
+		if(email==''){
+			layer.alert("邮箱不能为空");
+			return false;
+		}
+		if(mobile!=''){
+		 var reg = /^0?1[0-9][0-9]\d{8}$/;
+		 if (!reg.test(mobile)) {
+			 layer.alert("手机号格式不正确");
+			 return false;
+		 }
+		}
+		var reg_email =/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+		 if (email!=""&&!reg_email.test(email)) {
+			 layer.alert("邮箱格式不正确");
+			 return false;
+		 }
+	}
+	
+
+	
+	
+	ajaxCommFun("${rc.contextPath}/userMange/updateUserInfo.htm", "userId="+userid+"&passwordOld="+passwordOld+"&passwordNew="+passwordNew1+"&realName="+realName+"&mobile="
+			+mobile+"&email="+email+"&remark="+remark+"&updateType="+type, fun);
+}
+</script>
+#parse("/common/footer.vm")
+
+
+

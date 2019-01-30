@@ -1,0 +1,35 @@
+#foreach($keyword in $keywords)
+<div tag="formatKeyword-line-item" class="c_editKey_list c_border_bot">
+	<input type="hidden" name="keywords" value="$keyword.keyword" />
+	<div class="c_fl c_key_num c_ml10 c_f12">$velocityCount、</div>
+	<div class="c_fr c_editKey_del" tag="del-keyword"></div>
+	<div class="c_ml30">
+		<div class="c_f12 c_key_summary" size="$keyword.countSize" tag="formatKeyword">$keyword.keyword</div>
+	</div>
+</div>
+#end
+<div tag="input_keyword-form"></div>
+
+<script type="text/javascript">
+(function() {
+	var formatKeywords = std.findTag('formatKeyword');
+	$(formatKeywords).each(function(i, item) {
+		var keywords = $(item).text().split("-");
+		var arbitrarilyKeyword = $.trim(keywords[0].split("(")[1]);
+		var excludedKeyword = "";
+		if (util.isNotBlank(arbitrarilyKeyword)) {
+			arbitrarilyKeyword = "(" + arbitrarilyKeyword;
+		}else{
+			arbitrarilyKeyword = "";
+		}
+		if (util.isNotBlank(keywords[1])) {
+			excludedKeyword = keywords[1].replace('(', '').replace(')', '');
+			excludedKeyword = excludedKeyword.replace(new RegExp('\\|', "gm"), '');
+		}
+		$(this).append('<input type="hidden" tag="custtopic_keyword-item" value="' + $.trim(keywords[0].split("(")[0]) + '"/>')//
+			   .append('<input type="hidden" tag="custtopic_arbitrarilyKeyword-item" value="' + arbitrarilyKeyword + '"/>')//
+               .append('<input type="hidden" tag="custtopic_excludedKeyword-item" includeKeyword="'+$.trim(keywords[0])+'" value="' + excludedKeyword + '"/>');
+	});
+	
+})();
+</script>

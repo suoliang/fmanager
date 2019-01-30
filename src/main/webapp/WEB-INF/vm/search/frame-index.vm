@@ -1,0 +1,123 @@
+
+#set($pagecss = ["search.css"])
+<link href="${rc.contextPath}/css/setup.css" rel="stylesheet" type="text/css" />
+
+#parse("/common/header.vm")
+
+<div class="c_main"> 
+  <div class="c_list c_mr15">
+   	<div class="c_title">
+		<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0);">搜索</span></p>
+		</h3>
+	</div>
+    <!--location line end-->   
+   <div class="c_search_box">
+        <div class="c_search_warp">
+              <div class="c_chang_name c_mb10"><a href="${rc.contextPath}/search/index.htm">站内</a><a href="${rc.contextPath}/CloudSearch/index.htm" class="active">全网</a></div>
+              <div class="c_search_tab c_cb">
+                <div class="c_search_inpnt c_fl">
+              	 #set($keyword = $keyword)
+              	
+               	 <input type="text" id="keywordInput" value="$!keyword">
+               	 
+                </div><div class="c_search_but c_fl" tag="article-search" oid="article-search">搜索</div>
+              </div>  
+              
+			  <!-- 关键字 -->
+			  <input type="hidden" id="keyword" name="keyword" value=""/>
+              <form id="search-advanced">
+					<!-- 引擎 -->
+					<div tag="engineId-form" oid="spiderId">  
+						<input type="hidden" id="spiderId"/>
+					</div>
+				</form>	
+              
+               <div class="c_summary_tab c_cl">
+                    <div class="c_tab_title c_fl c_w70">搜索引擎：</div>
+                    <div class="c_tab_rg c_ml70">
+                    <div class="c_tab_con1">
+                    	 <div class="c_tab_choice c_fl" tag="option-itemAll" scope="option" selct="false" oid="0">
+                    	 	<div class="c_sprite c_choice_icon c_fl" type="checkbox" oid="0" value="0"></div>
+                    	 	<div class="c_fl c_choice_tag" type=metaname>全部</div>
+                    	 	<div class="c_cb"></div>
+                    	 </div>
+                  		 #set($engine = $searchShowMap)
+                  		 #set($ids = $defaultMap)
+						 #foreach($item in $engine.entrySet())
+								 	#if($ids.get($item.key))  
+		                      		 <div class="c_tab_choice c_fl" tag="option-item" scope="option" selct="true" oid="$item.key">
+		                       	 			<div class="c_sprite c_choice_icon c_fl active" type="checkbox" tag="btn-select-engine" oid="$item.key" value="$item.key"></div>
+		                       	 			<div class="c_fl c_tag_active" type=metaname>$item.value</div>
+		                       	 			<div class="c_cb"></div>
+		                       		 </div>
+								 	#else
+		                      		 <div class="c_tab_choice c_fl" tag="option-item" scope="option" selct="false" oid="$item.key">
+		                       	 			<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="btn-select-engine" oid="$item.key" value="$item.key"></div>
+		                       	 			<div class="c_fl" type=metaname>$item.value</div>
+		                       	 			<div class="c_cb"></div>
+		                       		 </div>
+		                       		#end 
+						 #end 
+                    </div>
+                    </div>
+               </div>             
+        </div> <!--c_search_warp end-->     
+    </div><!--c_search_box--> 	
+    <div class="c_mt15"></div>
+    
+    	<div class="c_nav_pag">
+    		#set($engine = $searchShowMap)
+            #set($ids = $defaultMap)
+            #set($searchUrls = $searchUrlMap)
+			#foreach($item in $engine.entrySet())
+		      
+		      <div tag="tab-item" scope="tab" #if($item.key !=1)selct="false" #else selct="true" #end oid="$item.key" #if($item.key !=1)style="display:none;"#end>
+		      	<a href="#" name="navi" rel="navi$item.key" onClick="return changeTab(this);" #if($item.key ==1)class="nav_pag_active"#end>$item.value</a>
+		      </div>
+		      
+			#end
+	    </div>
+	    <div class="c_nav_bock"></div>
+	    
+	    #set($engine = $searchShowMap)
+        #set($ids = $defaultMap)
+        #set($searchUrls = $searchUrlMap)
+		#foreach($item in $engine.entrySet())
+			
+	      <div class="c_tab_block" id="navi$item.key" tag="tab-content-item" scope="tab-content" #if($item.key !=1)selct="false" #else selct="true" #end oid="$item.key" #if($item.key !=1)style="display:none;"#end>
+		      <iframe id="frame$item.key" tag="iframe-tag" title="$searchUrls.get($item.key)" src="" style="width:100%;height:950px;" frameBorder="0">
+				
+		  	  </iframe> 
+		  </div>
+			
+		#end
+	    <!--切换网页End-->
+	
+	    <div class="c_cb"></div>
+    
+	   	<!-- <iframe id="frame" src=""  style="width:100%;height:950px;" frameBorder="0">
+	
+	  	</iframe> -->
+	
+	</div>
+</div>
+<script>
+$(function() {
+	
+	$(".c_cont").height($(".c_main").height());
+	
+	//${rc.contextPath}/CloudSearch/toFrameList.htm?urlLeft=&urlRight=$!{urlRight}//src链接
+	$("#keyword").val($.trim($("#keywordInput").val()));
+	/**参数中中文乱码问题处理*/
+	var params = encodeURI(encodeURI($("#keyword").val()));
+	#set($searchUrls = $searchUrlMap)
+	#foreach($searchUrl in $searchUrls.entrySet())
+		$('#frame$searchUrl.key').attr('src', '${rc.contextPath}/CloudSearch/toFrameList.htm?urlLeft=' +encodeURI('$searchUrl.value'+$("#keyword").val() + #if($searchUrl.key == 10) '/1/' #else '' #end) 
+				+ '&urlRight=' + encodeURI('$!{urlRight}'));
+	#end
+}); 
+</script>
+<script type="text/javascript" src="${rc.contextPath}/js/search/cloudSearch-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/search/cloudSearch-index.js"></script>
+
+#parse("/common/footer.vm")

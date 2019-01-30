@@ -1,0 +1,10 @@
+
+#set($rules = $pageInfo.data)
+
+#parse("/localsetting/warning-index-list-rule.vm")
+
+<script type="text/javascript">
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

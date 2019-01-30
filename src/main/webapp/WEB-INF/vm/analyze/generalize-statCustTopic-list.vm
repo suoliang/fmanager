@@ -1,0 +1,51 @@
+<div class="c_ml10 c_mr10" id="c_an2">
+<!-- #foreach($statCustTopic in $statCustTopics) -->
+<!-- 	#if($velocityCount % 4 == 1) -->
+<!-- 	<div class="c_an_block"> -->
+<!-- 	#end -->
+<!-- 		<div class="c_f12 c_an_special c_fl"> -->
+<!-- 			<div class="c_omit c_anSp_list c_fl c_ml10">$!tag.getCustTopicName($statCustTopic.topicId)</div> -->
+<!-- 			<a href="javascript:void(0);" class="c_anSp_num c_fl c_color_blue c_ml5" tag="custTopic-goto-searth" oid="$statCustTopic.topicId">($!statCustTopic.count)</a> -->
+<!-- 			<div class="c_cb"></div> -->
+<!-- 		</div> -->
+<!-- 	#if($velocityCount % 4 == 0 || !$foreach.hasNext) -->
+<!-- 	</div> -->
+<!-- 	#end -->
+<!-- #end -->
+	<table class="c_f12 c_chart_tab c_mt10 c_mb10">
+		#foreach($entry in ${statCustTopicsByMedia.entrySet()})
+		<tr class="#if($velocityCount == 1) c_chart_thead #end">
+			#if($velocityCount == 1)
+				<td></td>
+				<td>总数</td>
+				#foreach($bean in $medias)
+				<td>$bean.name</td>
+				#end
+			#elseif($velocityCount != 1)
+				#set($topicId = 0)
+				#set($topicName = $!tag.getCustTopicName($topicId.parseInt($entry.key.split('-')[0])))
+				<td title="$topicName">$topicName</td>
+				<td>
+					<a href="javascript:void(0);" class="c_anSp_num c_fl c_color_blue c_ml5" tag="custTopic-goto-searth" oid="$entry.key.split('-')[0]">$entry.key.split('-')[1]</a>
+				</td>
+				#foreach($data in $entry.value.entrySet())
+				<td>$data.value</td>
+				#end
+			#end
+		</tr>
+			#if($velocityCount == 1)
+				#set($topicId = 0)
+				#set($topicName = $!tag.getCustTopicName($topicId.parseInt($entry.key.split('-')[0])))
+				<tr>
+				<td title="$topicName">$topicName</td>
+				<td>
+					<a href="javascript:void(0);" class="c_anSp_num c_fl c_color_blue c_ml5" tag="custTopic-goto-searth" oid="$entry.key.split('-')[0]">$entry.key.split('-')[1]</a>
+				</td>
+				#foreach($data in $entry.value.entrySet())
+				<td>$data.value</td>
+				#end
+				</tr>
+			#end
+		#end
+	</table>
+</div>

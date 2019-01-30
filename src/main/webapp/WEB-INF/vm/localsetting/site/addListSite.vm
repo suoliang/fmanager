@@ -1,0 +1,46 @@
+#parse("/common/header.vm")
+
+<script language='javascript'>
+	function returnSite(){
+		document.location = '${rc.getContextUrl('/setting/querySiteListByPage.htm')}'
+	}
+	function submit(){
+		var siteName = $('#site_id').val();//名称
+		var siteaPlace=$('#site_name').val();//地址
+		var siteRemarks=$('#siteRemarks_id').val();//备注
+		window.location.href='${rc.getContextUrl('/setting/addSite.htm')}?siteName='+siteName+"&siteaPlace="+siteaPlace+"&siteRemarks="+siteRemarks
+	}
+</script>
+
+<!-- <div class="c_alt_box c_w700 c_h450">
+ <form action="${rc.getContextUrl('/setting/addSite.htm')}" id="addSiteForm" method="post">
+	  <div class="c_alt_tit"><i class=" c_sprite c_tit_icon02"></i><span>登记新站点</span>
+	   		 <ul class="c_fr"><li><a href="#" class="c_sprite c_tit_close"></a></li></ul>
+	  </div>
+	  <div class="c_alt_con c_h420 c_pr">
+		   <div class="c_cb c_m10 c_f12">
+		     <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr">站点名称：</div><div class="c_fl c_ml5 c_form_text">&nbsp;<input type= "text" id="site_id" name="siteName"/></div><div class="c_fl c_ml5 c_form_msg c_color_red">分类名称不能为空</div></div>
+		    <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr">站点地址：</div><div class="c_fl c_ml5 c_form_text">&nbsp;<input type= "text"  id = "site_name"name="siteaPlace"/></div><div class="c_fl c_ml5 c_form_msg c_color_red">站点地址不能为空</div></div>
+		     <div class="c_cb c_alt_form c_mt5"><div class="c_fl c_form_name c_tr">备注：</div><div class="c_fl c_ml5 c_form_text"><textarea class="c_form_word c_textarea" id="siteRemarks_id" name="siteRemarks"></textarea></div></div>
+		   </div>c_alt_content
+   		<div class="c_alt_but c_w700 c_change_butbg"><div class="c_change_but c_change_but01"><a href="javascript:submit();" class="c_but_ok c_mr10">确定</a><a href="javascript:returnSite();" class="c_but_no">取消</a></div></div>
+ 	 </div>c_alt_con
+ </form>
+</div> --><!--c_alt_box-->
+
+<!-- 
+<form action="${rc.getContextUrl('/setting/addSite.htm')}" id="addSiteForm" method="post">
+	
+	站点名称:&nbsp;<input type= "text" name="siteName"/>
+	<br>
+	站点地点:&nbsp;<input type= "text" name="siteaPlace"/>
+	<br>
+	备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:<input type="text" name = "siteRemarks" />
+	<br>
+	<br>
+ 	<input type="submit" value="确定">
+ 	<input type="button" onclick="returnSite();" value="取消">
+ 	
+</form> -->
+
+#parse("/common/footer.vm")

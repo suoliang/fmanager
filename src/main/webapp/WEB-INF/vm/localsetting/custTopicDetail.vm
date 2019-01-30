@@ -1,0 +1,85 @@
+
+#set($pagecss = ["setup.css"])
+
+#parse("/common/header.vm")
+
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/common/layer/layer.min.js')}"></script>
+
+<script type="text/javascript">
+
+ var sys_globePath="${rc.contextPath}";
+ 
+</script>
+
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<p class="c_location">
+				<i class="c_loc_icon c_sprite"></i><span>当前位置：</span> 
+				<span href="${rc.getContextUrl('/custtopic/list.htm')}">设置</span><span> > </span> 
+				<span href="${rc.getContextUrl('/custtopic/list.htm')}">专题</span><span> > </span> 
+				<span href="#">专题详情</span>
+			</p>
+			</p>
+		</div>
+		<div class="c_search_box">
+			<div class="c_fl">
+				<span>专题详情</span>
+			</div>
+			<div class="c_fr">
+				#if($beanVO.createrId == $LOGIN_USER.id && $beanVO.status != 0)
+				<a href="${rc.getContextUrl('/custtopic/inputCustTopic.htm?id=')}$!beanVO.id" class="c_search_link c_search_sys1 c_fl c_mr10">编辑</a> 
+				#end
+				<a href="${rc.contextPath}/custtopic/list.htm#if($request.getParameter('pageNo'))?currentpage=$request.getParameter('pageNo')#end" class="c_search_link c_search_sys2 c_fl">返回</a>
+			</div>
+		</div>
+		<div>
+			<div class="c_fl c_tab_block c_setupmsg_bck">
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">专题名称：</div>
+					<div class="c_list_word">$!beanVO.name</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">所属专题：</div>
+					<div class="c_list_word">#if($!beanVO.parentId == 0) 顶级专题 #else $!beanVO.parentBean.name #end</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">包含关键词：</div>
+					<div class="c_list_word">$!beanVO.keyword</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">不包含关键词：</div>
+					<div class="c_list_word ">$!beanVO.excludedKeyword</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">专题描述：</div>
+					<div class="c_list_word">$!beanVO.remark</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">创始人：</div>
+					<div class="c_list_word">$!creator</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">创建时间：</div>
+					<div class="c_list_word">$!date.format('yyyy-MM-dd',${beanVO.createTime})</div>
+				</div>
+			</div>
+			<div class="c_setupmsg_key c_border_bot">
+				<div class="c_pt10 c_pb10 c_pl10 c_editKey_tit c_f12">关键词</div>
+				<div class="c_setupmsg_con">
+					#foreach($keyword in $!keywords)
+					<div class="c_editKey_list c_border_bot">
+						<div class="c_fl c_key_num c_ml10 c_f12">$velocityCount、</div>
+						<div class="c_ml30">
+							<div class="c_f12">$!keyword.word</div>
+						</div>
+					</div>
+					#end
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+#parse("/common/footer.vm")

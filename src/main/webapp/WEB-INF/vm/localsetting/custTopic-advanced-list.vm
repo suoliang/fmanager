@@ -1,0 +1,54 @@
+
+##客户专题 1级目录列表
+    <ul class="c_tab1">
+      <li class="c_tab_pro1">
+       ##<input type="checkbox" class="c_check" name="allcheck" value="0"  />
+      </li>
+      <li  class="c_tab_pro2">排序</li>
+      <li  class="c_tab_pro3">专题名称</li>
+      <li class="c_tab_pro4">关键词规则</li>
+      <li class="c_tab_pro5">专题状态</li>
+      <li  class="c_tab_pro6">创建人</li>
+      <li class="c_tab_pro7">创建时间</li>
+      <li class="c_tab_pro8">操作</li>
+    </ul>
+#foreach($beanVO in $!page.data)
+    #set ($colnum = $velocityCount % 2) 
+    <ul class="c_tab2 c_tab_top" id="id_10_${beanVO.id}" level="10" tag="item-topic" oid="$!beanVO.id" >
+    <li class="c_tab_pro1"><div>&nbsp;
+      ##<input type="checkbox" class="c_check" name="subcheck" value="${beanVO.id}"  id="sub_${beanVO.id}" />
+    </div></li>
+    <li  class="c_tab_pro2"><div><input type="text" class="c_tab_sort" id="index_$!{beanVO.index}"  value="$!{beanVO.index}"
+             onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'0')}"  
+             onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'0')}"
+             onblur="indexBlur(${beanVO.id},this);" /></div></li>
+    <li  class="c_tab_pro3">
+    <div class="">
+    <div class="c_fl c_sprite c_icon_open c_mt10 c_mr5"  id="kaiguan_${beanVO.id}_10" onclick="querySubListByParentId(${beanVO.id},this,10,'p${beanVO.id}_');"></div>
+    <div class="c_omit c_mr5" title="$!{beanVO.name}" >$!{beanVO.name}</div>
+    </div>
+    </li>
+    <li class="c_tab_pro4"><div class="c_mr10 c_omit" title="$!{beanVO.keyword}">$!{beanVO.keyword}</div></li>
+    <li class="c_tab_pro5" tag="info-topic-status" oid="$!beanVO.id">
+<!--             #if($!beanVO.status == 1) -->
+<!--             <div class="c_tab_state" #if($beanVO.createrId == $LOGIN_USER.id) onclick="changeCustTopicStatus(${beanVO.id},0);" #else style="color: #808080;border-color: #808080;" #end>可用</div> -->
+<!--             #else -->
+<!--             <div class="c_tab_state" #if($beanVO.createrId == $LOGIN_USER.id) onclick="changeCustTopicStatus(${beanVO.id},1);" #else style="color: #808080;border-color: #808080;" #end>不可用</div> -->
+<!--             #end -->
+		    #if($!beanVO.status == 1)
+            <div class="c_tab_state" #if($beanVO.createrId == $LOGIN_USER.id) onclick="changeCustTopicStatus(${beanVO.id},0);" #else onclick="showMessage();" #end>可用</div>
+            #else
+            <div class="c_tab_state" #if($beanVO.createrId == $LOGIN_USER.id) onclick="changeCustTopicStatus(${beanVO.id},1);" style="color: #808080;border-color: #808080;" #else onclick="showMessage();" #end>不可用</div>
+            #end
+    </li>
+    <li  class="c_tab_pro6"><div class="c_omit">#if($beanVO.createrId && $beanVO.createrId != 0)$tag.getRealName($beanVO.createrId)#else系统#end</div></li>
+    <li class="c_tab_pro7"><div class="c_omit">$!date.format('yyyy-MM-dd',${beanVO.createTime})</div></li>
+    <li class="c_tab_pro8"><div>
+	    <a href="javascript:gotoTopicDetail($!beanVO.id);" class="c_mr10 c_color_deeporange">详情</a>
+	    ##<a href="#" class="c_mr10 c_amore" onclick="deleteCustTopic(${beanVO.id});">删除</a>
+	    #if($beanVO.createrId == $LOGIN_USER.id || $isAdmin)
+	    <a href="#" class="c_color_gay" onclick="shareCustTopic(${beanVO.id});" tag="btn-share-topic" oid="$!beanVO.id" #if($beanVO.status == 0)style="display: none;"#end>共享</a>        
+		#end
+    </div></li>
+    </ul>              
+#end

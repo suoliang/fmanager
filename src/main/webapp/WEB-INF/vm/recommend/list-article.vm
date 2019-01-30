@@ -1,0 +1,13 @@
+<div id="all-list-article">
+#foreach($bean in $articles)
+     <div class="c_tab_block c_mr15 #if($velocityCount % 2 == 0)c_bg_ye#end"> 
+      <ul class="c_tab2 c_cb">
+      <li class="c_tab_th1 c_omit c_th1_tit"><span class="c_ml15"></span>
+      <a  class="c_atit c_alert_btn" tag="article-link" oid="$!bean.id">$!bean.title</a></li>
+      <li  class="c_tab_th2 c_omit">$!bean.columnName</li>
+      <li  class="c_tab_th7 c_omit"> $!date.format("yyyy-MM-dd HH:mm:ss",$!bean.createTime)<i class="c_sprite c_sort c_ml5"></i></li>
+      </ul>     
+      <div class="c_tab3 c_cb c_ml15 c_mr15 c_omit">$!bean.contentWeb</div> 
+     </div>
+     #end
+</div>

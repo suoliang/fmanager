@@ -1,0 +1,120 @@
+<div class="kp_chart_big c_pr">
+	<div class="c_fl c_chart01">
+		<div class="c_chart01_num">$!total</div>
+		<div class="c_chart_word c_f12">用户今日数据</div>
+		<div class="c_chart01_num">$!platformTotalNumToday</div>
+		<div class="c_chart_word c_f12">平台今日采集</div>
+	</div>
+	<div id="situation-pie-chart-big" class="c_fl c_chart02"></div>
+	<div class="c_fl c_chart03 c_f12 c_pa">
+		<dl>
+			<dt class="c_chart_word c_w130">今日舆情来源分布</dt>
+			#foreach($key in ${situation.keySet()})
+			<dd>
+				<div class="c_chart_c c_chart_c$velocityCount c_fl">
+					<div></div>
+				</div>
+				<div class="c_omit">
+					##包含相似文，和HomepageSupport查询固定的值相反
+					$const.getName("MediaType", "$key")<i style="cursor: pointer;" onclick="util.go('/search/index.htm?mediaType=$key&timeType=1&filterSimilar=true');" title="$situation.get($key)">$situation.get($key)</i>篇
+				</div>
+			</dd>
+			#end
+		</dl>
+		
+	</div>
+</div>
+<script type="text/javascript">
+(function() {
+
+	var situation = [];
+	#foreach($key in ${situation.keySet()})
+	situation['$key'] = '$const.getName("MediaType", "$key")';
+	#end
+
+	var legendData = [];
+	var chartData = [];
+	$($!data).each(function(i, item) {
+		legendData.push(situation[item.key]);
+		if(item.value > 0) {
+			chartData.push({
+				name : situation[item.key],
+				value : item.value
+			});
+		}
+	});
+	
+	require.config({
+		paths : {
+			echarts : '${rc.contextPath}/js/common/echarts/'
+		}
+	});
+	require([ 'echarts', 'echarts/chart/pie' // 使用饼图就加载pie模块，按需加载
+	  		], function(ec) {
+				var data = $!data;
+	  			// 基于准备好的dom，初始化echarts图表
+	  			var pie = ec.init(document.getElementById('situation-pie-chart-big'));
+	  	 		pie.setOption({
+  	 			noDataLoadingOption : {
+ 					text: '暂无数据',
+ 					effect:'bubble',
+ 					effectOption : {
+ 						backgroundColor:"#fff",
+ 	 					effect: {
+ 	 						n: 10
+ 	 					}
+ 					},
+ 					textStyle: {
+ 						fontSize: 20,
+ 						fontWeight: 'bold'
+ 					}
+  	 		   	}, 
+  	 			tooltip : {
+	 				trigger : 'item',
+	 				formatter : "{b}:{c}",
+	 				x : 'right',
+	 				y : 'top'
+	 			},
+	 			legend : {
+	 				data : legendData,
+	 				x : 2000,
+	 				y : 2000
+	 			},
+	 			calculable : true,
+	 			color : [ '#59CDCC', '#5F88D0', '#5CBC85', '#F6AB8D', '#BADD5C', '#F06EB1', '#5FC5EB', '#E5DE66', '#EB5F5F'  ],
+	 			series : [ {
+	 				type : 'pie',
+	 				radius : [ '50%', '80%' ],
+	 				center : [ '50%', '55%' ],
+					itemStyle:{
+				        normal:{
+				            label:{
+				                position : 'inner',
+				                show: true,
+				                formatter: function (params,ticket,callback) {
+				                	return (params.percent - 0).toFixed(0) + '%'
+				                }
+				              },
+		                  labelLine :{show:false}
+		                },
+		                emphasis : {
+	 						label : {
+	 							show : true,
+	 							formatter : "{d}%",
+	 							textStyle : {
+	 								fontSize : '10',
+	 								fontWeight : 'bold',
+	 								color : '#000033'
+	 							}
+	 						}
+	 					},
+	 					borderWidth : 0
+		            },
+	 				data : chartData
+	 			} ]
+	 		});
+	});
+	
+	
+})();
+</script>

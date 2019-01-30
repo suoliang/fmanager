@@ -1,0 +1,27 @@
+ #foreach($article in $articles)
+      <div id="u59" class="ax_文本">
+        <img id="u59_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u60" class="text">
+          <p><span>$!esc.xml($!article.abContent)</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u61" class="ax_文本">
+        <img id="u61_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u62" class="text">
+          <p><span>2015年4月10日 - 《2015年纪念五四运动多少周年》由青年节网发布,关于《2015年纪念五四运动多少周年》更多资料,实用资料,资料</span><span>。。。</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (形状) -->
+      <div id="u63" class="ax_文本">
+        <img id="u63_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u64" class="text">
+          <p><span>来</span><span>源：百度搜索</span></p>
+        </div>
+      </div>
+#end

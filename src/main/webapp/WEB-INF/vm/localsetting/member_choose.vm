@@ -1,0 +1,44 @@
+#foreach($item in $!resultList)
+
+ <div class="c_org_msg c_pl20 c_tl" id="user_${item.id}" varname="$!{item.realName}"  varorg=""
+    vartype="member" var="${item.id}">${item.realName}</div>
+#end
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("div[vartype=member]").each(function(){
+			var _this = $(this);
+			_this.unbind();
+			_this.click(function(){
+				_this.addClass("c_none");
+                var liHtml='<div class="c_org_msg c_cb c_pl20" title="'+_this.attr("varorg")+ '" memberid="'+_this.attr("var")+'">'+_this.attr("varname")+'</div>';
+
+                // alert($("#targetList .c_pl20").length);
+                //1.如果已经存在选择用户 则写入存在的用户后面
+                if($("#targetList .c_pl20").length>0){
+                       $("#targetList .c_pl20").last().after(liHtml);
+                }else{
+                //2.如果不存在选择用户
+                        //2.1如果存在 已经选择的组织列表 则写入组织列表之后
+                        if($("#targetList .c_ml10").length>0){
+                                $("#targetList .c_ml10").last().after(liHtml);
+                        }else{
+                         //2.2 如果不存在 直接写入
+                                $("#targetList").html(liHtml);
+                        }
+                }
+					
+                //点击去除 恢复选择中的用户显示
+					$("div[memberid="+_this.attr("var")+"]").click(function(){
+						var _liMem = $(this).attr("memberid");
+						$("div[vartype=member]").each(function(){
+							if($(this).attr("var")==_liMem){
+								$(this).removeClass("c_none");
+							}
+						});
+						$(this).remove();
+					})
+				
+			})
+	})
+	})
+</script>

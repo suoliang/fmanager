@@ -1,0 +1,41 @@
+<div>
+	<div class="c_fl c_change_title">板块：</div>
+	<div id="board_default_def_select" class="c_divselect c_fl c_ml10">
+		<div class="cite">
+			<div class="citeT"></div>
+		</div>
+		<ul>
+			<!-- <li><a href="javascript:;" selectid="-1" #if(!$def) def="true" #end>请选择系统默认板块</a></li> -->
+			#foreach($board in $!hideDefBoards)
+			<li><a href="javascript:;" selectid="$board.id" #if($!def== $board.id) def="true" #end>$board.name</a></li>
+			#end
+		</ul>
+		<input name="def" type="hidden" id="board_default_def" />
+	</div>
+</div>
+<div class="c_cl">
+	<div class="c_fl c_change_title">板块名：</div>
+	<div class="c_fl c_change_search">
+		<input type="text" class="input" name="boardName" value="$!boardName" readonly="readonly" />
+	</div>
+</div>
+<script type="text/javascript">
+	(function(){
+		var oldText;
+
+		$.divselect("#board_default_def_select", "#board_default_def", function(text, value) {
+			var orig = $('input[name=boardName]').val();
+			if (util.isBlank(orig) || orig == oldText) {
+				$('input[name=boardName]').val(text);
+			}
+			oldText = text;
+		});
+
+		validate_board_input = function() {
+			if ($('#board_default_def').val() == null || $('#board_default_def').val() == -1 || $('#board_default_def').val() == "") {
+// 				return "板块不能为空";
+			}
+			return null;
+		};
+	})();
+</script>

@@ -1,0 +1,12 @@
+
+<frameset id="myFrame" cols="100%,*,*" frameborder="no" framespacing="0" border="0" bordercolor="#3cb738">
+	
+	<frame src="$!{urlLeft}" scrolling="auto" /> 
+	<!-- #if($!urlRight != "")
+		<frame src="${rc.contextPath}/CloudSearch/toMiddle.htm" frameborder="0" noresize="noresize" scrolling="no">
+	
+		<frame src="$!{urlRight}" scrolling="auto" /> 
+	#end    -->
+</frameset>
+
+<noframes></noframes>

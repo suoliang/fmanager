@@ -1,0 +1,168 @@
+#set($pagecss = ["recommend.css"])
+
+#parse("/common/header.vm")
+<div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><a href="javascript:void(0)">推荐</a></p>
+    </div>
+    <!--location line end-->  
+  </div><!--c_list end--> 
+ 
+    <div class="c_search_box c_mr15">
+      <div class="c_over_hidden">
+        <div class="c_fl"><div class="c_w70 c_tr c_fl c_f12 c_color_darkgay">关键字：</div>
+        <input type="text" class="c_keywds c_ml5" id="keyWordInput"/>
+        <a type="button" class="c_button c_ml10 c_fl" tag="article-search" oid="article-search">查询</a>
+        <a type="button" class="c_button c_ml10 c_fl" id="condition-empty">清空</a></div>
+        <i class="c_fr c_f12 c_more_icon  c_ml5" style="color:#999"  id="c_sp1_i">▲</i>
+        <div class="c_fr c_f12 c_sp_more" id="c_sp1">更多筛选条件
+        
+        </div>
+        <form id="topic-advanced">
+				<!-- 关键字 -->
+				<input type="hidden" id="keyWord" name="keyWord" />
+				<!-- 开始时间 -->
+				<input type="hidden" id="createTimeStart" name="createTimeStart" />
+				<!-- 结束时间 -->
+				<input type="hidden" id="createTimeEnd" name="createTimeEnd" />
+				<!-- 时间 -->
+				<input type="hidden" id="timeType" name="timeType" />
+				<!-- 排序字段 -->
+				<input type="hidden" id="orderField" name="orderField" />
+				<!-- 排序类型 -->
+				<input type="hidden" id="orderType" name="orderType" />
+				<!-- 栏目类别 -->
+				<input type="hidden" id="type" name="type" />
+				
+				<div tag="columnIds-form" oid="columnId">
+					<input type="hidden" id="columnIds" name="columnIds" />
+				</div>
+				<input type="hidden" id="columnId" name="columnId" />
+				
+			</form>
+      </div>
+      <div class="c_border_top c_mt10" id="c_sp2">
+ 
+       <div class="c_summary_tab">
+          <div class="c_tab_title c_fl c_w70 c_tr">推送时间：</div>
+          <div class="c_tab_rg c_fl">
+          <div class="c_tab_con1">
+          		 #foreach($meta in ${timeType.keySet()})  
+                 <div class="c_tab_choice c_fl" scope="option" tag="time" oid="${timeType.get($meta)}">
+                 		<div class="c_sprite c_choice_icon c_fl"  type="checkbox" value="${timeType.get($meta)}" id="check"></div>
+                 		<div class="c_fl" type="metaname" value="${timeType.get($meta)}">$meta</div>
+                 		<div class="c_cb"></div>
+                 </div>
+                 #end
+                  <div class="c_tab_choice c_fl" id="c_timeck01"><div class="c_sprite c_choice_icon  c_fl" id="customCheck"></div><div class="c_choice_tag c_fl">自定义</div><div class="c_cb"></div></div> 
+                 <div class="c_fl c_none" id="c_timeck02"> 
+                 <div class="c_tab_input c_fl" ><input type="text" class="input c_cal_icon " id="createTimeStartInput"><i class="c_clearfix c_fl c_mr5 c_ml5">-</i><input type="text" class="input c_cal_icon " id="createTimeEndInput"></div>                                 
+                 <div class="c_tab_choice c_fl "><a class="c_tab_time c_fl c_mt5" tag="article-search" oid="article-search">时间筛选</a></div>
+                 </div>
+          </div><!--c_tab_con1-->
+          </div><!--c_tab_rg-->       
+       </div>                    
+       <div class="c_summary_tab ">
+          <div class="c_tab_title c_fl c_w70 c_tr">栏目类别：</div>
+          <div class="c_tab_rg c_fl">
+          <form id="typeForm">
+          <div class="c_tab_con1">
+                 <div class="c_tab_choice c_fl" scope="option" tag="option-item" oid="0" selct="false"  value="0">
+                 <div class="c_sprite c_choice_icon  c_fl" type="checkbox" tag="option-hook" oid="0" value="0"></div>
+                 <div class="c_fl c_choice_tag" title="全部">全部</div>
+                 <input type="hidden" option="informType" value="0"/>
+                 <div class="c_cb">
+                 </div></div>
+						<div class="c_tab_choice c_fl" scope="option" tag="option-item" oid="1" selct="false"  value="1">
+							<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="option-hook" oid="1" value="$bean.type"></div>
+							<div class="c_choice_tag c_fl" title="地域">地域</div>
+							<input type="hidden" option="informType" value="1"/>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_choice c_fl" scope="option" tag="option-item" oid="2" selct="false"  value="2">
+							<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="option-hook" oid="$bean.type" value="$bean.type"></div>
+							<div class="c_choice_tag c_fl" title="行业">行业</div>
+							<input type="hidden" option="informType" value="2"/>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_choice c_fl" scope="option" tag="option-item" oid="3" selct="false"  value="3">
+							<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="option-hook" oid="$bean.type" value="$bean.type"></div>
+							<div class="c_choice_tag c_fl" title="中青出品">中青出品</div>
+							<input type="hidden" option="informType" value="3"/>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_choice c_fl" scope="option" tag="option-item" oid="4" selct="false" value="4">
+							<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="option-hook" oid="$bean.type" value="$bean.type"></div>
+							<div class="c_choice_tag c_fl" title="客户定制" >客户定制</div>
+							<input type="hidden" option="informType" value="4"/>
+							<div class="c_cb"></div>
+						</div>
+					</div>
+					<from>
+          </div>    
+       </div>
+			<div class="c_summary_tab" id="column">
+				<div class="c_tab_title c_fl c_w70 c_tr">栏目名称：</div>
+				<div class="c_tab_rg c_fl">
+					<div class="c_tab_con1" id="types">
+<!-- 						#foreach($Column in $!ColumnBean.data) -->
+<!-- 						<div class="c_tab_choice c_fl" scope="option" tag="option-item" oid="$bean.type" selct="false"> -->
+<!-- 							<div class="c_sprite c_choice_icon c_fl" type="checkbox" tag="option-hook" oid="$bean.type" value="$bean.type"></div> -->
+<!-- 							<div class="c_choice_tag c_fl" title="$bean.name" tag="option-name" oid="$bean.type" type="metaname">$Column.name</div> -->
+<!-- 							<div class="c_cb"></div> -->
+<!-- 						</div> -->
+<!-- 						#end -->
+					</div>
+				</div>
+			</div>
+
+			<div class="c_cb"></div>
+     </div>                     
+    </div>
+   <!--search box end-->
+   <div class="c_mt10"></div>
+   <div class="c_f12 c_color_gay">为您找到相关结果约<span class=" c_color_blue c_ml5 c_mr5">
+   <i class="c_color_blue c_ml5 c_mr5" id="count-Show-i"></i>
+   </span>个</div>
+     <div class="c_tab_block c_mt10 c_mr15">
+      <ul class="c_tab1">
+      <li class="c_tab_th1"><span class="c_ml15"></span>标题</li>
+      <li class="c_tab_th2">栏目</li>
+      <li class="c_tab_th3">推送时间</li>
+      </ul>
+     </div><!--c_tab_block-->
+     
+     <div class="recommend-list-container">
+     #set($articles = $pageInfo.data)
+	 #parse("/recommend/list-article.vm")
+    </div>
+		<div class="c_con_add c_mt15 recommend-list-mask">
+			<div class="c_icon_add">正在加载中，请稍后...</div>
+		</div>
+	 #paging("class", "recommend-list-paging")
+  </div><!-- main end-->
+  <script type="text/javascript" src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+  <script type="text/javascript" src="${rc.contextPath}/js/recommend/recommend-index.js"></script>
+  <script type="text/javascript" src="${rc.contextPath}/js/recommend/recommend-interface.js"></script>
+  
+  
+<script type="text/javascript">
+var topicId = '$!topicId';
+var fromBoard = '$!fromBoard';
+var createTimeStartInput = '$!createTimeStartInput';
+var createTimeEndInput = '$!createTimeEndInput';
+var topCustTopicId = "$!topCustTopicId";
+var tree = "$!tree";
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+		#if($condition)
+		page.options.set($condition);	
+		page.currentParam = page.options.serialize();
+		#end
+		page.list.reloadStyle();
+	});
+	
+</script>
+		
+#parse("/common/footer.vm")

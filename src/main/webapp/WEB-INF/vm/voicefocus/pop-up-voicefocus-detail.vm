@@ -1,0 +1,61 @@
+<!-- 弹出层 -->
+<div class="c_alt_box c_w980 c_h560 focus-list-head" tag="guidpopup-box" oid="guidarticle-detail" id="voicefocusDiv" style="display: none">
+	<div class="c_alt_tit">
+		<div class="c_fl c_alt_titTag c_w950 c_h30" move="ok" style="">
+			<i class=" c_sprite c_tit_icon01"></i> <span>文章详情</span>
+		</div>
+		<ul class="c_fr">
+			<li><a href="javaScript:closeDiv();" class="c_sprite c_tit_close box-close"></a>
+		</ul>
+	</div>
+	<div class="c_alt_con c_bg_gay guidarticle-content"></div>
+	<!--c_alt_con -->
+</div>
+<script>
+	var voicefocusInfoalert;
+
+	(function() {
+		function closeDiv() {
+			
+		}
+
+		//显示文章详情
+		voicefocusInfoalert = function(guid) {
+			ajaxCommFunText(std.u("/focusing/findArticle.htm"), "guid=" + guid, function(response) {
+				if (response.data == "") {//根据guid没有找到对应的文章
+					guidNotShowArticleDetail(guid);
+				} else {
+// 					showArticleDetail(guid);
+					showArticleDetailOfVoiceFocus(guid);
+				}
+			});
+		}
+		var guidNotShowArticleDetail;
+		guidNotShowArticleDetail = function(guid) {
+			var detailbox = std.selector('guidpopup-box', 'guidarticle-detail');
+			$(detailbox).data('guid', guid);
+			$(detailbox).find('.guidarticle-content').empty();
+			$.box(detailbox, {
+				onOpen : function() {
+					findArticleDetail(guid, {
+						success : function(html) {
+							if ($(detailbox).data('guid') == guid) {
+								$(detailbox).find('.guidarticle-content').html(html);
+								$(detailbox).find('.scrollbar-ctx').tinyscrollbar();
+							}
+						}
+					});
+				}
+			}, {
+				close : {
+					dom : [ detailbox + " .box-close" ]
+				}
+			});
+		}
+		var findArticleDetail = function(guid, fun) {
+			ajaxCommFunText(std.u("/focusing/showVoicefocusContent.htm"), "guid=" + guid, function(response) {
+				fun.success(response.data, response.message);
+			});
+		};
+	})();
+</script>

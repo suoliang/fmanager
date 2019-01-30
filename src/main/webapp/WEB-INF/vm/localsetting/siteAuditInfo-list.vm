@@ -1,0 +1,44 @@
+#foreach($siteAudit in $siteAudits)
+#set($index = $velocityCount + ($!queryRest.currentPage - 1) * 20)
+  <ul class="c_tab2 c_tab_top">
+      <li class="c_tab_app1 c_tc"><div>$velocityCount</div></li>
+      <li class="c_tab_app2"><div class="c_mr10 c_omit">$!tag.getCustName($!siteAudit.custId)</div></li>
+      <li class="c_tab_app3"><div class="c_mr10 c_omit">$!siteAudit.custId</div></li>
+      <li class="c_tab_app4"><div class="c_mr10 c_omit">$!siteAudit.name</div></li>
+      <li class="c_tab_app5"><div class="c_mr10 c_omit c_amore"><a href="$!siteAudit.url" class="c_amore" target="_blank">$!siteAudit.url</a></div></li>
+      <li class="c_tab_app6"><div class="c_mr10 c_omit">$!siteAudit.spiderSiteId</div></li>
+      <li class="c_tab_app7"><div class="c_mr10 c_omit">$!const.getName("MediaType",$!siteAudit.type)</div></li>
+      <li class="c_tab_app8">
+	      #if($!siteAudit.procStatus==0)
+	      <div class="c_mr10 c_omit">待审核</div>     
+	      #end
+	      #if($!siteAudit.procStatus==2)
+	      <div class="c_mr10 c_omit">待处理</div>
+	      #end
+	      #if($!siteAudit.procStatus==1)
+	      <div class="c_mr10 c_omit">已处理</div>
+	      #end
+	      #if($!siteAudit.procStatus==3)
+	      <div class="c_mr10 c_omit">已驳回</div>
+	      #end
+      </li>           
+      <li class="c_tab_app9"><div>
+       	  #if($!siteAudit.procStatus==0)
+	      <a href="#" class="c_amore c_alert_btn" tag="needAudit" oid="$!siteAudit.id">审核需求</a>
+	      	<!-- 站点名称 -->
+			<input type="hidden" id="needAudit-name$!siteAudit.id" value="$!siteAudit.name" />
+	      	<!-- 站点url -->
+			<input type="hidden" id="needAudit-url$!siteAudit.id" value="$!siteAudit.url" />
+	      </div>
+	      #end	
+       	  #if($!siteAudit.procStatus==2)
+	      <a href="#" class="c_amore c_alert_btn" tag="FID-Box" oid="$!siteAudit.id">关联FID</a>
+	      	<!-- 站点名称 -->
+			<input type="hidden" id="needAudit-name$!siteAudit.id" value="$!siteAudit.name" />
+	      	<!-- 站点url -->
+			<input type="hidden" id="needAudit-url$!siteAudit.id" value="$!siteAudit.url" />
+	      </div>
+	      #end	
+      </li>
+      </ul>
+#end

@@ -1,0 +1,20 @@
+#foreach($!site in $!sites)
+#set($index = $velocityCount + ($!sitePageInfo.currentPage - 1) * 20)
+
+<ul class="c_tab2 c_tab_top">
+	<li class="c_tab_site2 c_tc"><div>$index</div></li>
+	<li class="c_tab_site3"><div class="c_mr10 c_omit">$!site.name</div></li>
+	<li class="c_tab_site4"><div class="c_mr10 c_omit">
+			<a href="$!site.url" target="_Blank">$!site.url</a>
+		</div></li>
+	<li class="c_tab_site5"><div class="c_mr10 c_omit" title="$!site.type">$!site.type</div></li>
+	<li class="c_tab_site6"><div class="c_mr10 c_omit">
+			<!-- $!site.mediaType -->
+			$!const.getName("MediaType",$!site.mediaType.toString())
+		</div></li>
+	<li class="c_tab_site7"><div class="c_omit">$!site.procStatuStr</div></li>
+	<li class="c_tab_site8"><div>
+			<a onclick="category(${site.id});" class="c_mr10 c_amore">分类</a><a href="JavaScript:deleteAjax($site.id,$!sitePageInfo.pageNo);" class="c_color_deeporange">$!site.classification</a>
+		</div></li>
+</ul>
+#end

@@ -1,0 +1,51 @@
+ 
+#set($pagecss = ["setup.css"])
+
+ #parse("/common/header.vm")
+ 
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="JavaScript:void(0)">设置</span><span> > </span><span href="JavaScript:void(0)">首页</span></p>
+			</h3>
+		</div>
+		<div class="c_search_box">
+			<div class="c_fl">
+				<span>关键字：</span><input type="text" class="c_keywds" name="name" /><a type="button" class="c_button c_ml10 c_fl board-search">查询</a>
+			</div>
+		</div>
+		<div class="c_mt15"></div>
+		<div class="c_tab_block">
+			<ul class="c_tab1">
+				<li class="c_tab_home1"><!-- <input type="checkbox" class="c_check"> --></li>
+				<li class="c_tab_home2">板块ID</li>
+				<li class="c_tab_home3">板块名称</li>
+				<li class="c_tab_home4">共享用户</li>
+				<li class="c_tab_home5">操作</li>
+			</ul>
+			<div class="board-container">
+				#set($boards = $pageInfo.data)
+				#parse("/localsetting/homepageList-list-board.vm")
+			</div>
+		</div>
+
+		#paging("id", "homepage-paging")
+
+	</div>
+</div>
+
+<script type="text/javascript" src="${rc.contextPath}/js/homepage/homepage-interface.js" ></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/setting-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/share-user.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/ls-homepage.js"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/orgnizationSelect.js')}"></script>
+
+<script type="text/javascript">
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>
+
+#parse("/localsetting/orgnizationSelectWin.vm")
+
+#parse("/common/footer.vm")

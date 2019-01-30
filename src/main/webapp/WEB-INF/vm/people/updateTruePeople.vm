@@ -1,0 +1,55 @@
+#parse("/common/header.vm")
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="JavaScript:void(0)">人物</span><span>></span><span href="JavaScript:void(0)">真实身份</span><span>></span><span href="JavaScript:void(0)">人物详情</span><span>></span><span href="JavaScript:void(0)">编辑</span></p></h3>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl"><span>新增真实身份</span></div>
+      <div class="c_fr"><a href="TrueIdentity.htm" class="c_search_link c_search_sys2 c_fl">返回</a></div> 
+    </div>
+   <!--search box end-->
+   <div class="c_tab_block">
+   <input type="hidden" id="edit_id" value="$!pageInfo.id">
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">真实身份：</div><div class="c_fl c_ml5"><input type="text" class="input c_w200" id="truePeople_id" value="$!pageInfo.realName"></div><div class="c_fl c_ml5 c_mt5 c_color_red">真实身份不能为空</div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">关键词：</div><div class="c_fl c_ml5"><textarea class="c_textarea c_w800 c_p5 c_h50" id="trueKeyword_id">$!pageInfo.keywords</textarea></div><div class="c_fl c_ml5 c_color_red">多个关键词用空格或“;”分隔</div></div>
+    <div class="c_cb c_tab_list c_over_hidden"><div class="c_fl c_list_name c_tr">简介：</div><div class="c_fl c_ml5"><textarea class="c_textarea c_w800 c_p5 c_h50" id="trueDescription_id">$!pageInfo.content</textarea></div></div>
+    <div class="c_cb c_tab_list c_border_top c_mt10"><div class="c_change_ml c_pt10">以下选填信息</div></div>
+    <div class="c_cb c_tab_list"><div class="c_fl c_list_name c_tr">性别：</div><div class="c_fl c_ml5"><input type="radio" id="nan_id" oid="$!pageInfo.sexId" value="1" class="c_mr5 c_mt5" name="sex">男<input type="radio" id="nv_id" oid="$!pageInfo.sexId" value="2" name="sex"class="c_ml10 c_mr5 c_mt5">女</div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">手机：</div><div class="c_fl c_ml5"><input type="text" id="mobile_id" class="input c_w200" value="$!pageInfo.mobile"></div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">QQ：</div><div class="c_fl c_ml5"><input type="text" id="qq_id" class="input c_w200" value="$!pageInfo.qq"></div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">微信：</div><div class="c_fl c_ml5"><input type="text" id="wx_id" class="input c_w200" value="$!pageInfo.wx"></div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">邮箱：</div><div class="c_fl c_ml5"><input type="text" id="email_id" class="input c_w200" value="$!pageInfo.email"></div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">学历：</div>
+       <div id="divselect7" class="c_divselect c_fl c_divselectR">
+          <div class="cite"><div class="citeT" id="selected_id" oid="$!pageInfo.educationId"></div></div>
+          <ul>
+           <li><a href="javascript:;" selectid="1" def="true">请选择</a></li>
+           <li><a href="javascript:;" selectid="2">小学及以下</a></li>
+           <li><a href="javascript:;" selectid="3">初中</a></li>
+           <li><a href="javascript:;" selectid="4">高中</a></li>
+           <li><a href="javascript:;" selectid="5">中专</a></li>
+           <li><a href="javascript:;" selectid="6">大专</a></li>
+           <li><a href="javascript:;" selectid="7">本科</a></li>   
+           <li><a href="javascript:;" selectid="8">研究生</a></li>
+           <li><a href="javascript:;" selectid="9">博士及以上</a></li>                              
+          </ul>
+          <input name="" type="hidden" value="3" id="inputselect7"/>
+      </div>
+    </div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">职业：</div><div class="c_fl c_ml5"><input type="text" id="Occupation_id" class="input c_w200" value ="$!pageInfo.job"></div></div>
+    <div class="c_cb c_tab_list c_mt5"><div class="c_fl c_list_name c_tr">生日：</div><div class="c_fl c_ml5"><input type="text" id="birthday_id" class="input c_w200" value="$!date.format("yyyy-MM-dd HH:mm:ss",$!pageInfo.birthday)"></div></div>
+    <div class="c_cb c_tab_list c_over_hidden c_mt5"><div class="c_fl c_list_name c_tr">照片：</div><div class="c_fl c_ml5"><input type="text" class="input c_w300"></div><div class="c_tool c_fl c_ml5"><a href="javascript:void(0)">浏览</a></div></div>
+    <div class="c_color_lightgay c_mb5 c_ml100"><span class="c_color_red c_mr5 c_ml5">*</span>建议尺寸：高230×宽160像素文件大小：500Kb以内</div>
+    <div class="c_cb c_change_butbg"><div class="c_change_but c_change_ml105"><a href="javascript:Edit();" class="c_but_ok c_mr10">确定</a><a href="TrueIdentity.htm" class="c_but_no">取消</a></div></div>
+   </div><!--c_tab_block--> 
+  </div><!--c_list end-->
+  </div><!-- main end-->
+
+
+<link href="${rc.getContextUrl('/css/person.css')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${rc.contextPath}/js/people/updateDetailsPeople.js"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+#parse("/common/footer.vm")

@@ -1,0 +1,174 @@
+
+#set($pagecss = ["setup.css"]) 
+
+#parse("/common/header.vm")
+
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<p class="c_location">
+				<i class="c_loc_icon c_sprite"></i><span>当前位置：</span>
+				<span href="javascript:void(0);">设置</span><span>></span>
+				<span href="javascript:void(0);">专题</span><span>></span>
+				<span href="javascript:void(0);">$!addTitle</span>
+			</p>
+		</div>
+		#if(($custTopic.status == 0 || ($custTopic.createrId != $LOGIN_USER.id && $custTopic.status != 0)) && $!addTitle != '新增专题') 
+			#set($isReadonly = true)
+		#end
+		<!--location line end-->
+		<div class="c_search_box">
+			<div class="c_fl">
+				<span>$!addTitle</span>
+			</div>
+			<div class="c_fr">
+				<a href="${rc.contextPath}/custtopic/list.htm#if($request.getParameter('pageNo'))?pageNo=$request.getParameter('pageNo')#end" class="c_search_link c_search_sys2 c_fl">返回</a>
+			</div>
+		</div>
+		<!--search box end-->
+		<div><form id="custTopicForm">
+			<input type="hidden" name="id" value="$!custTopic.id" />
+			<input type="hidden" name="parentId" value="$!custTopic.parentId" />
+			<input type="hidden" name="keyword" value="$!custTopic.keyword" />
+			<input type="hidden" name="excludedKeyword" value="$!custTopic.excludedKeyword" />
+			<input type="hidden" name="remark" value="$!custTopic.remark" />
+			<div class="c_fl c_tab_block">
+				<div class=" c_edit_bck">
+					<div class="c_edit_list">
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">专题名称：</div>
+							<div class="c_fl c_ml5">
+								<input type="text" class="input c_w200" id="custtopic_name" name="name" value="$!custTopic.name" maxlength="20" #if($isReadonly) readonly="true" #end>
+							</div>
+							<div class="c_fl c_ml5 c_mt5 c_color_red c_none" tag="error-name">专题名称不能为空</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">上级专题：</div>
+							<div class="c_fl c_ml5 c_list_change">
+								<div class="c_fl c_sprite c_choice_icon"></div>
+								<div class="c_fl c_ml5 #if(!$isReadonly) topic-selector #end">请选择专题</div>
+							</div>
+							<div class="c_fl c_ml10 c_mt5" id="custtopic_parentName">#if(!$custTopic || !$custTopic.parentBean) 顶级专题 #else $!custTopic.parentBean.name #end</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">包含关键词：</div>
+							<div class="c_fl c_ml5">
+								<div class="c_key_text2" id="custtopic_keyword" maxlength="1000" #if(!$isReadonly) contenteditable="true" #end></div>
+							</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">包含任意关键词:</div>
+							<div class="c_fl c_ml5">
+								<div class="c_key_text2" id="custtopic_arbitrarilyKeyword" maxlength="1000" #if(!$isReadonly) contenteditable="true" #end></div>
+							</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">不包含关键词：</div>
+							<div class="c_fl c_ml5">
+								<div class="c_key_text2" id="custtopic_excludedKeyword"  maxlength="1000" #if(!$isReadonly) contenteditable="true" #end></div>
+							</div>
+							<div class="c_cb"></div>
+						</div>
+						<div class="c_tab_list">
+							<div class="c_fl c_list_name c_tr">专题描述：</div>
+							<div class="c_fl c_ml5">
+								<div class="c_key_text2" id="custtopic_remark"  maxlength="100"  #if(!$isReadonly) contenteditable="true" #end>$!custTopic.remark</div>
+							</div>
+							<div class="c_cb"></div>
+							</div>
+								<div class="c_color_lightgay c_mt5  c_mb5 c_change_ml105">
+									<span class="c_color_red c_mr5">*</span> 包含的关键词用分号分隔，例如：北京 空气；北京 汽车尾气<br /> 
+									<span class="c_color_red c_mr5">*</span> 组合关键词用空格分隔，例如：北京 空气<br /> 
+									<span class="c_color_red c_mr5">*</span> 包含任意关键词用分号分隔，例如：北京；空气<br /> 
+									<span class="c_color_red c_mr5">*</span> 不包含的多个关键词用空格分隔，例如：廊坊 郊区
+								</div>
+							</div>
+						<div class="c_cb c_change_butbg">
+						<div class="c_change_but c_change_ml105">
+							<a href="javascript:void(0);" class="c_but_ok" tag="btn-parse-keyword">生成专题关键词</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="c_edit_key c_border_bot c_border_right">
+				<div class="c_pt10 c_pb10 c_pl10 c_editKey_tit c_f12">
+					专题关键词#if($!autoSpider)（采集关键词）#end
+					<div class="c_fr c_mr15 c_editKey_add" id="add-keyword"></div>
+				</div>
+				<div class="c_editKey_con" id="a1" tag="list-custtopic-keyword" >
+					#foreach($keyword in $keywords)
+					<div tag="formatKeyword-line-item" class="c_editKey_list c_border_bot">
+						<input type="hidden" name="keywords" value="$keyword.keyword" />
+						<div class="c_fl c_key_num c_ml10 c_f12">$velocityCount、</div>
+						#if(!$isReadonly) <div class="c_fr c_editKey_del" tag="del-keyword"></div> #end
+						<div class="c_ml30">
+							<div class="c_f12 c_key_summary" size="$keyword.countSize" tag="formatKeyword">$keyword.keyword</div>
+						</div>
+						
+					</div>
+					#end
+						<div tag="input_keyword-form"></div>
+				</div>
+				<div class=" c_change_butbg">
+					<div class="c_change_but c_change_but01">
+						<a href="javascript:void(0);" class="c_but_ok c_mr10" tag="btn-save-custtopic">保存</a>
+						<a href="${rc.contextPath}/custtopic/list.htm#if($request.getParameter('pageNo'))?pageNo=$request.getParameter('pageNo')#end" class="c_but_no">取消</a>
+					</div>
+				</div>
+			</div>
+		</form></div>
+	</div>
+</div>
+
+#parse("/search/pop-up-topic.vm")
+
+<script type="text/javascript" src="${rc.contextPath}/js/search/search-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/setting-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/custtopic-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/custtopic-input.js"></script>
+
+<script type="text/javascript">
+(function() {
+// 	var fillKeyword = function(keywords) {
+// 		$(keywords).each(function(i, item) {
+// 			var keywords = item.keyword.split("-");
+// 			var excludedKeyword = "";
+// 			console.log("--"+keywords[0]+"--"+keywords[1]);
+// 			if (util.isNotBlank(keywords[1])) {
+// 				excludedKeyword = keywords[1].replace('(', '').replace(')', '');
+// 				excludedKeyword = excludedKeyword.replace(new RegExp('\\|', "gm"), '');
+// 			}
+// 			std.findTag("custtopic_keyword-form").append('<input type="hidden" tag="custtopic_keyword-item" value="' + $.trim(keywords[0]) + '"/>');
+// 			std.findTag("custtopic_excludedKeyword-form").append('<input type="hidden" tag="custtopic_excludedKeyword-item" includeKeyword="'+$.trim(keywords[0])+'" value="' + excludedKeyword + '"/>');
+// 		});
+// 	}
+// 	fillKeyword(eval($!keywordsJson));
+	
+	//-------------------------
+	var formatKeywords = std.findTag('formatKeyword');
+	$(formatKeywords).each(function(i, item) {
+		var keywords = $(item).text().split("-");
+		var arbitrarilyKeyword = $.trim(keywords[0].split("(")[1]);
+		var excludedKeyword = "";
+		if (util.isNotBlank(arbitrarilyKeyword)) {
+			arbitrarilyKeyword = "(" + arbitrarilyKeyword;
+		}else{
+			arbitrarilyKeyword = "";
+		}
+		if (util.isNotBlank(keywords[1])) {
+			excludedKeyword = keywords[1].replace('(', '').replace(')', '');
+			excludedKeyword = excludedKeyword.replace(new RegExp('\\|', "gm"), '');
+		}
+		$(this).append('<input type="hidden" tag="custtopic_keyword-item" value="' + $.trim(keywords[0].split("(")[0]) + '"/>')//
+			   .append('<input type="hidden" tag="custtopic_arbitrarilyKeyword-item" value="' + arbitrarilyKeyword + '"/>')//
+               .append('<input type="hidden" tag="custtopic_excludedKeyword-item" includeKeyword="'+$.trim(keywords[0])+'" value="' + excludedKeyword + '"/>');
+	});
+	
+	
+})();
+</script>
+#parse("/common/footer.vm")

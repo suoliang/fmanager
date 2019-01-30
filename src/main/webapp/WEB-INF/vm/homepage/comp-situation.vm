@@ -1,0 +1,160 @@
+<script type="text/javascript" src="${rc.contextPath}/js/common/animateBackground-plugin.js"></script>
+<style>
+/*数字滚动插件的CSS可调整样式*/
+.mt-number-animate{ font-family: '微软雅黑'; line-height:20px; height:20px;/*设置数字显示高度*/; font-size: 20px;/*设置数字大小*/ overflow: hidden; display: inline-block; position: relative; }
+.mt-number-animate .mt-number-animate-dot{ /*width: 15px;设置分割符宽度*/ line-height:20px; float: left; text-align: center;}
+.mt-number-animate .mt-number-animate-dom{ width:13px;/*设置单个数字宽度*/ text-align: center; float: left; position: relative; top: 0;}
+.mt-number-animate .mt-number-animate-dom .mt-number-animate-span{ width: 100%; float: left;}
+</style>
+<div class="c_chart c_pr">
+	<div class="c_fl c_chart02">
+		 <div id="situation-pie-chart" style="height:170px;margin-top:-10px;"></div>
+	     <div class="c_mt5 c_color_red c_f20 c_tc"  id="curTotal">$!total</div>
+	     <div class=" c_f12 c_color_lightgay c_tc">用户今日数据</div>
+	</div>
+
+	<div class="c_fl c_chart03 c_f12 c_pa">
+		<dl style="overflow:hidden">
+			<dt class="c_chart_word c_w130">今日舆情来源分布</dt>
+			#foreach($key in ${situation.keySet()})
+			<dd>
+				<div class="c_chart_c c_chart_c$velocityCount c_fl">
+					<div></div>
+				</div>
+				<div class="c_omit">
+					##包含相似文，和HomepageSupport查询固定的值相反
+					$const.getName("MediaType", "$key")<i style="cursor: pointer;" onclick="util.go('/search/index.htm?mediaType=$key&timeType=1&filterSimilar=true');" title="$situation.get($key)">$situation.get($key)</i>篇
+				</div>
+			</dd>
+			#end
+		</dl>
+	   <div class=" c_chart02" style="margin-top:9px">
+	     <div class="c_mt5 c_color_red c_f20 c_tc" id="platformTotalNumToday">$!platformTotalNumToday</div>
+	     <input type="hidden" id="platformTotalNumToday-hidden" value="$!platformTotalNumToday" />
+	     <div class=" c_f12 c_color_lightgay c_tc">平台今日采集</div>
+	   </div>
+	</div>
+	
+	
+	
+	<div class="c_cb"></div>
+</div>
+<script type="text/javascript">
+(function() {
+	var situation = [];
+	#foreach($key in ${situation.keySet()})
+	situation['$key'] = '$const.getName("MediaType", "$key")';
+	#end
+	
+	var legendData = [];
+	var chartData = [];
+	$($!data).each(function(i, item) {
+		legendData.push(situation[item.key]);
+		if(item.value > 0) {
+			chartData.push({
+				name : situation[item.key],
+				value : item.value
+			});
+		}
+	});
+	
+	require.config({
+		paths : {
+			echarts : '${rc.contextPath}/js/common/echarts/'
+		}
+	});
+	require([ 'echarts', 'echarts/chart/pie' // 使用饼图就加载pie模块，按需加载
+	  		], function(ec) {
+				var data = $!data;
+	  			// 基于准备好的dom，初始化echarts图表
+	  			var pie = ec.init(document.getElementById('situation-pie-chart'));
+	  	 		pie.setOption({
+  	 			 noDataLoadingOption : {
+ 					text: '暂无数据',
+ 					effect:'bubble',
+ 					effectOption : {
+ 						backgroundColor:"#fff",
+ 	 					effect: {
+ 	 						n: 10
+ 	 					}
+ 					},
+ 					textStyle: {
+ 						fontSize: 20,
+ 						fontWeight: 'bold'
+ 					}
+  	 		   	}, 
+	 			tooltip : {
+	 				trigger : 'item',
+	 				formatter : "{b}:{c}",
+	 				x : 'right',
+	 				y : 'top'
+	 			},
+	 			legend : {
+	 				data : legendData,
+	 				x : 2000,
+	 				y : 2000
+	 			},
+	 			calculable : true,
+	 			color : [ '#59CDCC', '#5F88D0', '#5CBC85', '#F6AB8D', '#BADD5C', '#F06EB1', '#5FC5EB', '#E5DE66', '#EB5F5F'  ],
+	 			series : [ {
+	 				type : 'pie',
+	 				radius : [ '50%', '80%' ],
+	 				center : [ '50%', '55%' ],
+					itemStyle:{
+				        normal:{
+				            label:{
+				                position : 'inner',
+				                show: true,
+				                formatter: function (params,ticket,callback) {
+				                	return (params.percent - 0).toFixed(0) + '%'
+				                }
+				              },
+		                  labelLine :{show:false}
+		                },
+		                emphasis : {
+	 						label : {
+	 							show : true,
+	 							formatter : "{d}%",
+	 							textStyle : {
+	 								fontSize : '10',
+	 								fontWeight : 'bold',
+	 								color : '#000033'
+	 							}
+	 						}
+	 					},
+	 					borderWidth : 0
+		            },
+	 				data : chartData
+	 			} ]
+	 		});
+	});
+	
+	//######################################### 实时刷新平台今日采集数 #####################################################
+	
+	var lastResults; 
+	function syncPlatformTotalNumToday() { 
+		var params={}
+		ajaxCommFun(std.u("/home/platformTotalNumToday.htm"), params, function(response) {
+			if (response.type == dict.action.suc) {
+				//numberAnimate方法取自animateBackground-plugin.js (jquery数字滚动特效插件 )
+				if(lastResults!=response.message){
+	    			$("#platformTotalNumToday").numberAnimate({num:response.message, speed:1000, symbol:","});
+				}
+				
+				lastResults = response.message;
+	    		
+			} else {
+				if ($.isFunction(fun.error)) {
+					fun.error(response.message, response.attrs);
+				}
+			}
+		});
+	} 
+	function polling(){ 
+		setInterval(syncPlatformTotalNumToday, 10000); 
+	}  
+	
+	polling();
+	
+})();	
+</script>

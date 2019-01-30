@@ -1,0 +1,120 @@
+
+<div id="generalize-situation-bar-chart" class="c_fl" style="width:100%;height:236px"></div>
+
+<script type="text/javascript">
+(function() {
+	var situationHomeBar = [];
+	#foreach($key in ${situation.keySet()})
+	situationHomeBar['$key'] = '$const.getName("MediaType", "$key")';
+	#end
+	
+	var legendData = [];
+	var chartData = [];
+	var barChartData = [];
+	
+	$($!data).each(function(i, item) {
+		legendData.push(situationHomeBar[item.key]);
+		barChartData.push(item.value);
+		if(item.value > 0) {
+			chartData.push({
+				name : situationHomeBar[item.key],
+				value : item.value
+			});
+		}
+	});
+	
+	function getDateStr(AddDayCount) {
+		var dd = new Date();
+		dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+		var y = dd.getFullYear();
+		var m = dd.getMonth()+1;//获取当前月份的日期
+		var d = dd.getDate();
+		var ms = m.toString();
+		var ds = d.toString();
+		if (ms.length < 2) {
+			ms = "0" + ms;
+		}
+		if (ds.length < 2) {
+			ds = "0" + ds;
+		}
+		return y+"-"+ms+"-"+ds;
+	} 
+	
+	require.config({
+		paths : {
+			echarts : '${rc.contextPath}/js/common/echarts/'
+		}
+	});
+	require([ 'echarts', 'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+	  		], function(ec) {
+	  			// 基于准备好的dom，初始化echarts图表
+	  			var bar = ec.init(document.getElementById('generalize-situation-bar-chart'));
+	  			bar.setOption({
+	  	 			tooltip : {
+	  	 				trigger : 'item',
+	  	 				textStyle : {
+	  	 					fontFamily : 'Microsoft YaHei, SimHei',
+	  	 					fontSize : 12
+	  	 				}
+	  	 			},
+	  	 			grid : {
+	  	 				x : 50,
+	  	 				y : 30,
+	  	 				x2: 5 
+	  	 			},
+	  	 			xAxis : [ {
+	  	 				type : 'category',
+	  	 				data : legendData
+	  	 			} ],
+	  	 			yAxis : [ {
+	  	 				type : 'value',
+	  	 			} ],
+	  	 			series : [ {
+	  	 				name : '发文数',
+	  	 				type : 'bar',
+	  	 	            itemStyle: {
+	  	 	                normal: {
+	  	 	                    color: function(params) {
+	  	 	                        var colorList = [ '#59CDCC', '#5F88D0', '#5CBC85', '#F6AB8D', '#BADD5C', '#F06EB1', '#5FC5EB', '#E5DE66', '#EB5F5F'  ];
+	  		                        return colorList[params.dataIndex]; 
+	  	 							//return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6);
+	  	 	                    },
+	  	 	                    label: {
+	  	 	                        show: true,
+	  	 	                        position: 'top',
+	  	 	                        formatter: '{c}'
+	  	 	                    }
+	  	 	                }
+	  	 	            },
+	  	 				data : barChartData,
+	  	 				markLine : {
+	  	 					precision : 0,
+	  	 					data : [ {
+	  	 						type : 'average',
+	  	 						name : '平均值'
+	  	 					} ]
+	  	 				}
+	  	 			} ]
+	  			});
+	  	 		bar.on('click', function (param) {
+		 			$.getJSON(ctx + "/js/analyze/mediaType.json",function(json){
+		 				$.each(json, function(idx, obj) {
+		 					if (obj.name == param.name) {
+		 						/**展示的是一周内的数据*/
+		 						var startTime = getDateStr(-6);
+		 						var endTime = getDateStr(0);
+		 						window.location.href = ctx + "/search/index.htm?mediaType="+obj.id+"&startTime="+startTime+" 00:00:00"
+		 								+"&endTime="+endTime+" 23:59:59";
+		 					}
+		 				});
+		 		  	});
+	         	});
+	  	 		
+	  			$(window).resize(function() {
+	  				setTimeout(function() {
+	  					bar.resize();
+	  				}, 100);
+	  			});
+	});
+})();
+</script>

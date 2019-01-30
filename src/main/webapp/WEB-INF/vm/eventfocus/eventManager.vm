@@ -1,0 +1,69 @@
+#set($pagecss = ["setup.css"])
+#parse("/common/header.vm")
+<script type="text/javascript">
+<!--
+     var sys_globePath="${rc.contextPath}";
+//-->
+</script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/eventfocus/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/common/layer/layer.min.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/eventfocus/eventManager.js')}"></script>
+##右边模块开始
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><a href="#">事件</a><span> > </span><span href="#">事件管理</span></p>
+     </h3>
+    </div>
+ 
+     <div class="c_search_box">
+      <div class="c_fl" id="custCategoryQuery">
+        <span>关键字：</span><input type="text" class="c_keywds" name="keywords"  id="keywords"  />
+        <a type="button" class="c_button c_ml10 c_fl" onclick="queryPageList(1,10);" >查询</a>
+      </div>
+      <div class="c_fr">
+      <a href="${rc.getContextUrl('/incident/addEvent.htm')}" class="c_search_link c_search_sys2 c_fl">新增</a></div> 
+    </div>
+
+   <div class="c_mt15"></div>
+   <div class="c_tab_block" id="eventList" ></div>
+    <div class="c_page c_fr c_mt15 c_mb15" id="event-paging">
+            <div tag="paging-item" oid="paging-item"></div>
+            <div class="c_page_goto">
+                    共<span tag="paging-info" oid="totalpage">100</span>页
+            </div>
+            <div class="c_page_goto">跳转至</div>
+            <div class="c_page_input">
+                    <input type="text" tag="paging-input" oid="pageNo">
+            </div>
+            <div class="c_page_goto" tag="paging-button" oid="gotoNo">
+                    <i>GO</i>
+            </div>
+    </div>
+
+##右边模块结束
+
+<div id="categoryEvent"  style="display:none;">
+     <div class="boxContent"> 
+        <div id="custdatacategoryList">
+           
+         </div>    
+        <div class="boxPost">
+        	<div class="boxBtn mr20" onclick="submitSetCategory();" >保存</div>
+                <div class="boxBtn" onclick="layer.closeAll();">取消</div>
+        </div>
+     </div>
+</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+        $("#event-paging").paging({
+              gotoNoImpl : function(pageNo, pagesize) {
+                  queryPageList(pageNo,pagesize);	
+              }
+      });
+       queryPageList(1,10);
+    });
+</script>
+#parse("/common/footer.vm")

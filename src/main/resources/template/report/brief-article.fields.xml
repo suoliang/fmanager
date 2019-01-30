@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<fields>
+	<description><![CDATA[]]></description>
+	<bookmark>
+		<type>START_LOOP</type>
+		<name>START_LOOP_{i}</name>
+		<description><![CDATA[]]></description>
+	</bookmark>
+	<bookmark>
+		<type>END_LOOP</type>
+		<name>END_LOOP_{i}</name>
+		<description><![CDATA[]]></description>
+	</bookmark>
+	<bookmark>
+		<type>IF</type>
+		<name>IF_{i}</name>
+		<description><![CDATA[]]></description>
+	</bookmark>
+	<mergefield>
+		<list>true</list>
+		<listInfo>$[articles].title</listInfo>
+		<name>$articles.title</name>
+		<description><![CDATA[]]></description>
+	</mergefield>
+</fields>

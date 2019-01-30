@@ -1,0 +1,13 @@
+.c_top{background:#43939E;}
+.c_sidebar{ background:#2D7F8A;}
+.c_top ul.c_fr .c_input{background:#54AAB7;}
+.c_top ul.c_fr .c_input input{ background:#54AAB7;}
+.c_top ul.c_fr .c_input i{ background-position:-156px -35px;}
+.c_top ul.c_fr .c_list{background-position:-185px -40px;}
+.c_top ul.c_fr .c_msg{background-position:-216px -40px;}
+.c_top ul.c_fr .c_help{background-position:-248px -30px;}
+.c_top ul.c_fr .c_hi{border-right: 1px solid #84D2DF;}
+
+.c_button{ background:#58B5C4; height:32px; width:76px; text-align:center; font-size:14px; color:#fff; border-radius:3px; outline:none; border:none; cursor:pointer;}
+.c_down_btn{ text-decoration:none;width:90px; height:32px; line-height:32px; cursor:pointer; background:#fff; border:1px solid #8cbe66; color:#8cbe66;border-radius:5px; text-align:center; display:block; float:left;}
+.c_list_con .c_list_block .c_artical h4 a{color:#1F6B78;}

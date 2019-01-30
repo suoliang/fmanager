@@ -1,0 +1,16 @@
+<a href="javascript:void(0);" id="firstPage_prefix">首页</a>
+<a href="javascript:void(0);" id="prePage_prefix">上一页</a>
+<a href="javascript:void(0);" id="nextPage_prefix">下一页</a>
+<a href="javascript:void(0);" id="finalPage_prefix">末页</a>
+<span>当前<i>currentPageAlias</i>/totalPageAlias页</span>
+<span>共<i>countAlias</i>条记录</span>
+<span>pageSizeAlias条记录/页</span>
+<span>
+	转到<input id="currPageIpt_prefix" type="text" value="currentPageAlias" class="pageTxt" />
+	<a href="javascript:void(0);" id="goToCurrPageBtn_prefix" class="pageBut">跳转</a>
+</span>
+<input id="currentPageHid_prefix" type="hidden" name="currentPage" value="currentPageAlias" class="pageTxt" />
+<input id="pageSizeHid_prefix" type="hidden" name="pageSize" value="pageSizeAlias" class="pageTxt" />
+<input id="asyncFlagHid_prefix" type="hidden" name="asyncFlag" value="asyncFlagAlias" class="pageTxt" />
+<input id="aliasHid_prefix" type="hidden" name="alias" value="aliasAlias" class="pageTxt" />
+<input id="replaceId_prefix" type="hidden" name="replaceId" value="replaceIdAlias" class="pageTxt" />

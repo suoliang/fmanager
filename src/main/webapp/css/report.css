@@ -1,0 +1,67 @@
+/*以下table表格-简报宽度*/
+.c_tab_reort1{width:10%;}
+.c_tab_reort2{width:30%;}
+.c_tab_reort3{width:15%;}
+.c_tab_reort4{width:10%;}
+.c_tab_reort5{width:15%;}
+.c_tab_reort6{width:15%;}
+.c_tab_reort7{width:3%;}
+.c_tab_reort8{width:2%;}
+/*以下表格内下拉框*/
+.c_selsct_w01{width:78px;}
+.c_selsct_w01 ul{ width:76px;}
+/*以下table表格*/
+.c_tab_list1{ width:55%;}
+.c_tab_list2{ width:9%;}
+.c_tab_list3{ width:6%;}
+.c_tab_list4{ width:5%;}
+.c_tab_list5{ width:5%;}
+.c_tab_list6{ width:5%;}
+.c_tab_list7{ width:15%;}
+
+/************20150512更新**************/
+.c_list_con .c_list_block{ margin-top:0px; border-top:none;}
+.c_list_con .c_list_block.c_bg_ye{background-color:#FFFFEE}
+
+/*以下日报-table表格*/
+.c_report_date1{width:4%;}
+.c_report_date2{width:57%;}
+.c_report_date3{width:9%;}
+.c_report_date4{width:5%;}
+.c_report_date5{width:5%;}
+.c_report_date6{width:5%;}
+.c_report_date7{width:15%;}
+
+.c_report_date{width:95%;padding-left:4%; margin-left:-15px;}
+.c_tab_block .c_tab1 li{ border:none;}
+.c_report_list{ background-color:#fff;}
+.c_report_p{ line-height:26px;}
+/************20150518更新**************/
+.c_re_block{ height:34px;}
+.c_re_special{ width:25%;height:34px; line-height:34px;}
+.c_re_special .c_reSp_list{max-width:175px;color:#808080;}
+.c_re_special .c_reSp_num{ display:block;}
+
+
+.c_choice_icon{ width:10px; height:10px; margin:13px 5px 0 0; cursor:pointer;background-position:-20px -200px;}
+.c_choice_icon.active{width:10px; height:10px; margin:13px 5px 0 0; cursor:pointer;background-position:-5px -200px;}
+
+/*20160407更新人工报告页面*/
+.c_select01{width:100px;}
+.c_select01 .cite{ width:98px;}
+.c_select01 .cite .citeT{ width:68px;}
+.c_select01 ul{width:98px;}
+.c_select01 ul li a{width:88px;}
+
+.c_select02{width:130px;}
+.c_select02 .cite{ width:128px;}
+.c_select02 .cite .citeT{ width:98px;}
+.c_select02 ul{width:128px;}
+.c_select02 ul li a{width:118px;}
+
+.c_tab_peop1{width:5%;}
+.c_tab_peop2{width:45%;}
+.c_tab_peop3{width:10%;}
+.c_tab_peop4{width:15%;}
+.c_tab_peop5{width:15%;}
+.c_tab_peop6{width:10%;}

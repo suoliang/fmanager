@@ -1,0 +1,81 @@
+#set($pagecss = ["setup.css"])
+#parse("/common/header.vm")
+
+<script type="text/javascript">
+ var sys_globePath="${rc.contextPath}";
+ var page_globePath=1;
+</script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/common/layer/layer.min.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/custTopicAdvancedList.js')}"></script>
+##右边模块开始
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0);">设置</span><span> > </span><span href="javascript:void(0);">专题专业版</span></p>
+      </h3>
+    </div>
+   
+     <div class="c_search_box">
+      <div class="c_fl">
+        <span>关键字：</span><input type="text" class="c_keywds" name="keywords"  id="keywords"/>
+         <a type="button" class="c_button c_ml10 c_fl" id="subbotton"  onclick="queryPageList(1,10);" >查询</a>
+      </div>
+      <div class="c_fr">
+<!-- <a href="#" class="c_search_link c_search_sys1 c_fl">共享用户</a> -->
+      <a href="javascript:void(0);" tag="btn-create-cust-topic" class="c_search_link c_search_sys2 c_fl">新增专题</a>
+      </div> 
+    </div>
+    
+   <div class="c_mt15"></div>
+   <div class="c_tab_block" id="custTopicList" >
+		#parse("/localsetting/custTopic-advanced-list.vm")
+   </div>
+  <div class="c_fl c_tool c_mt15 c_mb15"><a href="javascript:queryPageList(null,10);" >刷新排序</a></div>
+   #paging("id", "custtopic-paging")
+##右边模块结束
+
+<script type="text/javascript">
+var globle_parentId=0;
+$(document).ready(function(){
+
+	$("#custtopic-paging").paging({
+		gotoNoImpl : function(pageNo, pagesize) {
+			queryPageList(pageNo,pagesize,globle_parentId);	
+		}
+	});     
+	$.fn.check({ checkall_name: "allcheck", checkbox_name: "subcheck" }) ;
+    $("#custtopic-paging").paging("setInfo", $!page.pageNo, $!page.pageSize, $!page.totalPages, $!page.totalRecords); 
+    page_globePath=$!page.pageNo;  
+
+	#if($request.getParameter('pageNo'))
+        queryPageList($request.getParameter('pageNo'),10,globle_parentId);
+	#else
+        queryPageList(1,10,globle_parentId);
+	#end
+
+      //添加键盘enter事件
+    	document.onkeydown = function(e){  
+    		var ev = document.all ? window.event : e;
+    		if(ev.keyCode==13) {
+    			var activeId = document.activeElement.id;
+    			if(activeId=='keywords'){
+    				queryPageList(1,10,globle_parentId);
+    			}
+    		}
+    	}   
+	
+	$(std.findTag('btn-create-cust-topic')).click(function() {
+		var pageNo = $("#custtopic-paging").paging('option', 'currentpage');
+		util.go('/custtopic/advanced/inputCustTopic.htm?pageNo=' + pageNo);
+	});
+	
+    });
+</script>
+
+<script type="text/javascript" src="${rc.contextPath}/js/popup/pop-up-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/popup/pop-up-user-picker.js"></script>
+
+#parse("/popup/pop-up-user-picker.vm")
+
+#parse("/common/footer.vm")

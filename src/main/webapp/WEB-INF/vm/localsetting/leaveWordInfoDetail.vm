@@ -1,0 +1,45 @@
+#set($pagecss = ["setup_message.css"])
+
+#parse("/common/header.vm")
+<!-- sidebar end-->
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name">
+      <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="${rc.contextPath}/setting/leaveWord/index.htm">设置</span><span>></span><span href="${rc.contextPath}/setting/leaveWord/index.htm">留言</span><span>></span><span href="#">留言详情</span></p>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl"><span>留言信息</span></div>
+      <div class="c_fr">
+      <a href="${rc.contextPath}/setting/leaveWord/index.htm?pageNo=${currentPageNo}" class="c_search_link c_search_sys2 c_fl">返回</a>
+      </div> 
+    </div>
+    #set($messageBoard = $messageBoard.data)
+    #set($messageBoardReplyBean = $messageBoardReplyBean.data)
+   <!--search box end-->
+   <div class="c_tab_block c_pr10">
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">标题：</div><div class="c_list_word">$messageBoard.title</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">留言时间：</div><div class="c_list_word">$!date.format('yyyy-MM-dd HH:mm:ss',$messageBoard.createTime)</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">留言信息：</div><div class="c_list_word">$messageBoard.content</div><div class="c_cl"></div></div>
+   </div><!--c_tab_block--> 
+   #if($!messageBoardReplyBean)
+	   <div class="c_mt15"></div> 
+	     <div class="c_search_box">
+	      <div class="c_fl"><span>回复信息</span></div>
+	    </div>
+	   <!--search box end-->
+	   
+	   <div class="c_tab_block c_pr10">
+	        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">回复人：</div><div class="c_list_word ">#if($messageBoardReplyBean.replier)$messageBoardReplyBean.replier#end</div><div class="c_cl"></div></div>
+	        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">回复时间：</div><div class="c_list_word">$!date.format('yyyy-MM-dd HH:mm:ss',$messageBoardReplyBean.createTime)</div><div class="c_cl"></div></div>
+	        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">回复内容：</div><div class="c_list_word ">#if($messageBoardReplyBean.content)$messageBoardReplyBean.content#end</div><div class="c_cl"></div></div>
+	   </div><!--c_tab_block-->
+   #end
+   
+  </div><!--c_list end-->
+  </div><!-- main end-->
+#parse("/common/footer.vm")
+
+
+

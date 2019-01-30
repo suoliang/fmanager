@@ -1,0 +1,37 @@
+.c_lf_tree{width:170px; background-color:#fff;}
+.c_lf_tree .c_tree_top{ height:34px; line-height:34px; background-color:#f5f5f5;}
+.c_Tree_con{height:600px;overflow:auto;white-space:nowrap;}
+.c_speTree{}
+.c_tree_list{ height:34px; line-height:34px; width:100%;  cursor: pointer;}
+.c_tree_list .c_tree_no, .c_tree_list .c_tree_ok{ width:19px;height:33px;cursor: pointer;}
+.c_tree_list .c_tree_no{background-position: -15px -188px;}
+.c_tree_list .c_tree_ok{background-position: 0px -188px;}
+.c_tree_list .c_tree_open,.c_tree_list .c_tree_close{ width:23px;height:34px;cursor: pointer;}
+.c_tree_list .c_tree_open{background-position: -225px -162px;}
+.c_tree_list .c_tree_close{background-position: -244px -162px;}
+
+.c_sp_rg{ margin-left:180px;}
+.c_sp_more{color: #4FA3AE;cursor: pointer;}
+.c_sp_more .c_more_icon{color: #999;}
+
+.c_summary_tab .c_tab_rg .c_tab_con1 .c_tab_input input{ width:165px;}
+.c_tab_time{ display:block; background-color:#67C1EF; padding:0 5px; height:23px; line-height:23px; color:#fff;border-radius: 2px;}
+.c_tab_time:hover{ background-color:#30A8E9}
+/*以下table表格*/
+.c_tab_th1{ width:40%; *width:50%; *padding-left:}
+.c_tab_th2{ width:9%;}
+.c_tab_th3{ width:6%;}
+.c_tab_th4{ width:5%;}
+.c_tab_th5{ width:5%;}
+.c_tab_th6{ width:5%;}
+.c_tab_th7{ width:15%;}
+.c_tab_th8{ width:15%;}
+/*以下表格内下拉框*/
+.c_selsct_w01{width:78px;}
+.c_selsct_w01 ul{ width:76px;}
+
+.c_tree_set{display: block;width:20px;height:25px;background-position: -195px -193px;}
+
+.c_tab1 .c_choice_icon,.c_tab2 .c_choice_icon{ width:10px; height:10px; margin:13px 5px 0 15px; background-position:-20px -200px;cursor:pointer;}
+.c_tab1 .c_choice_icon.active,.c_tab2 .c_choice_icon.active{background-position:-5px -200px;}
+

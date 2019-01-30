@@ -1,0 +1,36 @@
+#foreach($report in $reports)
+<ul class="c_tab2 c_tab_top">
+	<li class="c_tab_reort8"><div>
+	<li class="c_tab_reort7"><div class="c_mr10 c_omit"><div class="c_sprite c_choice_icon" type="son" value="$report.id"></div></div></li>
+	<li class="c_tab_reort1"><div class="c_omit">#set($num = ($!pageInfo.pageNo - 1) * $!pageInfo.pageSize + $velocityCount)$!num</div></li>
+	<li class="c_tab_reort2 "><div class="c_mr10 c_omit c_amore">
+			<a href="javascript:void(0);" tag="btn-goto-brief-article" oid="$!report.id" class="c_amore">$!report.title</a>
+		</div></li>
+	<li class="c_tab_reort3"><div class="c_mr10 c_omit">#if($report.articleIds) $!report.articleIds.size() #else 0 #end</div></li>
+	<li class="c_tab_reort4"><div class="c_mr10 c_omit">$!tag.getRealName($report.createrId)</div></li>
+	<li class="c_tab_reort5"><div class="c_mr10 c_omit">$!date.format('yyyy-MM-dd HH:mm:ss',$report.createTime)</div></li>
+	<li class="c_tab_reort6"><div>
+			<a tag="btn-export-brief" oid="$!report.id" href="${rc.contextPath}/report/brief/export.htm?reportId=$!report.id" class="c_color_cyan c_mr10">导出</a>
+			<a tag="btn-edit-brief" oid="$!report.id" title="$!report.title" href="javascript:void(0);" class="c_mr10 c_color_deeporange "
+				#if($report.createrId != $LOGIN_USER.id)style="display: none;"#end>编辑</a>
+			<a tag="btn-delete-brief" oid="$!report.id" href="javascript:void(0);" class="c_amore"
+				#if($report.createrId != $LOGIN_USER.id)style="display: none;"#end>删除</a>
+		</div></li>
+</ul>
+#end
+
+<script type="text/javascript">
+	/**全选后翻页，最上面全选的勾去掉*/
+	$(function() {
+		$('#selectall').removeClass("active");
+	});
+	
+	$("[type='son']").bind("click",function(){//selectall为表示全选的框  
+      if($(this).hasClass('c_sprite c_choice_icon active')==false){
+	 		  $(this).removeClass("c_sprite c_choice_icon").addClass("c_sprite c_choice_icon active");
+	 	 }
+      else{
+	 		  $(this).removeClass("c_sprite c_choice_icon active").addClass("c_sprite c_choice_icon"); 
+	 	 }
+	});
+</script>

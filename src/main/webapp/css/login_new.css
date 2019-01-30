@@ -1,0 +1,82 @@
+body{ background-color:#fff;  min-width: 960px;}
+.c_login_w960{ width:960px;}
+.c_login_top{height:70px; background-color:#43939E;}
+.c_login_logo{height:60px; background:url(../images/logo_login.png) no-repeat left center; padding-top:10px;}
+.c_login_ban{height:290px; background-color:#43939E;}
+.c_login_ban .c_logo_box{ width:330px; height:230px; background-color:#fff; border-radius:7px; margin-top:40px;}
+.c_login_ban .c_logo_box .c_loginTop{ height:50px; background:url(../images/system_login.jpg) no-repeat left center;}
+.c_login_ban .c_logo_box .c_loginTop .c_loginError{ height:20px; line-height:20px;color:#f92d2d; background:url(../images/logo_no.png) no-repeat right center;}
+.c_login_ban .c_logo_box .c_loginUser{ height:30px; line-height:30px; margin-left:20px;}
+.c_login_ban .c_logo_box .c_loginUser span{}
+.c_login_ban .c_logo_box .c_loginUser input{ width:230px;font-size: 12px;border-radius:2px; border:solid 1px #E1E1E1; height:28px; text-indent:5px; line-height:28px; color:#7F7F7F;font-family:Microsoft YaHei, SimHei;}
+.c_login_ban .c_logo_box .c_loginUser input:focus {border:1px solid #43939E;outline:none;}
+.c_login_ban .c_logo_box .c_loginRem { height:20px; line-height:20px; margin-top:25px;}
+.c_login_ban .c_logo_box .c_loginRem .c_login_checkbox{ width:15px; height:15px;vertical-align: middle;margin-top: -3px;}
+.c_login_ban .c_logo_box .c_loginBut{ width:100px; height:30px;border-radius:2px; line-height:30px; background-color:#42A3B0;}
+.c_login_ban .c_logo_box .c_loginBut a{ display:block; width:70px;height:30px;line-height:30px; text-align:center; border-right:solid 1px #55B2BD;color:#fff;}
+.c_login_ban .c_logo_box .c_loginBut span{display:block;width:28px;height:30px;line-height:30px; border-left:solid 1px #4A93A5; background-position:-133px -192px;}
+.c_login_ban .c_logo_box .c_loginBut:hover{ background-color:#368894;}
+
+.c_logo_part{width: 500px;height: 235px;overflow:hidden;margin-top: 40px;}
+.c_logo_part .c_logoAnimation{width: 1000px;}
+.c_logo_part .c_logoAnimation .c_login_phone{ width:500px; height:230px;}
+.c_logo_part .c_logoAnimation .c_login_phone .c_login_pics{width: 203px;height: 218px;background: url(../images/phone.png) no-repeat;margin-right: 30px;}
+
+.js .js_title {background: url(../images/title.png) no-repeat;width:155px;height:28px;margin-top:14px;}
+.js .js_nr {margin-top: 15px;}
+.js .js_nr .li {list-style: none;color: #fff;font-size: 12px;line-height: 20px;}
+.js .js_nr .li span {font-size: 16px;}
+.download_btn {margin-top: 20px;}
+.ipewm {position: absolute;margin-left: -8px;width:145px;margin-top: -190px;overflow: hidden;}
+
+.ipewm .mid {background-color:#fff;border-radius:3px;width:145px;height: 180px;text-align: center;}
+.ipewm .mid .name {font-size: 12px;line-height:30px;color: #444;font-weight: bold;}
+.ipewm .mid .smer {font-size: 12px;color: #999;}
+.down {margin-top: -6px;color:#fff; text-align:center;}
+
+.download_btn .iphone {background:#368894 url() no-repeat 13px center;width:98px;height: 34px;cursor: pointer;border-radius:2px; line-height:34px; color:#fff; padding-left:33px;}
+.download_btn .iphone:hover{background-color:#40A0AD;}
+.download_btn .android {background:#368894 url(../images/az.png) no-repeat 13px center;width:82px;height: 34px;cursor: pointer;border-radius:2px; line-height:34px; color:#fff; padding-left:33px;}
+.download_btn .android:hover{background-color:#40A0AD;}
+
+.c_logo_part .c_logoAnimation .c_login_phone .c_login_pics2{width: 203px;height: 218px;background: url(../images/helper.png) no-repeat;margin-right: 30px;}
+.js .js_title2 {background: url(../images/title2.png) no-repeat;width:155px;height:28px;margin-top:14px;}
+.download{background:#368894 url(../images/dow.png) no-repeat 20px center;width:75px;height: 34px;cursor: pointer;border-radius:2px; line-height:34px; color:#fff; padding-left:41px;}
+.download:hover{background-color:#40A0AD;}
+
+.blocks {width: 146px;height: 3px;margin: 0 auto;}
+.blocks .block_on {width: 63px;height: 3px;margin-right: 10px;background: #307687;display: block;cursor: pointer;}
+.blocks .block {width: 63px;height: 3px;margin-right: 10px;background: #86bbc3;display: block;cursor: pointer;}
+
+
+.c_login_cloud{height:41px; background:#43939E url(../images/cloud.png) no-repeat center top;}
+.c_login_down{}
+.c_login_down .c_down_pic01,.c_login_down .c_down_pic02,.c_login_down .c_down_pic03,.c_login_down .c_down_pic04{width:80px; height:80px;background:url(../images/login_con.png) no-repeat;}
+.c_login_down .c_down_pic01{background-position:-2px -2px;}
+.c_login_down .c_down_txt{ width:385px; margin-left:5px;}
+.c_login_down .c_down_txt span{font-weight: bold;color: #666;}
+.c_login_down .c_down_txt p{color: #999; line-height:20px;}
+.c_login_down .c_down_pic02{background-position:-93px -2px;}
+.c_login_down .c_down_pic03{background-position:-2px -117px;}
+.c_login_down .c_down_pic04{background-position:-89px -117px;}
+
+.c_login_copyright{ height:25px;line-height:25px; margin-top:50px; color: #999;}
+
+
+.xubox_main{border-radius:5px;}
+.c_alert_theme{border-radius:5px;}
+.c_login_alt_box{width:440px;height:320px;}
+.c_login_alt_tit{}
+.c_login_alt_tit1{ font-size:18px;color:#666666; margin:20px;font-weight: bold;}
+.c_login_alt_tit2{}
+.c_login_alt_tit2 a{ display:block; width:20px; height:20px; background-position:-371px -107px;  margin: 25px 20px;}
+.c_login_alt_log{  margin-top: 28px;}
+.c_login_alt_name{ width:120px; text-align:right;color:#959595; line-height:28px;}
+.c_login_alt_input{ margin-left:10px;}
+.c_login_alt_input input{ height:28px; border:1px solid #E1E2E2; text-indent:10px;}
+.c_login_alt_yzm{ width:78px; height:28px; border:solid 1px #CFCDCD; font-size:12px; text-align:center; line-height:28px;color:#4E4D4D; background:url(../images/lo01.png) repeat-x left top; cursor:pointer}
+.c_login_alt_yzm:hover{background:url(../images/lo02.png) repeat-x left top;}
+.c_login_alt_pd{ font-size:12px; color:#F33;margin-top: 12px;margin-left: 131px;}
+.c_login_alt_but{width:200px;height:35px;line-height:35px;color:#fff; text-align:center; font-size:16px; margin:25px auto; background-color:#43939E; border-radius:3px;font-weight: bold;cursor:pointer}
+
+

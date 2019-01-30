@@ -1,0 +1,13 @@
+#foreach($monitorKeyword in $monitorKeywords)
+<ul class="c_tab2 c_tab_top">
+	<li class="c_tab_focus1"><div class="c_mr10 c_omit">$!{velocityCount}</div></li>
+	<li class="c_tab_focus2"><div class="c_mr10 c_omit">$!monitorKeyword.word</div></li>
+	<li class="c_tab_focus3"><div class="c_mr10 c_omit">$!date.format('yyyy-MM-dd HH:mm:ss ',$!monitorKeyword.tmCreate)</div></li>
+	<li class="c_tab_focus4">
+		<div>
+			<a href="javascript:void(0);" class=" c_amore" tag="btn-edit-rule" oid="$!monitorKeyword.kid">编辑</a>
+			<a href="javascript:void(0);" class=" c_color_deeporange" tag="btn-delete-rule" oid="$!monitorKeyword.kid">删除</a>
+		</div>
+	</li>
+</ul>
+#end

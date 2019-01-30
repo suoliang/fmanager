@@ -1,0 +1,35 @@
+#foreach($focus in $!articles)
+			<div class="c_list_con" style="margin-right: 15px;">
+				<div class="c_list_block">
+					<div class="c_list_tit">
+						<div class="c_title_word c_fl">
+							<a tag="title_tag" oid="$focus.guid" class="c_word_name c_omit c_fl" title="">$!focus.title</a>
+							<!-- title后面显示“自动” -->
+							#if($!grade_type_flag)
+							<i class="$focus.levelColor" name="level_name" id="$focus.level" tag="level_tag">$!focus.levelName</i>
+							#end
+						</div>
+					</div>
+					<p class="c_omit" tag="focusContent" oid="$focus.id">$!focus.abContent</p>
+					<div class="c_link">
+						<div class="c_fl c_tab4_con c_mr10">
+								<a href="$!focus.url" class="c_clearfix c_fl c_omit c_link_word" target="_blank">$!focus.url</a>
+						</div>    
+						<div class="c_fl c_mr15">$!date.format("yyyy-MM-dd HH:mm:ss",$!focus.createTime)</div>
+						
+					    <div class="c_fl c_mr15">
+							  站点:<span tag="sen_tag">$!focus.websiteName</span>
+						</div>
+						<div class="c_fl c_mr15">
+							作者:<span tag="sen_tag">
+							#if($!focus.author)
+							$!focus.author
+							#else
+							未知
+							#end
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+#end

@@ -1,0 +1,22 @@
+#foreach($entry in ${statWebsiteMap.entrySet()})
+<div class="c_anSp_tit c_m10 c_pl10 c_pr10">
+	<div class="c_fl c_f14 c_color_blue">$const.getName("MediaType", $entry.key)</div>
+	<div class="c_fr c_f12 c_color_gay c_an_more" tag="btn-show-statWebsite-list" oid="$entry.key" status="close">展开列表 ▼</div>
+	<div class="c_cb"></div>
+</div>
+<div class="c_ml10 c_mr10" id="c_an2" tag="list-statWebsite" oid="$entry.key" style="display: none;">
+#foreach($statWebsite in $entry.value) 
+	#if($velocityCount % 4 == 1)
+	<div class="c_an_block">
+	#end
+		<div class="c_f12 c_an_special c_fl">
+			<div class="c_omit c_anSp_list c_fl c_ml10" oid="$statWebsite.websiteId">$!tag.getWebsiteName($statWebsite.websiteId)</div>
+			<a href="javascript:void(0);" class="c_anSp_num c_fl c_color_blue c_ml5" tag="statWebsite-goto-searth" oid="$statWebsite.websiteId" websiteId="$statWebsite.websiteId">($!statWebsite.count)</a>
+			<input type="hidden" id="$statWebsite.websiteId" value="$!tag.getWebsiteName($statWebsite.websiteId)"/>
+		</div>
+	#if($velocityCount % 4 == 0 || !$foreach.hasNext)
+	</div>
+	#end
+#end
+</div>
+#end

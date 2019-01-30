@@ -1,0 +1,11 @@
+
+#set($articles = $pageInfo.data)
+#set($countList = $countArticleList)
+
+#parse("/custtopic/index-list-article.vm")
+
+<script type="text/javascript">
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

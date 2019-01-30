@@ -1,0 +1,149 @@
+/*主页自适应模块布局*/
+.c_block_con .c_block_listA{}
+.c_block_con .c_block_listA li  .c_block_list{width:78%;margin-left:1%; margin-right:1%;}
+.c_block_con .c_block_listA li  .c_block_list i{ display:inline-block; margin-right:10px;}
+.c_block_con .c_block_listA li  .c_block_date{ width:20%; text-align:center;}
+.c_block_con .c_block_listB{}
+.c_block_con .c_block_listB li .c_block_list{width:72%; margin-left:1%; margin-right:1%;}
+.c_block_con .c_block_listB li  .c_block_list i{ display:inline-block; margin-right:10px;}
+.c_block_con .c_block_listB li .c_block_name{width:5%; color:#3399FF;text-align:left; margin-right:1%;}
+.c_block_con .c_block_listB li .c_block_date{ width:20%; text-align:center}
+.c_block_con .c_block_listC{}
+.c_block_con .c_block_listC li .c_block_list{width:72%; margin-left:1%; margin-right:1%;}
+.c_block_con .c_block_listC li .c_block_num{width:23%; font-size:18px; font-weight:bold;text-align:center; cursor:pointer;}
+.c_summary{border-bottom:solid 1px #E0E0E0; overflow:hidden;}
+.c_summary li{ float:left; height:34px;line-height:34px; font-size:12px; margin-left:10px;}
+.c_summary li span{ margin:0 5px;font-size:16px; font-weight:bold;}
+
+.c_block_con .c_block_listD{ margin:10px 10px 10px 20px; height:25px;}
+.c_block_con .c_block_listD li{ float:left; font-size:12px;height:23px; line-height:23px; margin-left:10px; border-bottom:none;}
+.c_block_con .c_block_listD li a{ display:block; height:23px; line-height:23px; padding:0 10px; border-bottom:none; border-radius:2px;}
+.c_block_con .c_block_listD li .c_titbg_1{ border:solid 1px #67C1EE; color:#67C1EE;}
+.c_block_con .c_block_listD li .c_titbg_1:hover,.c_block_con .c_block_listD li .active_1{ background-color:#67C1EE;border:solid 1px #67C1EE; color:#fff;}
+.c_block_con .c_block_listD li .c_titbg_2{ border:solid 1px #FF9933; color:#FF9933;}
+.c_block_con .c_block_listD li .c_titbg_2:hover,.c_block_con .c_block_listD li .active_2{ background-color:#FF9933;border:solid 1px #FF9933; color:#fff;}
+.c_block_con .c_block_listD li .c_titbg_3{ border:solid 1px #77CC51; color:#77CC51;}
+.c_block_con .c_block_listD li .c_titbg_3:hover,.c_block_con .c_block_listD li .active_3{ background-color:#77CC51;border:solid 1px #77CC51; color:#fff;}
+.c_block_con .c_block_listD li .c_titbg_4{ border:solid 1px #FF6565; color:#FF6565;}
+.c_block_con .c_block_listD li .c_titbg_4:hover,.c_block_con .c_block_listD li .active_4{ background-color:#FF6565;border:solid 1px #FF6565; color:#fff;}
+.c_block_con ul .c_border_botno{ border-bottom:none;}
+
+.c_block_con .c_block_listE{}
+.c_block_con .c_block_listE li .c_block_list{width:48%; margin-left:1%; margin-right:1%;}
+.c_block_con .c_block_listE li .c_listE_num{width:9%;margin-right:1%;}
+.c_block_con .c_block_listE li .c_block_name{width:19%; color:#3399FF;text-align:left; margin-right:1%;}
+.c_block_con .c_block_listE li .c_block_date{ width:20%; text-align:center}
+
+
+.c_block_card{margin:10px; height:131px;}
+.c_change_box{ line-height:35px;height:131px; overflow:hidden;}
+.c_change_box .c_change_title{ width:60px; text-align:right;}
+.c_change_box .c_change_search{ margin-left:10px;}
+.c_change_box .c_change_search input{ width:150px; margin-right:10px;}
+.c_bglight_blue{ background-color:#E2F3FC}
+.c_bglight_yellow{ background-color:#FFEEDD}
+.c_bglight_green{ background-color:#ECF8E7}
+.c_bglight_red{ background-color:#FFEEEE}
+
+.c_divselect{width:150px;margin-top:5px;}
+.c_divselect .cite{ width:148px;}
+.c_divselect .cite .citeT{ width:118px;}
+.c_divselect ul{width:148px; max-height:100px;}
+.c_divselect ul li a{width:138px; }
+
+.c_chart{width:375px;}
+.c_chart .c_chart01{ width:85px; height:220px; text-align:center;}
+.c_chart .c_chart01 .c_chart01_num{ color:#FF9933; font-size:20px;}
+.c_chart .c_chart_word{ font-size:12px; margin-top:5px; color:#999;}
+.c_chart .c_chart02{width:158px; height:220px;margin-left:20px;}
+.c_chart .c_chart03{width:250px;height:220px;}
+.c_chart .c_chart03 dl{margin-right:10px;}
+.c_chart .c_chart03 dt{ line-height:25px;border-bottom:solid 1px #CCC;}
+.c_chart .c_chart03 dl dd{ line-height:25px; overflow:hidden;float: left;width: 120px}
+.c_chart .c_chart03 dl dd div{margin-right:5px;}
+.c_chart .c_chart03 dl dd div i{ color:#46a1b9; margin:0 5px;}
+.c_chart .c_chart03 dl dd .c_chart_c{ color:#46a1b9;width:18px; height:13px;border: 1px solid #c6c6c6; margin-top:5px;}
+.c_chart .c_chart03 dl dd .c_chart_c div{width:16px; height:11px; margin:1px;}
+.c_chart .c_chart03 dl dd .c_chart_c1 div{background:#59cdcc;}
+.c_chart .c_chart03 dl dd .c_chart_c2 div{background:#5f88d0;}
+.c_chart .c_chart03 dl dd .c_chart_c3 div{background:#5CBC85;}
+.c_chart .c_chart03 dl dd .c_chart_c4 div{background:#F6AB8D;}
+.c_chart .c_chart03 dl dd .c_chart_c5 div{background:#BADD5C;}
+.c_chart .c_chart03 dl dd .c_chart_c6 div{background:#F06EB1;}
+.c_chart .c_chart03 dl dd .c_chart_c7 div{background:#5FC5EB;}
+.c_chart .c_chart03 dl dd .c_chart_c8 div{background:#E5DE66;}
+.c_chart .c_chart03 dl dd .c_chart_c9 div{background:#EB5F5F;}
+
+/*首页舆情概况大图样式 */
+.kp_chart_big{width:100%; height:500px; margin:0 auto;}
+.kp_chart_big .c_chart01{ width:20%; text-align:right;margin-top:135px;}
+.kp_chart_big .c_chart01 .c_chart01_num{ color:#FF9933; margin-top:60px; font-size:30px;}
+.kp_chart_big .c_chart_word{ font-size:12px; margin-top:5px; color:#999;}
+.kp_chart_big .c_chart02{width:50%; height:500px;}
+.kp_chart_big .c_chart03{width:30%;}
+.kp_chart_big .c_chart03 dl{margin-top: 120px;}
+.kp_chart_big .c_chart03 dt{ line-height:25px;border-bottom:solid 1px #CCC;}
+.kp_chart_big .c_chart03 dl dd{ line-height:25px; clear:both; overflow:hidden;}
+.kp_chart_big .c_chart03 dl dd div{margin-right:5px;}
+.kp_chart_big .c_chart03 dl dd div i{ color:#46a1b9; margin:0 5px;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c{ color:#46a1b9;width:18px; height:13px;border: 1px solid #c6c6c6; margin-top:5px;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c div{width:16px; height:11px; margin:1px;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c1 div{background:#59cdcc;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c2 div{background:#5f88d0;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c3 div{background:#5CBC85;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c4 div{background:#F6AB8D;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c5 div{background:#BADD5C;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c6 div{background:#F06EB1;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c7 div{background:#5FC5EB;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c8 div{background:#E5DE66;}
+.kp_chart_big .c_chart03 dl dd .c_chart_c9 div{background:#EB5F5F;}
+/**/
+.kp_cloud_big{ height:500px;}
+.kp_cloud_big .c_cloud_prev{width:30%;margin-top:100px;}
+.kp_cloud_big .c_cloud_prev li{ line-height:26px; height:26px;margin-left: 280px;}
+.kp_cloud_big .c_cloud_prev li:after{ display:none}
+.kp_cloud_big .c_cloud_prev span{display: inline-block; width:8px; height:8px !important; margin-top:8px; margin-right:5px}
+
+.kp_cloud_big .kp_cloud_outer{height:500px;width:70%;text-align:left;}
+.kp_cloud_big .c_cloud_con{width:500px;height:400px; position:relative;font-size:12px;color:#fff; }
+.kp_cloud_big  #tagscloud a{position:absolute;top:0px;left:0px;color:#fff;margin:0 20px 25px 20px;line-height:18px;text-align:center;font-size:16px;padding:10px 15px;display:inline-block;border-radius:3px;}
+.kp_cloud_big .kp_cloud_num{text-align:left;}
+.kp_cloud_big .kp_cloud_num a{ color:#212121; padding:0 3px}
+
+/*24小时云图*/
+.c_cloud{ height:258px; width:auto;}
+.c_cloud .c_block_title .c_icon_cloud{ width:16px; height:12px; background-position:-145px -171px;}
+.c_cloud .c_cloud_con{ height:228px;width:280px;position:relative;font-size:12px;color:#fff;margin-left:60px;text-align:center;}
+#tagscloud a{position:absolute;top:0px;left:0px;color:#fff;margin:0 10px 15px 10px;line-height:18px;text-align:center;font-size:12px;padding:1px 5px;display:inline-block;border-radius:3px;}
+
+
+#tagscloud a:hover{color:#fff;background:#0099ff;}
+
+/*2016.4.19云词颜色修改*/
+.kp_cloud_outer{ width:440px;}
+.kp_cloud_num a{ color:#212121; padding:0 1px}
+.tagc1{background:#fa9a3b;color:#fff;}
+.tagc2{background:#F16E50;color:#fff;}
+.tagc3{background:#59CDCC;color:#fff;}
+.tagc4{background:#F06EB1;color:#fff;}
+.tagc5{background:#78cd51;color:#fff;}
+.tagc6{background:#5FC5EB;color:#fff;}
+.tagc7{background:#EB5F5F;color:#fff;}
+.tagc8{background:#BADD5C;color:#fff;}
+.tagc9{background:#0099ff;color:#fff;}
+
+.c_cloud .c_cloud_prev{ margin-top:30px; width:62px}
+.c_cloud .c_cloud_prev li{ line-height:22px; height:22px}
+.c_cloud .c_cloud_prev li:after{ display:none}
+.c_cloud .c_cloud_prev span{ display:block; width:8px; height:8px !important; margin-top:8px; margin-right:5px}
+/*2016.4.19云词样式End*/
+
+
+
+
+
+
+
+
+
+

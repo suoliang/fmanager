@@ -1,0 +1,45 @@
+#parse("/common/header.vm")
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name">
+      <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="person_true.html">人物</span><span>></span><span href="person_true.html">真实身份</span><span>></span><span href="person_true_msg.html">人物详情</span></p>
+      </h3>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl"><span>人物详情</span></div>
+      
+      <div class="c_fr"><a href="javascript:updatePeople($!pageInfo.id);" class="c_search_link c_search_sys1 c_fl c_mr10">编辑</a> <a href="TrueIdentity.htm?currentPage=${currentPageNo}" class="c_search_link c_search_sys2 c_fl">返回</a></div> 
+    </div>
+   <!--search box end-->
+   <div class="c_tab_block c_pb15">
+     <div class="c_fr c_m10 c_w150">
+       <div class="c_photoImg"><img src="${rc.contextPath}/images/photo.png" alt=""/></div>
+       <div class="c_mt10"><a href="#" class="c_button c_tc c_bc c_w100">修改头像</a></div>
+     </div>
+     <div class="c_m10">
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">真实姓名：</div><div class="c_list_word">$!pageInfo.realName</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">关键词：</div><div class="c_list_word">$!pageInfo.keywords</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">人物介绍：</div><div class="c_list_word">$!pageInfo.content</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">所属分类：</div><div class="c_list_word ">$!pageInfo.categoryName</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">性别：</div><div class="c_list_word">$!pageInfo.sex</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">手机：</div><div class="c_list_word ">$!pageInfo.mobile</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">QQ：</div><div class="c_list_word ">$!pageInfo.qq</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">微信：</div><div class="c_list_word ">$!pageInfo.wx</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">邮箱：</div><div class="c_list_word ">$!pageInfo.email</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">学历：</div><div class="c_list_word ">$!pageInfo.education</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">职业：</div><div class="c_list_word ">$!pageInfo.job</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">生日：</div><div class="c_list_word ">$!date.format("yyyy-MM-dd HH:mm:ss",$!pageInfo.birthday)</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">来源：</div><div class="c_list_word ">$!pageInfo.createrIdName</div><div class="c_cl"></div></div>
+        <div class="c_tab_list"><div class="c_fl c_list_name c_tr">创建时间：</div><div class="c_list_word">$!date.format("yyyy-MM-dd HH:mm:ss",$!pageInfo.createTime)</div><div class="c_cl"></div></div> 
+     </div>
+   </div><!--c_tab_block--> 
+  </div><!--c_list end-->
+  </div><!-- main end-->
+
+<link href="${rc.getContextUrl('/css/person.css')}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${rc.contextPath}/js/people/updateDetailsPeople.js"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+#parse("/common/footer.vm")

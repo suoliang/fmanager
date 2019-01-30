@@ -1,0 +1,72 @@
+#if($!articles.size() != 0) 
+<ul class="c_block_listE">
+	#foreach($!article in $!articles) 
+		<li #* #if(!$foreach.hasNext) class="c_border_botno" #end *# >
+			<a href="javascript:void(0);" class="c_block_list c_omit" tag="article-board-detail" oid="$!article.guid">
+				#if($!{article.title.length()}==0)
+				  $!article.title
+				#else
+					#if($!article.title.substring(0,1) == "“") 
+						"$!article.title.substring(1,$!article.title.length())  
+					#else 
+						$!article.title 
+					#end
+				#end
+			</a>
+			
+			<a tag="to-similar" oid="querySimilar" guidGroup="$!article.guidGroup" guid="$!article.guid" style="color: #FF6565;" class="c_listE_num c_omit"></a>
+			
+			<span class="c_block_name c_omit" title="$!article.websiteName">$!article.websiteName</span>
+			<span class="c_block_date">$date.format("MM-dd HH:mm", $!article.postTime)</span>
+		</li>
+	#end
+</ul>
+#elseif($isDelete)
+<div class="c_nodata" tag="deleteTopicPlate">专题已删除</div>
+<script type="text/javascript">
+	$(std.findTag("deleteTopicPlate")).each(function() {
+		std.find("board-config-btn", $(this).parent().attr("oid")).addClass("c_none");
+		std.find("board-more-btn", $(this).parent().attr("oid")).addClass("c_none");
+	})
+</script>
+#elseif($isDisable)
+<div class="c_nodata" tag="disableTopicPlate">专题已停用</div>
+<script type="text/javascript">
+	$(std.findTag("disableTopicPlate")).each(function() {
+		std.find("board-config-btn", $(this).parent().attr("oid")).addClass("c_none");
+		std.find("board-more-btn", $(this).parent().attr("oid")).addClass("c_none");
+	})
+</script>
+#else
+<div class="c_nodata">暂无数据</div>
+#end
+<script type="text/javascript">
+	
+	$(function(){
+		$(std.findOid("querySimilar")).each(function() {
+			$(this).removeAttr("Oid");
+			var guid = $(this).attr("guid");
+			var guidGroup = $(this).attr("guidGroup");
+			ajaxCommFun(std.u('/home/getSimilarNum.htm'), "guid="+guid+"&guidGroup="+guidGroup, function(response) {
+				$("a[guid="+guid+"]").html("");
+				$("a[guid="+guid+"]").html(response.message);
+			});
+		});
+	});
+
+	$(std.findTag('article-board-detail')).unbind('click').click(function(e) {
+		$(".c_main").append("<form id='param-form' target='_blank' method='post' action='" + std.u('/search/openArticleDetail.htm') + "'></form>");
+		$("#param-form").append("<input type='hidden' name='guid' value='" + std.oid(this) + "'/>");
+		document.createElement("a").onclick = $("#param-form").submit();
+		$("#param-form").remove();
+	});
+	
+	$(std.findTag("to-similar")).unbind("click").click(function(e) {
+		/**相似文数量为空不跳转*/
+		if (util.isNotBlank($(this).text())) {
+			window.location.href = ctx+"/focusing/similarQueryInfo.htm?guid="+$(this).attr("guid")+"&guidGroup="+$(this).attr("guidGroup")
+			+"&jumpLocation=homepage";/**由于相似文页面公用一个,此字段控制返回按钮的跳转*/
+		}
+	});
+	
+</script>

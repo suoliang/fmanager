@@ -1,0 +1,209 @@
+#parse("/common/header.vm")
+
+<link href="${rc.contextPath}/css/setup.css" rel="stylesheet"
+	type="text/css" />
+<script src="${rc.contextPath}/js/localsetting/ls-homepage.js"
+	type="text/javascript"></script>
+
+<script src="${rc.contextPath}/js/system/orgManager.js"
+	type="text/javascript"></script>
+
+<div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="#">设置</span><span>></span><span href="#">系统</span><span>></span><span href="#">组织管理</span></p>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl">
+        <span>组织名称检索：</span><input type="text" id="orgName" class="c_keywds c_mr10"/>
+        <a type="button" class="c_button c_ml10 c_fl"  onclick="initPage()">查询</a>
+      </div>
+		<form id="condition-form" class="c_none">
+			<input type="hidden" name="name"/>
+		</form>
+      <div class="c_fr">
+      <a href="javaScript:void(0);" class="c_search_link c_search_sys2 c_fl"  onclick="orgMagre(this,-1,'');">新增组织</a>
+      </div> 
+    </div>
+     <div class="c_mt15"></div>
+        <div class="c_tab_block" id="dataDiv"></div>
+	</div>
+</div>
+
+	#parse("/system/pop-up-org.vm")
+
+<!--c_alt_box-->
+<script type="text/javascript">
+	$(function() {
+		initPage();
+		$("#search-userManager-paging").paging({
+			gotoNoImpl : initPage
+		});
+		
+		 document.onkeydown=function(event){
+		        var e = event || window.event || arguments.callee.caller.arguments[0];
+		        if(e && e.keyCode==13){ // 按向下键
+		        	initPage();
+		        }
+		  }; 
+		
+		$("#orgDiv").optionMagr({
+			width : 100,
+			multiple : false,
+			listSubOption : function(id) {
+				var options = [];
+				ajaxCommFun("${rc.contextPath}/orgManage/getSubOrgList.htm", "orgid="+id, function(data) {
+		    	    if (data.result == "success") {
+		    	    	options=data.subList;
+		    	    } else {
+		    			layer.alert(data.result);
+		    	    }
+		    	},true);
+				return options;
+			}
+		});
+		
+
+		
+	});
+	function initPage() {
+		$('input[name="name"]').val($.trim($('#orgName').val()));
+		ajaxCommFun(
+				"${rc.contextPath}/orgManage/queryOrgList.htm",
+				$("#condition-form").serialize(),
+				function(response) {
+					if (response.type == dict.action.suc) {
+						$("#dataDiv").empty();
+						var h = '<ul class="c_tab1">'
+								+ '<li class="c_tab_sys2_sub1"></li>'
+								+ '<li class="c_tab_sys2_sub2">组织名称</li>'
+								+ '<li class="c_tab_sys2_sub3">成员数</li>'
+								+ '<li class="c_tab_sys2_sub4">操作</li>'
+								+ '</ul>';
+						$("#dataDiv").append(h);
+						$(response.data)
+								.each(
+										function(prop, value) {
+											var countUser="0";
+											$.each(response.countUserMap,function(key,values){
+												if(key==value.id){
+													countUser=values;
+												}
+											});
+											var data = '<ul class="c_tab2 c_tab_top">'
+												+ '<li class="c_tab_sys2_sub1"></li>'
+												+ '<li class="c_tab_sys2_sub2"><div> <div class="c_fl c_sprite c_icon_open c_mt10 c_mr5" oid="'+value.id+'"  oname="'+value.name+'"  onclick="dept.onSwitchSubDeptList(this);"></div><div class="c_omit c_mr5">'
+												+ value.name
+												+ '</div></div></li>'
+													+ '<li class="c_tab_sys2_sub3">'
+													+ countUser
+													+ '</li>'
+													+ '<li class="c_tab_sys2_sub4"><a href="javaScript:void(0);"  orgId="'+value.id+'"  orgName="'+value.name+'" parentOrgId="'+value.parentId+'"  onclick="orgMagre(this,0,null);"  class="c_mr10 c_color_deeporange c_search_sys2">编辑</a><a href="javaScript:void(0);" onclick="deleteOrg('+value.id+');" class="c_amore">删除</a>'
+													+ '</li>'
+													+ '</ul>';
+											$("#dataDiv").append(data);
+										});
+					} else {
+						layer.alert(response.message);
+					}
+				});
+	}
+	
+	
+	
+	var deleteOrg=function(orgId){
+		var submit = function() {
+			var fun = function(msg) {
+				layer.closeAll();
+				if (msg.result == "success") {
+					initPage();
+				} else {
+					layer.alert(msg.result);
+				}
+			}
+			ajaxCommFun("${rc.contextPath}/orgManage/deleteOrg.htm","orgId="+orgId, fun);
+		}
+		layer.confirm("删除组织会级联删除所有子组织，确认删除？", submit, "提示");
+	}
+	
+	var orgMagre=function(outer,pid,pname) {
+		$.box('#orgDiv', {
+			onOpen : function() {
+				var options=[]
+				if(pid==-1){
+					$("#orgTitle").empty();
+					$("#orgTitle").append("新增组织");
+					$('#orgDiv').optionMagr('setSelectable', true);
+					$('#orgDiv').optionMagr('showSubOption', 0);
+					$('#orgDiv').optionMagr('initValue', options);
+				}else{
+					$("#orgTitle").empty();
+					$("#orgTitle").append("修改组织");
+					if(pid!=0){
+						options= [{id:pid,name:pname}];
+					}
+					$('#orgDiv').optionMagr('setSelectable', false);
+					$('#orgDiv').optionMagr('clearSubOption',0);
+					$('#orgDiv').optionMagr('initValue', options);
+				}
+				
+				
+				$("#org_Name").val($(outer).attr("orgName"))
+				$("#parentOrgId").val(pid)
+				
+			}
+		}, {
+			submit : {
+				close : false,
+				dom : ["#orgDiv .box-submit" ],
+				fun : function() {
+					var parentId=${val};
+					var res=$('#orgDiv').optionMagr('submit');
+					if(res.length!=0){
+						parentId=res[0].id;
+					}
+					
+					var orgName="";
+					if(typeof($("#org_Name").val())!="undefined"){
+						orgName=$.trim($("#org_Name").val());
+					}
+					if(orgName==""){
+						layer.alert("请输入组织名称");
+						return;
+					}
+					var orgId="";
+					if(typeof($(outer).attr("orgId"))!="undefined"){
+						orgId=$(outer).attr("orgId");
+						if(parentId==orgId){
+							layer.alert("上级组织不能为自己");
+							return;
+						}
+						parentId=$(outer).attr("parentOrgId");
+					}
+					
+					var fun = function(msg) {
+						 layer.closeAll();
+						    if (msg.result == "success") {
+							layer.msg("操作成功！", 2, 1);
+							window.setTimeout(function() {
+							    initPage(1, 20);
+							}, 300);
+						    } else {
+							layer.alert(msg.result);
+						    }
+					}
+					ajaxCommFun("${rc.contextPath}/orgManage/saveOrg.htm", "orgName=" +orgName+ "&parentOrgId="+parentId+"&orgId="+orgId, fun,true);
+				}
+			},
+			close : {
+				dom : ["#orgDiv .box-close", "#orgDiv .box-cancel" ]
+			}
+		});
+ }
+
+</script>
+#parse("/common/footer.vm")
+
+
+

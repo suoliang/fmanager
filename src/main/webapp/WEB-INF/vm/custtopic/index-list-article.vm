@@ -1,0 +1,93 @@
+<div id="all-list-article">
+#foreach($article in $articles)
+     <div class="c_tab_block #if($velocityCount % 2 == 0)c_bg_ye#end">
+      <ul class="c_tab2 c_cb">
+      <li class="c_tab_th1 c_th1_tit" title="">
+      <div id="test" class="c_sprite c_choice_icon c_fl" type="son" value="$!article.guid" onclick="changClass(this);"></div>
+	   <!-- 预警已通知过的文章(客户stage=22)则显示“预警”标签 -->
+	   #if($article.custAttrs.get($CUSTOMER.id.toString()).stage == 22)		
+	   	<div class="c_fl c_f14 c_ml5 c_mr5 c_emergency c_mt10">预警</div>
+	   #end
+      <a class="c_atit c_omit c_mr10" href="javascript:void(0);" tag="article-link" oid="$!article.guid" style="display:block;">$!article.title</a></li>
+      <li  class="c_tab_th2 c_omit"  title="$!article.websiteName">$!tag.getWebsiteName($article.websiteId)</li>
+      <li  class="c_tab_th3 c_omit"  title="$!article.author">$!article.author</li>
+      <li class="c_tab_th4"  title="$!const.getName('Sentiment', $article.custAttrs.get($CUSTOMER.id.toString()).sentiment)">$!const.getName("Sentiment", $article.custAttrs.get($CUSTOMER.id.toString()).sentiment)</li>
+      <li  class="c_tab_th5 c_omit"  title="$!article.readCount">$!article.readCount<i class="c_sprite c_sort c_ml5"></i></li>
+      <li class="c_tab_th6 c_omit"  title="$!article.replyCount">$!article.replyCount<i class="c_sprite c_sort c_ml5"></i></li>
+      <li  class="c_tab_th7 c_omit">$date.format("yyyy-MM-dd HH:mm:ss",$!article.postTime)<i class="c_sprite c_sort c_ml5"></i></li>
+      <li  class="c_tab_th8 c_omit" title="">
+      	$!tag.getImportance($article.custAttrs.get($CUSTOMER.id.toString()).importance.toString(),$article.importance.toString())
+      	<i class="c_sprite c_sort c_ml5"></i>
+      </li>
+      </ul>      
+      <div class="c_tab3 c_cb c_ml15 c_mr15 c_omit" tag="article-link" oid="$!article.guid">#if($article.contentLight) $!article.contentLight #else $!article.abContent #end</div> 
+      <div class="c_tab3 c_tab4 c_cb c_ml15 c_mr15 c_omit">
+         <div class="c_fl c_tab4_con c_mr10">
+<!--          	<a class="c_color_blue" href="$!article.url"  target="_blank" >访问原文</a> -->
+				<a href="$!article.url" class="c_clearfix c_fl c_omit c_w200 c_color_blue" target="_blank">$!article.url</a>
+         </div>      
+<!-- 自动化用户登录时预警模块的预警等级和专题模块的预警等级显示会有冲突    暂时隐藏 -->                
+<!--          <div class="c_fl c_tab4_con c_mr15">预警:#if($const.getName("WarnLevel", $article.custAttrs.get($CUSTOMER.id.toString()).warnLevel))<span>$!const.getName("WarnLevel", $article.custAttrs.get($CUSTOMER.id.toString()).warnLevel)</span>#else<span>未预警</span>#end -->
+<!--          </div> -->
+         <div class="c_fl c_tab4_con c_mr15 c_omit" style="max-width: 500px;">
+         	#set($custTopicIds = $article.custAttrs.get($CUSTOMER.id.toString()).custTopicIds)
+			#if($custTopicIds.isEmpty())
+				#set($custTopicNames = "")
+			#else 
+				#set($custTopicNames = $tag.getCustTopicName($custTopicIds, ","))
+			#end
+         	所属专题<input type="hidden" value="$custTopicIds">:#if("$!custTopicNames" != "")<span>$custTopicNames</span>#else<span>暂无</span>#end
+         </div>
+        
+         <div class="c_fl c_tab4_con" style="display:none;" id="$!article.guid">
+         		<span>相似文</span><span><a tag="to-similar" oid="querySimilar" guidGroup="$!article.guidGroup" guid="$!article.guid" class="c_omit c_color_blue" style="color: #FF6565;"></a></span><span>条</span>
+         </div>  
+           
+<!--          <div class="c_fl c_tab4_con"> -->
+<!--          		<span><a href="${rc.contextPath}/topic/findArticles.htm?guids=$!article.guid" class="c_omit c_color_blue">导出Word</a></span> -->
+<!--          		<span><a href="${rc.contextPath}/topic/listExportExcel.htm?guids=$!article.guid" class="c_omit c_color_blue">导出Excel</a></span> -->
+<!--          </div>        -->
+           
+         <div id="alertSortSelect" class="c_fr" tag="ctx-btn">
+            <div class="c_tab_nav c_fl  c_mt5  c_mr5 c_selsct_w01" id="c_nav$!article.guid" >
+            	<img tag="btn-open-brief-picker" oid="$!article.guid" title="加入简报" alt="加入简报" src="${rc.contextPath}/images/jianbao.png">
+	            
+            </div>          
+         </div>
+      </div> 
+     </div>
+#end
+</div>
+<span id="countMediaHidden">
+	#foreach($countMap in $!countList.entrySet()) 
+		<input type="hidden" value="$!countMap.value" tag="countNum" oid="$!countMap.key">
+	#end
+</span>
+<script type="text/javascript">
+/**全选后翻页，最上面全选的勾去掉*/
+$(function() {
+	$('#selectall').removeClass("active");
+	
+	$(std.findOid("querySimilar")).each(function() {
+		$(this).removeAttr("Oid");
+		var guid = $(this).attr("guid");
+		var guidGroup = $(this).attr("guidGroup");
+		ajaxCommFun(std.u('/home/getSimilarNum.htm'), "guid="+guid+"&guidGroup="+guidGroup, function(response) {
+			if (util.isNotBlank(response.message)) {
+				$("a[guid="+guid+"]").html("");
+				$("a[guid="+guid+"]").html(response.message);
+				$("#"+guid).css('display','block');
+			}
+		});
+	});
+	
+});
+
+function changClass(obj){
+	if($(obj).hasClass('active')==false){
+		$(obj).addClass("active");
+	}else{
+		$(obj).removeClass("active");
+	}
+}
+</script>

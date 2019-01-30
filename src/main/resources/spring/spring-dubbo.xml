@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://code.alibabatech.com/schema/dubbo dubbo.xsd">
+
+    <dubbo:application name="${project.name}"/>
+
+ 	<dubbo:registry protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}" file="${dubbo.registry.file}" group="dubbo-${dubbo.registry.group}" check="false"/>
+ 	
+	<dubbo:consumer timeout="${dubbo.consumer.timeout}" check="false" retries="0"/>
+
+	<!-- Authentication -->
+	<dubbo:reference id="userService" interface="com.cyyun.authim.service.UserService" version="1.0.0"/>
+	<dubbo:reference id="roleService" interface="com.cyyun.authim.service.RoleService" version="1.0.0"/>
+	<dubbo:reference id="permissionService" interface="com.cyyun.authim.service.PermissionService" version="1.0.0"/>
+	<dubbo:reference id="permResourceService" interface="com.cyyun.authim.service.PermResourceService" version="1.0.0"/>
+	<dubbo:reference id="userGroupService" interface="com.cyyun.authim.service.UserGroupService" version="1.0.0"/>
+	<dubbo:reference id="organizationService" interface="com.cyyun.authim.service.OrganizationService" version="1.0.0"/>
+
+	<!-- FManger -->
+	<dubbo:reference id="custDataCategoryService" interface="com.cyyun.fm.service.CustDataCategoryService" version="1.0.0" />
+	<dubbo:reference id="custSiteService" interface="com.cyyun.fm.service.CustSiteService" version="1.0.0" />
+	<dubbo:reference id="fmAnalyzeService" interface="com.cyyun.fm.service.FmAnalyzeService" version="1.0.0" />
+	<dubbo:reference id="fmReportService" interface="com.cyyun.fm.service.FmReportService" version="1.0.0" />
+	<dubbo:reference id="fmSearchService" interface="com.cyyun.fm.service.FmSearchService" version="1.0.0" />
+	<dubbo:reference id="userConfigService" interface="com.cyyun.fm.service.UserConfigService" version="1.0.0" />
+	<dubbo:reference id="webpageBoardService" interface="com.cyyun.fm.service.WebpageBoardService" version="1.0.0" />
+	<dubbo:reference id="webSearchService" interface="com.cyyun.fm.service.WebSearchService" version="1.0.0" />
+	<dubbo:reference id="fmMessageBoardService" interface="com.cyyun.fm.service.FmMessageBoardService" version="1.0.0"/>
+	<dubbo:reference id="fmMessageBoardReplyService" interface="com.cyyun.fm.service.FmMessageBoardReplyService" version="1.0.0"/>
+	<dubbo:reference id="fmEngineService" interface="com.cyyun.fm.service.FmEngineService" version="1.0.0"/>
+	<dubbo:reference id="AgentService" interface="com.cyyun.fm.service.AgentService" version="1.0.0"/>
+	
+	<dubbo:reference id="weiboSourceService" interface="com.cyyun.fm.service.WeiboSourceService" version="1.0.0"/>
+	<dubbo:reference id="fmTaskService" interface="com.cyyun.fm.service.FmTaskService" version="1.0.0"/>
+
+	<!-- Base -->
+	<dubbo:reference id="areaService" interface="com.cyyun.base.service.AreaService" version="1.0.0" />
+	<dubbo:reference id="articleService" interface="com.cyyun.base.service.ArticleService" version="1.0.0" />
+	<dubbo:reference id="articleStatisticService" interface="com.cyyun.base.service.ArticleStatisticService" version="1.0.0" />
+	<dubbo:reference id="websiteBoardService" interface="com.cyyun.base.service.WebsiteBoardService" version="1.0.0" />
+	<dubbo:reference id="constantService" interface="com.cyyun.base.service.ConstantService" version="1.0.0" />
+	<dubbo:reference id="industryService" interface="com.cyyun.base.service.IndustryService" version="1.0.0" />
+	<dubbo:reference id="keywordService" interface="com.cyyun.base.service.KeywordService" version="1.0.0" />
+	<dubbo:reference id="custTopicKeywordService" interface="com.cyyun.base.service.CustTopicKeywordService" version="1.0.0" />
+	<dubbo:reference id="websiteService" interface="com.cyyun.base.service.WebsiteService" version="1.0.0" />
+	<dubbo:reference id="spiderService" interface="com.cyyun.base.service.SpiderService" version="1.0.0" />
+	<dubbo:reference id="taskService" interface="com.cyyun.base.service.TaskService" version="1.0.0" />
+
+	<!-- Customer -->
+	<dubbo:reference id="customerConfigService" interface="com.cyyun.customer.service.CustomerConfigService" version="1.0.0" />
+	<dubbo:reference id="customerService" interface="com.cyyun.customer.service.CustomerService" version="1.0.0" />
+    <dubbo:reference id="custTopicService" interface="com.cyyun.base.service.CustTopicService" version="1.0.0" />
+
+	<!-- Process -->
+	<dubbo:reference id="eventService" interface="com.cyyun.process.service.EventService" version="1.0.0" />
+	<dubbo:reference id="focusInfoService" interface="com.cyyun.process.service.FocusInfoService" version="1.0.0" />
+	<dubbo:reference id="peopleService" interface="com.cyyun.process.service.PeopleService" version="1.0.0" />
+	<dubbo:reference id="topicService" interface="com.cyyun.process.service.TopicService" version="1.0.0" />
+	<dubbo:reference id="warningService" interface="com.cyyun.process.service.WarningService" version="1.0.0" />
+	<dubbo:reference id="warningRuleService" interface="com.cyyun.process.service.WarningRuleService" version="1.0.0" />
+	<dubbo:reference id="recommendColumnService" interface="com.cyyun.process.service.RecommendColumnService" version="1.0.0" />
+	<dubbo:reference id="recommendContentService" interface="com.cyyun.process.service.RecommendContentService" version="1.0.0" />
+
+	<dubbo:reference id="custReportService" interface="com.cyyun.process.service.CustReportService" version="1.0.0" />
+	
+	
+	<!-- Message -->
+	<dubbo:reference id="messageService" interface="com.cyyun.message.service.MessageService" version="1.0.0" />
+
+	<!-- guoqiang -->
+<!-- 		<dubbo:registry id="im" protocol="${dubbo.registry.protocol}" address="${dubbo.registry.address}"  -->
+<!-- 		file="${dubbo.registry.file}" group="dubbo-test" check="false"/> -->
+
+	<!-- FManger -->
+	
+<!-- 	<dubbo:reference id="fmEngineService" interface="com.cyyun.fm.service.FmEngineService" version="1.0.0" group="liujw" /> -->
+<!-- 	<dubbo:reference id="fmAnalyzeService" interface="com.cyyun.fm.service.FmAnalyzeService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="fmReportService" interface="com.cyyun.fm.service.FmReportService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="fmSearchService" interface="com.cyyun.fm.service.FmSearchService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="webpageBoardService" interface="com.cyyun.fm.service.WebpageBoardService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="fmMessageBoardService" interface="com.cyyun.fm.service.FmMessageBoardService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="fmMessageBoardReplyService" interface="com.cyyun.fm.service.FmMessageBoardReplyService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="custSiteService" interface="com.cyyun.fm.service.CustSiteService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="custSiteService" interface="com.cyyun.fm.service.CustSiteService" version="1.0.0" group="ljw" /> -->
+<!-- 	<dubbo:reference id="AgentService" interface="com.cyyun.fm.service.AgentService" version="1.0.0" group="ljw"/> -->
+
+	<!-- Process -->
+<!-- 	<dubbo:reference id="focusInfoService" interface="com.cyyun.process.service.FocusInfoService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="warningService" interface="com.cyyun.process.service.WarningService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="warningRuleService" interface="com.cyyun.process.service.WarningRuleService" version="1.0.0" group="guoqiang" /> -->
+
+	<!-- Base -->
+<!-- 	<dubbo:reference id="keywordService" interface="com.cyyun.base.service.KeywordService" version="1.0.0" group="liu" /> -->
+<!-- 	<dubbo:reference id="articleService" interface="com.cyyun.base.service.ArticleService" version="1.0.0" group="liu" /> -->
+<!-- 	<dubbo:reference id="articleService" interface="com.cyyun.base.service.ArticleService" version="1.0.0" registry="im" group="liu" /> -->
+
+	<!-- Customer -->
+<!-- 	<dubbo:reference id="customerConfigService" interface="com.cyyun.customer.service.CustomerConfigService" version="1.0.0" group="guoqiang" /> -->
+<!-- 	<dubbo:reference id="custTopicService" interface="com.cyyun.customer.service.CustTopicService" version="1.0.0" group="guoqiang" /> -->
+
+</beans>

@@ -1,0 +1,8 @@
+#parse("/common/header.vm")
+
+username: $LOGIN_USER.username 
+
+<br>
+hello world!!!
+    
+#parse("/common/footer.vm")

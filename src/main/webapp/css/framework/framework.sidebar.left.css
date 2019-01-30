@@ -1,0 +1,38 @@
+@charset "utf-8";
+/* CSS Document */
+.c_cont{ background-color:#4FA3AE;}
+.c_main{margin:0 0 0 210px; padding-left:15px; clear:none;}
+.c_sidebar .c_menu li p.c_sprite{ display:none;}
+
+.c_menu .c_sub_menu,.c_menu .c_sub_menu .c_sub2_menu{ display:none;}
+/*以下sidelf*/
+.c_sidelf{float:left; width:210px; background:#4FA3AE; height:100%;z-index:99;}
+.c_sidelf .c_menu{}
+.c_sidelf .c_menu li{ display:block;}
+.c_sidelf .c_menu li a{ height:40px;}
+.c_sidelf .c_menu i{ display:block; float:left;width:20px; height:20px; margin:10px 10px 10px 0;}
+.c_sidelf .c_menu li .c_icon_sy{ background-position: -351px -8px; }
+.c_sidelf .c_menu li .c_icon_search{background-position: -351px -8px;}
+.c_sidelf .c_menu li .c_icon_monitor{background-position: -351px -8px;}
+.c_sidelf .c_menu li .c_icon_query{background-position: -351px -8px;}
+.c_sidelf .c_menu li .c_icon_img{background-position: -351px -8px;}
+.c_sidelf .c_menu li .c_icon_control{background-position: -351px -8px;}
+.c_sidelf .c_menu li .c_icon_tool{background-position: -351px -8px;}
+.c_sidelf .c_menu li span{ white-space:nowrap;font-size:14px; color:#fff; line-height:40px; display:block;float:left;}
+.c_sidelf .c_menu li p.c_sprite{background-position:-457px -12px; width:12px; height:12px; display:block; float:right; margin:14px 10px; cursor:pointer;}
+.c_sidelf .c_menu li li.c_sub_menu{ height:40px; line-height:40px;}
+.c_sidelf .c_menu li .c_nav{border-bottom:1px solid  #75CBD9; padding-left:12px; width:198px; cursor:pointer; display:block;}
+.c_sidelf .c_menu li .c_nav.active,.c_sidelf .c_menu li .c_nav:hover{background:#43939E;}
+.c_sidelf .c_menu li .c_nav span{ max-width:136px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.c_sidelf .c_menu .c_nav:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.c_sidelf .c_menu .c_sub_menu .c_file{ background-position: -396px -5px; width:12px; height:18px;}
+.c_sidelf .c_menu .c_sub_menu .c_folder{ background-position:-374px -8px;}
+.c_sidelf .c_menu li p.c_arr_down{background-position: -445px -15px;}
+.c_sidelf .c_menu li .c_sub_menu .c_dot{ background-position:-425px -10px; width:16px; height:13px; float:left; display:block; margin:14px 29px 0;}
+.c_sidelf .c_menu li .c_sub_menu .c_sub_nav{padding-left:30px; height:40px; width:180px; cursor:pointer; display:block;}
+.c_sidelf .c_menu li .c_sub_menu .c_sub_nav:hover,.c_sidelf .c_menu li .c_sub_menu .c_sub_nav.active{ background-color:#58B5C4;}
+.c_sidelf .c_menu li .c_sub_menu .c_sub_nav span{ max-width:84px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;color: #9CE6F1}
+.c_sidelf .c_menu li .c_sub_menu .c_sub_nav:hover span,.c_sidelf .c_menu li .c_sub_menu .c_sub_nav.active span{ color:#fff;}
+.c_sidelf .c_menu li .c_sub_menu .c_sub_nav:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.c_sidelf .c_menu .c_sub2_menu .c_sign{ background-position:-410px -5px;width:12px; height:18px;}
+.c_sidelf .c_menu .c_sub2_menu.active { background-position:-396px -5px; width:12px; height:18px;}

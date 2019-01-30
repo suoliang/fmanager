@@ -1,0 +1,11 @@
+/*设置预警table*/
+.c_tab_focus1{ width:20%; text-indent:10px;}
+.c_tab_focus2{ width:30%;}
+.c_tab_focus3{ width:30%;}
+.c_tab_focus4{ width:20%;}
+/*设置新增预警table*/
+.c_tab_add1{width:11%;}
+.c_tab_add2{width:30%;}
+.c_tab_add3{width:49%;}
+.c_tab_add4{width:10%;}
+*+html .c_tab_add2 input,*+html .c_tab_add3 input{ margin-top:4px;}

@@ -1,0 +1,69 @@
+#if(!$data)
+<div class="c_nodata" style="line-height: 300px;">暂无数据</div>
+#else
+<div id="generalize-tendency-line" style="width: 100%; height: 300px; float: left;">
+	<div id="generalize-tendency-line-chart" style="width: 100%; height: 100%"></div>
+</div>
+<script type="text/javascript">
+(function() {
+	console.log('generalize-tendency-chart');
+
+	var initTendency = function(data) {
+		var line = echarts.init(document.getElementById('generalize-tendency-line-chart'));
+		line.setOption({
+			tooltip : {
+				trigger : 'axis',
+				textStyle : {
+					fontFamily : 'Microsoft YaHei, SimHei',
+					fontSize : 12
+				}
+			},
+			legend : {
+				orient: 'vertical',
+				x : 35,
+				y : 'center',
+				data : $.map(data.legendName, function(name) {
+					return {
+		                name : name,
+		                textStyle : {
+		                	fontFamily:'Microsoft YaHei, SimHei'
+		                }
+		            }
+				})
+			},
+			grid : {
+				x : 180
+			},
+			calculable : false,
+			xAxis : [ {
+				type : 'category',
+				boundaryGap : false,
+				data : data.axisName
+			} ],
+			yAxis : [ {
+				type : 'value',
+				axisLabel : {
+					formatter : '{value} 篇'
+				}
+			} ],
+			series : $.map(data.seriesDatas, function(seriesData, i) {
+				return {
+					name : data.legendName[i],
+					type : 'line',
+					data : seriesData
+				}
+			})
+		});
+
+		$(window).resize(function() {
+			setTimeout(function() {
+				line.resize();
+			}, 100);
+		});
+	};
+
+	initTendency($!data);
+	
+})();
+</script>
+#end

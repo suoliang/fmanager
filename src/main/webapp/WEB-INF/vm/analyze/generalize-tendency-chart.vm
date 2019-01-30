@@ -1,0 +1,88 @@
+<div id="generalize-tendency-line" style="width: 100%; height: 300px; float: left;">
+	<div id="generalize-tendency-line-chart" style="width: 100%; height: 100%"></div>
+</div>
+<script type="text/javascript">
+(function() {
+	
+	var initTendency = function(data) {
+		var line = echarts.init(document.getElementById('generalize-tendency-line-chart'));
+		
+		var chartData = $.map(data.seriesDatas, function(seriesData, i) {
+			return {
+				name : data.legendName[i],
+				type : 'line',
+				data : seriesData,
+				smooth : true//设置曲线
+			}
+		});
+		line.setOption({
+			tooltip : {
+				trigger : 'axis',
+				textStyle : {
+					fontFamily : 'Microsoft YaHei, SimHei',
+					fontSize : 12
+				}
+			},
+			legend : {
+				orient: 'vertical',
+				x : 35,
+				y : 'center',
+				data : $.map(data.legendName, function(name) {
+					return {
+		                name : name,
+		                textStyle : {
+		                	fontFamily:'Microsoft YaHei, SimHei'
+		                }
+		            }
+				})
+			},
+			grid : {
+				x : 180
+			},
+			calculable : false,
+			xAxis : [ {
+				type : 'category',
+				boundaryGap : false,
+				data : data.axisName
+			} ],
+			yAxis : [ {
+				type : 'value',
+				axisLabel : {
+					formatter : '{value} 篇'
+				}
+			} ],
+			color : [ '#59CDCC', '#5F88D0', '#5CBC85', '#F6AB8D', '#BADD5C', '#F06EB1', '#5FC5EB', '#E5DE66', '#EB5F5F'  ],
+			series : chartData
+		});
+		var topics = $("#tendency-condition").serialize();
+		var topicTypes = topics.replace(/topic/g,"topicType");/**全部替换*/
+		
+		line.on('click', function (param) {
+			$.getJSON(ctx + "/js/analyze/mediaType.json",function(json){
+				$.each(json, function(idx, obj) {
+					if (obj.name == param.seriesName) {/**seriesName-媒体名称*/
+						if (param.name.length > 12) {/**name是yyyy-MM-dd HH*/
+							var array = param.name.split(" ");
+							var endHH = parseInt(array[1])+parseInt(1);
+							window.location.href = ctx + "/search/index.htm?mediaType="+obj.id+"&startTime="+param.name+":00:00"
+								+"&endTime="+array[0]+" "+endHH+":00:00"+"&"+topicTypes;
+						} else {
+							window.location.href = ctx + "/search/index.htm?mediaType="+obj.id+"&startTime="+param.name+" 00:00:00"
+								+"&endTime="+param.name+" 23:59:59"+"&"+topicTypes;
+						}
+					}
+				});
+		  	});
+        });
+
+		$(window).resize(function() {
+			setTimeout(function() {
+				line.resize();
+			}, 100);
+		});
+	};
+
+	initTendency($!data);
+	
+})();
+</script>

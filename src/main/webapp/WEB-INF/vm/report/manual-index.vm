@@ -1,0 +1,89 @@
+#set($pagecss = ["report.css"])
+
+#parse("/common/header.vm")
+
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><a href="${rc.contextPath}/report/manual/index.htm">人工报告</a></p>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl">
+        <span>报告名称：</span><input type="text" class="c_keywds c_w110"/><span class="c_ml10">类型：</span>
+        <div id="divselect1" class="c_divselect c_fl  c_select01 c_mr10">
+            <div class="cite"><div class="citeT">全部</div></div>
+            <ul>
+             <li><a href="javascript:;" selectid="" def="true">全部</a></li>
+             <li><a href="javascript:;" selectid="1">日报</a></li>
+             <li><a href="javascript:;" selectid="2">周报</a></li>
+             <li><a href="javascript:;" selectid="3">月报</a></li>
+             <li><a href="javascript:;" selectid="4">季报</a></li>
+             <li><a href="javascript:;" selectid="5">半年报</a></li>
+             <li><a href="javascript:;" selectid="6">年报</a></li>
+             <li><a href="javascript:;" selectid="7">定制报</a></li>
+            </ul>
+            <input name="" type="hidden" value="1" id="inputselect1">
+        </div>
+       <!--   <span class="c_ml10">状态：</span>
+        <div id="divselect2" class="c_divselect c_fl  c_select02 c_mr10">
+            <div class="cite"><div class="citeT">全部</div></div>
+            <ul>
+             <li><a href="javascript:;" selectid="" def="true">全部</a></li>
+             <li><a href="javascript:;" selectid="1" >未下载</a></li>
+             <li><a href="javascript:;" selectid="2">已下载</a></li>
+            </ul>
+            <input name="" type="hidden" value="1" id="inputselect2">
+        </div>     -->   
+        <span class="c_ml10">报告日期：</span>
+        <div class="c_calendar_bar"><div class="c_calendar"><input type="text" class="c_cal_icon" id="startTimeInput"></div>
+        <i class="c_clearfix c_fl c_mr5 c_ml5">-</i>
+        <div class="c_calendar  c_mr10"><input type="text" class="c_cal_icon" id="endTimeInput"></div>
+        </div>
+        <a type="button" class="c_button c_ml10 c_fl">查询</a>
+        <!-- 查询的form表单 -->
+        <form id="manual-form">
+        	<input type="hidden" name="title" id="title">
+        	<input type="hidden" name="category" id="category">
+        	<input type="hidden" name="status" id="status">
+        	<input type="hidden" name="startTime" id="startTime">
+        	<input type="hidden" name="endTime" id="endTime">
+        </form>
+        
+      </div>
+    </div>
+   <!--search box end-->
+   <div class="c_mt15"></div>
+   <div class="c_border_top"></div>
+   <div class="c_tab_block">
+      <ul class="c_tab1">
+      <li class="c_tab_peop1 c_tc">序号</li>
+      <li class="c_tab_peop2">报告名称</li>
+      <li class="c_tab_peop3">类型</li>
+      <li class="c_tab_peop4">报告日期</li>
+      <li class="c_tab_peop5">上传时间</li>
+      <li class="c_tab_peop6">操作</li>
+      </ul>
+      
+	  <div id="manual-container">
+	  	#set($manuals = $pageInfo.data)
+		#parse("/report/manual-index-list-report.vm")
+	  </div>     
+
+    </div><!--c_tab_block-->
+    #paging("id", "report-manual-paging")
+   </div><!--c_list end-->
+ </div> <!--main end-->
+
+<script type="text/javascript" src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/manualInterface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/report/manualIndex.js" ></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/gengeral.js')}"></script>
+ 
+<script type="text/javascript">
+	$(function() {
+		$('#report-manual-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	});
+</script>
+#parse("/common/footer.vm")

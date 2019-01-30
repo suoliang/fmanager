@@ -1,0 +1,19 @@
+
+body{ background-color:#43939E;}
+.loginBox{ width:884px; height:700px; background:url(../images/loginBg.png) no-repeat;margin: -350px auto 0px -500px;position: absolute;left: 50%;top: 50%;}
+.loginBox .rightInput{ width:440px; height:160px; margin-top:300px;}
+.loginBox .rightInput table tr td{width:297px; height:60px; vertical-align:baseline;vertical-align:top;}
+.loginBox .rightInput .user{width:297px; height:47px; background:url(../images/loginTextBg.png) no-repeat left top; }
+.loginBox .rightInput .user .inputBox01{width:297px; height:47px; background:url(../images/userIcon.png) no-repeat 15px center;}
+.loginBox .rightInput .user .inputBox02{width:297px; height:47px; background: url(../images/passIcon.png) no-repeat 15px center;}
+.loginBox .rightInput .user .inputBox01 input,.loginBox .rightInput .user .inputBox02 input{height:30px;width:230px; line-height:30px;text-align:left;border:1px solid #FFF; margin-left:50px; margin-top:8px; }
+.loginBox .rightInput .user .inputBox01 input:focus,
+.loginBox .rightInput .user .inputBox02 input:focus {outline:none;}
+.loginBox .rightInput .userMust{background:url(../images/okIcon.png) no-repeat left center; padding-left:20px; margin-top:8px;color:#B9DDF4; height:32px; line-height:32px;}
+.loginBox .rightInput .inputBut{width:297px;height:32px;}
+.loginBox .rightInput .inputBut .btn_post{ display:block;width:80px;height:30px; background-color:#FF9900;border:solid 1px #FC802D; border-radius:5px;line-height:1.8; text-align:center;color:#fff;}
+.loginBox .rightInput .inputBut .btn_post:hover{ background-color:#FDA31C;}
+.loginBox .rightInput .inputBut .passMust{color:#FFF;height:32px; line-height:32px;}
+.loginBox .rightInput .inputBut .passMust input{ margin-top:9px;}
+
+

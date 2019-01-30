@@ -1,0 +1,5 @@
+#parse("/common/header.vm")
+
+没有权限
+    
+#parse("/common/footer.vm")

@@ -1,0 +1,76 @@
+#parse("/common/header.vm")
+
+<link href="${rc.contextPath}/css/setup.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript"
+	src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+<!-- 			<h3 class="c_name">个人信息</h3> -->
+			<p class="c_location">
+				<i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span
+					href="javaScript:void(0);">设置</span><span>></span><span
+					href="${rc.contextPath}/userMange/toAddUser.htm">个人信息</span>
+			</p>
+		</div>
+		<!--location line end-->
+		<div class="c_search_box">
+			<div class="c_fl">
+				<span>信息详情</span>
+			</div>
+			<div class="c_fr">
+				<a href="${rc.contextPath}/userMange/showUserInfo.htm?userId=$!user.id&type=update"
+					class="c_search_link c_search_sys2 c_fl">编辑信息</a>
+			</div>
+		</div>
+
+		<div class="c_tab_block c_pb15">
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">登录账号：</div>
+				<div class="c_list_word">$!user.username</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">真实姓名：</div>
+				<div class="c_list_word">$!user.realName</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">用户类型：</div>
+				<div class="c_list_word">#if($!user.type==1)正式 #end
+					#if($!user.type==2)试用 #end #if($!user.type==3)测试 #end</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">手机：</div>
+				<div class="c_list_word ">$!user.mobile</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">邮箱：</div>
+				<div class="c_list_word">$!user.email</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">生效时间：</div>
+				<div class="c_list_word">$!date.format('yyyy-MM-dd',$!user.effectiveTime)</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">过期时间：</div>
+				<div class="c_list_word">$!date.format('yyyy-MM-dd',$!user.expiredTime)</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">所属组织：</div>
+				<div class="c_list_word">$!orgNames</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">备注：</div>
+				<div class="c_list_word">$!user.remark</div>
+			</div>
+		</div>
+		<!--c_tab_block-->
+	</div>
+</div>
+<!--c_alt_box-->
+<script type="text/javascript">
+</script>
+#parse("/common/footer.vm")
+
+
+

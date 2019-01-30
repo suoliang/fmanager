@@ -1,0 +1,10 @@
+
+#set($articles = $pageInfo.data)
+
+#parse("/similar/index-list-article.vm")
+
+<script type="text/javascript">
+	$(function() {
+		$('#similar-message-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

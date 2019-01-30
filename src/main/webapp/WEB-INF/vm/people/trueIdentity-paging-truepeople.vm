@@ -1,0 +1,19 @@
+#parse("/people/peoplepageList-list.vm")
+
+				<script type="text/javascript">
+						 $(function(){
+							 var json = 
+							 {
+									 formId:"addeventForm",
+									 divId:"div2",
+									 asyncFlag:true,
+									 replaceId:"sitectx_id",
+									 prefix:"2",
+									 currentPage:$!pageInfo.pageNo,
+									 totalPage:$!pageInfo.totalPages,
+									 count:$!pageInfo.totalRecords,
+									 pageSize:$!pageInfo.pageSize
+							 };
+							 initPageTab(json);
+						 });
+ 				</script>

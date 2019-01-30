@@ -1,0 +1,211 @@
+#foreach($focus in $!articles)
+			<div class="c_list_con" style="margin-right: 15px;">
+				<div class="c_list_block">
+					<div class="c_list_tit">
+						<div class="c_title_word c_fl">
+							<div class="c_sprite c_choice_icon c_fl" type="son" value="$focus.articleId" onclick="changClass(this);"></div><a onclick="voicefocusInfo('$focus.articleId');" tag="title_tag" oid="$focus.id" class="c_word_name c_omit c_fl" title="">$!focus.title
+							</a>
+							<!-- title后面显示“自动” -->
+							#if($!grade_type_flag)
+							<i class="$focus.levelColor" name="level_name" id="$focus.level" tag="level_tag">$!focus.levelName</i>
+							#end
+						</div>
+					</div>
+					<p class="c_omit" tag="focusContent" oid="$focus.id" onclick="voicefocusInfo('$focus.articleId');">$!focus.content</p>
+<!-- 					<p limit="190" tag="focusContent" oid="$focus.id" onclick="traceability('$focus.articleId');">$!esc.xml($!focus.content)</p> -->
+					<div class="c_link">
+						<div class="c_fl c_tab4_con c_mr10">
+<!-- 							<a class="c_color_darkgay" href="$!focus.url"  target="_blank" >访问原文</a> -->
+								<a href="$!focus.url" class="c_clearfix c_fl c_omit c_link_word" target="_blank">$!focus.url</a>
+						</div>    
+						<div class="c_fl c_mr15">$!date.format("yyyy-MM-dd HH:mm:ss",$!focus.createTime)</div>
+						
+					    <div class="c_fl c_mr15">
+							  褒贬:<span tag="sen_tag">$!focus.sentiments</span>
+						</div>
+						
+<!-- 		$!focus.url				<div class="c_fl c_mr15"> -->
+<!-- 							所属专题：#if($tag.getCustTopicName($focus.label, ",")) -->
+<!-- 										<span>$!tag.getCustTopicName($focus.label, ",")</span> -->
+<!-- 									#else -->
+<!-- 										<span>暂无</span> -->
+<!-- 									#end -->
+<!-- 						</div> -->
+						
+						<div class="c_fl c_mr15">
+							所属预警：
+							<span>
+							#if($!focus.warningRuleNames)
+								$focus.warningRuleNames
+							#else
+								$FOCUSDISPLAY
+							#end
+							</span>
+						</div>
+						
+						<div class="c_fl c_mr15" style="display:none;" id="$focus.articleId">
+							<span>相似文</span>
+							<span><a tag="to-similar" oid="querySimilar" guid="$focus.articleId" guidGroup="$focus.guidGroup"
+								href="${rc.contextPath}/focusing/similarQueryInfo.htm?guidGroup=$focus.guidGroup&guid=$focus.articleId" style="color: #FF6565;"></a>
+							</span>
+							<span>条</span>
+						</div>
+						
+<!-- 						<div class="c_fl c_mr15 #if($focus.articleStyle!=3) c_none #end"> -->
+						<div class="c_fl c_mr15 #if($focus.articleStyle!=3) c_none #end">
+							<span><a href="${rc.contextPath}/focusing/forwardTraceability.htm?guidGroup=$focus.guidGroup&guid=$focus.articleId" style="color: #FF6565;">溯源</a></span>													
+						</div>
+						<div class="c_fl c_mr15 #if($focus.articleStyle!=4) c_none #end">
+							<span #if($focus.articleStyle==4) tag="rootsPolling" oid="$!focus.url" id="c_weibo$!focus.articleId" sid="$!tag.getWeiboTaskStatus($!focus.url)" #end></span>													
+						</div>
+<!-- 						<div class="c_fl c_mr15"> -->
+<!-- 								<span><a href="${rc.contextPath}/topic/findArticles.htm?guids=$focus.articleId" class="c_omit c_color_blue">导出Word</a></span> -->
+<!-- 								<span><a href="${rc.contextPath}/topic/listExportExcel.htm?guids=$focus.articleId" class="c_omit c_color_blue">导出Excel</a></span> -->
+<!-- 						</div> -->
+						
+
+						
+						<div id="alertSortSelect" class="c_fr" tag="ctx-btn">
+				            <div class="c_tab_nav c_fl  c_mt5  c_mr5 c_selsct_w01" style="width:78px;" id="c_nav$!focus.articleId$focus.id" >
+								<img tag="btn-open-brief-picker" oid="$!focus.articleId" title="加入简报" alt="加入简报" src="${rc.contextPath}/images/jianbao.png">
+					            
+				            </div>          
+				        </div>
+					</div>
+				</div>
+			</div>
+#end
+<script type="text/javascript">
+/**全选后翻页，最上面全选的勾去掉*/
+$(function() {
+	$('#selectall').removeClass("active");
+	
+	$(std.findOid("querySimilar")).each(function() {
+		$(this).removeAttr("Oid");
+		var guid = $(this).attr("guid");
+		var guidGroup = $(this).attr("guidGroup");
+		ajaxCommFun(std.u('/home/getSimilarNum.htm'), "guid="+guid+"&guidGroup="+guidGroup, function(response) {
+			if (util.isNotBlank(response.message)) {
+				$("a[guid="+guid+"]").html("");
+				$("a[guid="+guid+"]").html(response.message);
+				$("#"+guid).css('display','block');
+			}
+		});
+	});
+	
+	$(std.findTag("rootsPolling")).each(function(){
+		var url = std.oid(this);
+    	var status = $(this).attr("sid");
+    	var weiboGuid = $(this).attr("id");
+    	var getWeiboId = "#"+weiboGuid;
+    	if (status == "2") {/**生成成功*/
+    		$(getWeiboId).attr("sid","2");
+    		$(getWeiboId).html("<a href="+"javascript:weiboTraceability('"+url+"','3');"+"><span style='color:#FF6565;'>查看溯源</span></a>"); 
+		}
+    	if (status == "1") {/**正在生成*/
+    		$(getWeiboId).attr("sid","1");
+    		$(getWeiboId).html("<a href='#'>正在生成溯源</a>"); 
+		}
+    	if (status == "3") {/**生成失败*/
+    		$(getWeiboId).attr("sid","3");
+    		$(getWeiboId).html("<a href="+"javascript:addWeiboTraceability('"+url+"','3','"+weiboGuid+"');"+"><span style='color:#FF6565;'>溯源</span></a>"); 
+		}
+		
+	})
+	synchronous();
+	Polling();
+});
+
+function synchronous() { 
+    $(std.findTag("rootsPolling")).each(function(){
+    	var url = std.oid(this);
+    	var status = $(this).attr("sid");
+    	var weiboGuid = $(this).attr("id");
+    	var getWeiboId = "#"+weiboGuid;
+    	if (status == "1") {/**正在处理*/
+	    	$.ajax({
+	    		url:std.u("/focusing/checkIsSuccess.htm"),
+	    		type:"post",
+	    		dataType:"json",
+	    		async:false,
+	    		data:{url:url,time:new Date().getTime()},
+	    		success:function(data) {
+	    			if (data.type == 'success') {
+	    				status = "2";
+	    				if (data.code != null || typeof(data.code) != "undefined") {
+							status = "1";						
+						}
+	    			} else {
+	    				status = "3";
+	    			}
+	    		}
+	    	});
+    	
+	    	if (status == "2") {/**生成成功*/
+	    		$(getWeiboId).attr("sid","2");
+	    		$(getWeiboId).html("<a href="+"javascript:weiboTraceability('"+url+"','3');"+"><span style='color:#FF6565;'>查看溯源</span></a>"); 
+			}
+	    	if (status == "1") {/**正在生成*/
+	    		$(getWeiboId).attr("sid","1");
+	    		$(getWeiboId).html("<a href='#'>正在生成溯源</a>"); 
+			}
+	    	if (status == "3") {/**生成失败*/
+	    		$(getWeiboId).attr("sid","3");
+	    		$(getWeiboId).html("<a href="+"javascript:addWeiboTraceability('"+url+"','3','"+weiboGuid+"');"+"><span style='color:#FF6565;'>溯源</span></a>"); 
+			}
+    	
+		}
+    	
+    	
+    })
+} 
+
+function Polling(){ 
+	setInterval(synchronous, 5000); 
+}  
+
+function changClass(obj){
+	if($(obj).hasClass('active')==false){
+		$(obj).addClass("active");
+	}else{
+		$(obj).removeClass("active");
+	}
+}
+
+function addWeiboTraceability(url,level,weiboGuid){
+	$.ajax({
+		url:std.u("/focusing/save.htm"),
+		type:"post",
+		dataType:"json",
+		async:false,
+		data:{url:url,level:level,time:new Date().getTime()},
+		success:function(data) {
+			if (data.type === 'success') {
+		    	var getWeiboId = "#"+weiboGuid;
+				$(getWeiboId).attr("sid","1");/**正在处理*/
+				$.msg('正在处理中,请稍后查看','success');
+			} else {
+				$.msg.warning(data.message, 2);
+			}
+		}
+	});
+}
+
+function weiboTraceability(url,level){
+	$.ajax({
+		url:std.u("/focusing/save.htm"),
+		type:"post",
+		dataType:"json",
+		async:false,
+		data:{url:url,level:level,time:new Date().getTime()},
+		success:function(data) {
+			if (data.type === 'success') {
+				window.location.href = std.u('/focusing/weiboTraceability.htm')+'?url=' + url;
+			} else {
+				$.msg('失败','error');
+			}
+		}
+	});
+}
+
+</script>

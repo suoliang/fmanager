@@ -1,0 +1,26 @@
+<div class="c_alt_box c_w330 c_alert_theme_02" tag="popup-box" oid="brief-input" style="display: none;">
+<form tag="brief-form">
+	<div class="c_alt_tit">
+		<div class="c_fl c_alt_titTag c_w300 c_h30">
+			<i class=" c_sprite c_tit_icon02"></i>
+<!-- 			<span>新增简报</span> -->
+		</div>
+		<ul class="c_fr">
+			<li><a href="javascript:void(0);" class="c_sprite c_tit_close box-close"></a></li>
+		</ul>
+	</div>
+	<div class="c_alt_con c_pr">
+		<div class="c_cb c_m10 c_f12">
+			<span class="c_color_gay">简报名称：</span>
+			<input type="hidden" name="briefId" />
+			<input type="text" name="briefTitle" class="input c_w160" maxlength="50" title="必须小于100个字符！"/><span class="c_ml5 c_color_red">名称不能为空</span>
+		</div>
+		<div class="c_change_butbg">
+			<div class="c_change_but c_change_but01">
+				<a href="javascript:void(0);" class="c_but_ok c_mr10 box-submit">确定</a>
+				<a href="javascript:void(0);" class="c_but_no box-cancel">取消</a>
+			</div>
+		</div>
+	</div>
+</form>
+</div>

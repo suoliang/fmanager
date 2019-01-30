@@ -1,0 +1,202 @@
+#set($pagecss = ["setup.css"]) #parse("/common/header.vm") ##右边模块开始
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name">
+				<p class="c_location">
+					<i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="${rc.getContextUrl('/custtopic/list.htm')}">设置</span><span> > </span><span href="${rc.getContextUrl('/custtopic/list.htm')}">专题</span><span> > </span><span href="#">${addTitle}</span>
+				</p>
+			</h3>
+		</div>
+		<div class="c_search_box">
+			<div class="c_fl">
+				<span>${addTitle}</span>
+			</div>
+		</div>
+		<form action="${rc.getContextUrl('/custtopic/addSubmit.htm')}" id="addtopicForm" method="post" onsubmit="return chkForm(this);">
+			<input type="hidden" name="id" value="$!beanVO.id" /> <input type="hidden" name="parentId" value="$!beanVO.parentId" id="parentBeanId" />
+			<div class="c_tab_block">
+				<div class="c_cb c_tab_list c_mt5">
+					<div class="c_fl c_list_name c_tr">
+						<font color=red>*</font>专题名称：
+					</div>
+					<div class="c_fl c_ml5">
+						<input type="text" class="input c_w200" name="name" value="$!beanVO.name" id="topic_title" onfocus="inputFoucus(this);" onblur="inputBlur(this);" maxlength="25" title="必须小于25个字符！"/>
+					</div>
+					<div class="c_fl c_ml5 c_color_red" id="tip_name" style="display: none;">专题名称不能为空</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">上级专题：</div>
+					<div class="c_fl c_ml5 c_list_change">
+						<div class="c_fl c_sprite c_choice_icon"></div>
+						<div class="c_fl c_ml5 topic-selector">请选择专题</div>
+					</div>
+					<div class="c_fl c_ml10 c_mt5" id="parentBeanName">#if(!$beanVO||!$beanVO.parentBean) 顶级专题 #else $!beanVO.parentBean.name #end</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">包含关键词：</div>
+					<div class="c_fl c_ml5">
+						<textarea class="c_textarea c_w800 c_h100" name="include_kw" id="include_kw">$!beanVO.includeKeywords</textarea>
+					</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">不包含关键词：</div>
+					<div class="c_fl c_ml5">
+						<textarea class="c_textarea c_w800 c_h100" name="exclude_kw" id="exclude_kw">$!beanVO.excludeKeywords</textarea>
+					</div>
+				</div>
+				<div class="c_cb c_tab_list">
+					<div class="c_fl c_list_name c_tr">专题描述：</div>
+					<div class="c_fl c_ml5">
+						<textarea class="c_textarea c_w800 c_h100" name="remark" maxlength="100" title="必须小于200个字符！" onpropertychange="if(value.length>200) value=value.substr(0,200)" onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)">$!beanVO.remark</textarea>
+						<div class="c_color_lightgay c_mb5">
+							<span class="c_color_red c_mr5">*</span>多个关键词用“空格”或“；”隔开。例：北京 空气；北京 汽车尾气，表示包含“北京”“空气”或包含“北京”“汽车尾气”。(0-200个字符限制)
+						</div>
+					</div>
+				</div>
+				<div class="c_cb c_change_butbg">
+					<div class="c_change_but c_change_ml105">
+						<a href="javascript:void(0);" class="c_but_ok c_mr10" onclick="submitForm();">确定</a><a href="${rc.contextPath}/custtopic/list.htm#if($request.getParameter('pageNo'))?pageNo=$request.getParameter('pageNo')#end" class="c_but_no">取消</a>
+					</div>
+				</div>
+			</div>
+			<!--c_tab_block-->
+		</form>
+	</div>
+	<!--c_list end-->
+</div>
+<!-- main end-->
+#parse("/search/pop-up-topic.vm") ##右边模块结束
+<script type="text/javascript" src="${rc.contextPath}/js/search/search-interface.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/setting-interface.js"></script>
+<script type="text/javascript">
+	var inputFoucus = function(obj) {
+		if ($(obj).val() == '请输入专题名称') {
+			$(obj).val('');
+			$('#tip_name').css('display', 'block');
+		}
+
+	}
+	var inputBlur = function(obj) {
+		if ($(obj).val() == '' || $(obj).val() == '请输入专题名称') {
+			$(obj).val('请输入专题名称');
+			$('#tip_name').css('display', 'block');
+		} else {
+			$('#tip_name').css('display', 'none');
+		}
+	}
+
+	function LimitTextArea(field) {
+		var maxlimit = 200;
+		if (field.value.length > maxlimit)
+			field.value = field.value.substring(0, maxlimit);
+	}
+
+	function chkForm() {
+		var obj = $("#topic_title").val();
+		if (obj == "" || obj == '请输入专题名称') {
+			$('#tip_name').css('display', 'block');
+			$("#topic_title").focus();
+			return false;
+		} else if (util.isBlank($.trim($("#include_kw").val()))) {
+			$.msg.warning('包含关键词必填');
+			$("#include_kw").focus();
+			return false;
+		} else if ($("#include_kw").val().length > 200) {
+			$.msg.warning('包含关键词在200个字范围内');
+			$("#include_kw").focus();
+			return false;
+		} else if ($("#exclude_kw").val().length > 200) {
+			$.msg.warning('不包含关键词在200个字范围内');
+			$("#exclude_kw").focus();
+			return false;
+		} else if (!/^[a-zA-Z0-9_\\;；\s\u4e00-\u9fa5]{0,}$/.test($("#include_kw").val())) {
+			$.msg.warning('关键字只能是中文字母数字');
+			$("#include_kw").focus();
+			return false;
+		} else if (!/^[a-zA-Z0-9_\\;；\s\u4e00-\u9fa5]{0,}$/.test($("#exclude_kw").val())) {
+			$.msg.warning('关键字只能是中文字母数字');
+			$("#exclude_kw").focus();
+			return false;
+		}
+		return true;
+	}
+
+	function submitForm() {
+		var index = layer.load('正在提交请求...');
+		//替换关键词中的空格及全角封号
+		$("#include_kw").val(replaceAllSpaceAndquanjiao($("#include_kw").val()));
+		$("#exclude_kw").val(replaceAllSpaceAndquanjiao($("#exclude_kw").val()));
+
+		ajaxCommFun(std.u('/custtopic/addSubmit.htm'), $("#addtopicForm").serialize(), function(response) {
+
+			layer.close(index);
+
+			if (response.type == dict.action.suc) {
+				util.go('/custtopic/list.htm');
+			} else {
+				alertMsg(response.message);
+			}
+		});
+	}
+
+	function replaceAllSpaceAndquanjiao(str) {
+		if (str != '') {
+			str = str.replace(/\s+/g, ' ');
+			str = str.replace(new RegExp('；', "gm"), ';');
+		}
+
+		return str;
+	}
+
+	$(function() {
+		//专题检索
+		$(std.find('popup-box', 'topic')).optionMagr({
+			multiple : false,
+			listSubOption : function(id) {
+				var options = [];
+				search.listTopic(id, {
+					success : function(topics) {
+						options = $.map(topics, function(topic) {
+							if (topic.createrId != sys.getLoginUserId()) {
+								return;
+							}
+							return {
+								id : topic.id,
+								name : topic.name
+							}
+						})
+					}
+				});
+				return options;
+			}
+		});
+
+		$('.topic-selector').click(function() {
+			var topicbox = std.selector('popup-box', 'topic');
+
+			$.box(topicbox, {
+				onOpen : function() {
+					$(topicbox).optionMagr('initValue', []);
+					$(topicbox).optionMagr('showSubOption', 0);
+				}
+			}, {
+				submit : {
+					dom : [ topicbox + " .box-submit" ],
+					fun : function(index) {
+						outer = this;
+						var obbj = $(topicbox).optionMagr('submit');
+						if (obbj != null && obbj.length > 0) {
+							$("#parentBeanId").val(obbj[0].id);
+							$("#parentBeanName").html(obbj[0].name);
+						}
+					}
+				},
+				close : {
+					dom : [ topicbox + " .box-close", topicbox + " .box-cancel" ]
+				}
+			});
+		});
+	});
+</script>
+#parse("/common/footer.vm")

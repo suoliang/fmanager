@@ -1,0 +1,84 @@
+#foreach($item in $!resultList)
+<div class="c_org c_f12 c_cb">
+ <div class="c_fl c_ml5 c_org_check"><input type="checkbox"></div>
+ <div class="c_org_select">
+   <div class="">
+   <div class="c_fl c_sprite c_icon_open c_mt5 c_ml5"></div><div  class="c_fl c_sprite c_icon_org c_mt5"></div>
+   <div class=" c_ml45 c_omit" title=""></div>
+   </div>
+ </div>
+</div> 
+#end
+<script type="text/javascript">
+	$(document).ready(function(){
+		//打开组织
+		$("td[vartype=toclick]").each(function(){
+			var _this = $(this);
+			_this.children("img").css("padding-left",_this.attr("varpadding")+"px");
+			
+			_this.unbind();
+			_this.click(function(){
+				if(_this.children("img").attr("src").indexOf("plus")>-1){
+					_this.children("img").attr("src",contextPath+"/images/minus.gif");
+					if($("tr[parentvar=" + _this.attr("var") + "]").length>0){
+						$("tr[parentvar=" + _this.attr("var") + "]").each(function(){
+							$(this).css("display","table-row");
+							$(this).children("img").attr("src",contextPath+"/images/plus.gif");
+						});
+					}else{
+						queryOrgListSubByOrgId(_this.attr("var"),_this.attr("var"),_this.attr("varpadding"));
+					}
+					queryMemberListByOrgId(_this.attr("var"),_this.attr("varname"),'false');
+				}else{
+					_this.children("img").attr("src",contextPath+"/images/plus.gif");
+					queryMemberListByOrgId(_this.attr("var"),_this.attr("varname"),'false');
+					displayNoneOrgChild(_this.attr("var"));
+				}
+			});
+		});
+		
+		$("input[type=checkbox]").each(function(){
+			var _this = $(this);
+			_this.unbind();
+			_this.click(function(){
+				if(_this.attr("checked")=="checked"){
+					var liHtml="<li class='orgStyle' orgid='"+_this.attr("var")+"'>"+_this.attr("varname")+"</li>";
+					if($("#targetList").find("li[class=orgStyle]").length>0){
+						$("#targetList").find("li[class=orgStyle]").last().after(liHtml);
+					}else{
+						if($("#targetList").find("li[class=memStyle]").length>0){
+							$("#targetList").find("li[class=memStyle]").first().before(liHtml);
+						}else{
+							$("#targetList").html(liHtml);
+						}
+					}
+					$("li[orgid="+_this.attr("var")+"]").click(function(){
+						var _liOrg = $(this).attr("orgid");
+						$("input[type=checkbox]").each(function(){
+							if($(this).attr("var")==_liOrg){
+								$(this).removeAttr("checked");
+							}
+						});
+						$(this).remove();
+					})
+					if(parseInt(_this.attr("varnum"))<1){
+						$("#targetpopErrorTip").html("提示：当前组织下无成员，请选择接收成员所属的子组织。");
+					}else{
+						$("#targetpopErrorTip").html("");
+					}
+				}else{
+					$("li[orgid="+_this.attr("var")+"]").remove();
+					$("#targetpopErrorTip").html("");
+				}
+			})
+		})
+	});
+ 	function displayNoneOrgChild(orgId){
+		$("tr[parentvar="+orgId+"]").each(function(){
+			var _this = $(this);
+			_this.find("img").attr("src",contextPath+"/images/plus.gif");
+			_this.css("display","none");
+			displayNoneOrgChild(_this.attr("var"));
+		});
+	}
+</script>

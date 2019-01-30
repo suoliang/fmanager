@@ -1,0 +1,60 @@
+
+<!-- 以下共享用户弹出框-->
+<div class="c_alt_box c_w760 c_h450" id="targetChooseDiv" style="display: none;">
+	<div class="c_alt_tit">
+		<div class="c_fl c_alt_titTag c_w670 c_h30">
+			<i class=" c_sprite c_tit_icon02"></i><span>选择共享用户</span>
+		</div>
+		<ul class="c_fr">
+			<li><a href="javascript:layer.closeAll();" class="c_sprite c_tit_close"></a></li>
+		</ul>
+	</div>
+	<div class="c_alt_con c_h420 c_pr">
+		<div class="c_fl c_box_lf c_border">
+			<div class="c_box_tit">
+				<div class="c_fl">组织列表</div>
+				<div class="c_org_search c_fr c_mr5 c_mt5">
+					<input type="text" id="targetChoosePopupKey" class="c_fl" value="内容搜索" onfocus="if(this.value == this.defaultValue) this.value = '';" onblur="if(this.value == '') this.value = this.defaultValue;" />
+					<div class="c_sprite c_fl c_org_searchBtn" id="targetChoosePopupBtn"></div>
+				</div>
+			</div>
+			##组织列表
+			<div class="c_fl c_box_sub_lf" id="orgnizationList">
+				<div class="c_h10"></div>
+				<div id="orgnizationListTr"></div>
+			</div>
+			##用户列表
+			<div class="c_fr c_box_sub_rg c_f12" id="memberList">
+				<div class="c_org_msg c_bg_gay  c_pl20 c_tl">姓名</div>
+				<div class="c_org_name c_alert_theme2">
+					<ul class=" c_h300">
+						<div id="scrollbar_002" style="width: 228px;">
+							<div class="scrollbar">
+								<div class="c_scrol_track">
+									<div class="c_scrol_thumb">
+										<div class="c_scrol_end"></div>
+									</div>
+								</div>
+							</div>
+							<div class="c_scrol_viewport c_h300 c_w220">
+								<div class="c_scrol_overview c_w220">
+									<div id="memberTdList"></div>
+								</div>
+							</div>
+						</div>
+					</ul>
+				</div>
+			</div>
+		</div>
+		##接受对象
+		<div class="c_fr c_box_rg c_border">
+			<div class="c_box_tit">接受对象</div>
+			<div class="c_box_rgcon c_f12" id="targetList"></div>
+		</div>
+		<div class="c_alt_but c_w760 c_change_butbg">
+			<div class="c_change_but c_change_but01">
+				<a href="#" class="c_but_ok c_mr10" id="targetChooseSave">确定</a> <a href="javascript:layer.closeAll();" class="c_but_no" id="targetChooseCancel">取消</a>
+			</div>
+		</div>
+	</div>
+</div>

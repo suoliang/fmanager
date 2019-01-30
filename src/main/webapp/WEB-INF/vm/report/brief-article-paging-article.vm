@@ -1,0 +1,10 @@
+
+#set($articles = $pageInfo.data) 
+
+#parse("/report/brief-article-list-article.vm")
+
+<script type="text/javascript">
+	$(function() {
+		page.paging.tosetInfo($!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

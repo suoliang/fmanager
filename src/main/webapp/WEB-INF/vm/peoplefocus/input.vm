@@ -1,0 +1,38 @@
+#set($MODULE_INTF_TYPE_INPUT = $field.in("com.cyyun.fm.constant.ModuleInterfaceType").INPUT)
+
+<div class="board-input" tag="board-input" #if($board.id) oid="$board.id" #else oid="new" #end>
+	<div class="board-tab">
+		<input type="hidden" name="boardId" value="$!board.id"/>
+		<ul class="c_block_listD">
+			<li>模板：</li>
+			#foreach($module in $!modules)
+			<li><a href="javascript:void(0);" id="$!module.id" tag="module-tab" oid="$!module.id" num="$velocityCount"
+				#if($!board.moduleId == $!module.id) 
+					def="true"  class="c_titbg_$velocityCount active_$velocityCount" 
+				#else 
+					class="c_titbg_$velocityCount" 
+				#end
+			>$!module.name</a>
+			</li>
+			#end
+		</ul>
+	</div>
+
+	<div class="c_block_card board-card">
+		#foreach($module in $!modules)
+			#set($inputIntf = ${module.findInterface($MODULE_INTF_TYPE_INPUT)})
+			<form tag="module-form" oid="$!module.id">
+				<div class="c_cl c_change_box  c_f12" tag="module-card" oid="$!module.id" link="$!inputIntf.url" #if($!board.moduleId == $!module.id) params="$!board.params" #end></div>
+			</form>
+		#end
+	</div>
+	
+	<div class="c_change_butbg c_cl">
+		<div class="c_change_but c_change_but01">
+			<a href="javascript:void(0);" class="c_but_ok c_mr10 board-config-btn cancel" tag="board-config-submit-btn" #if($board.id) oid="$board.id" #else oid="new" #end>确定</a>
+			<a href="javascript:void(0);" class="c_but_no board-config-btn cancel" tag="board-config-cancel-btn" #if($board.id) oid="$board.id" #else oid="new" #end>取消</a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="${rc.contextPath}/js/peoplefocus/pf-input.js"></script>

@@ -1,0 +1,11 @@
+
+#parse("/localsetting/custTopicList-list.vm")
+
+<script type="text/javascript">
+  $(function () {
+      //调用全选插件  
+      $.fn.check({ checkall_name: "allcheck", checkbox_name: "subcheck" }) ;
+      $("#custtopic-paging").paging("setInfo", $!page.pageNo, $!page.pageSize, $!page.totalPages, $!page.totalRecords); 
+        page_globePath=$!page.pageNo;  
+ });
+</script>

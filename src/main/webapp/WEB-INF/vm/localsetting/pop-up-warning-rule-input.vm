@@ -1,0 +1,34 @@
+<div class="c_alt_box c_w700 c_h450 c_alert_theme" tag="popup-box" oid="warning-rule-input" style="display: none;">
+	<div class="c_alt_tit">
+		<div class="c_fl c_alt_titTag c_w670 c_h30"><i class=" c_sprite c_tit_icon02"></i><span>编辑预警规则</span></div>
+		<ul class="c_fr"><li><a href="javascript:void(0);" class="c_sprite c_tit_close box-close"></a></li></ul>
+	</div>
+	<div class="c_alt_con c_h420 c_pr">
+		<form tag="warning-rule-form">
+			<input type="hidden" name="warningRuleId" />
+			<div class="c_cb c_m10 c_f12">
+				<div class="c_cb c_alt_form">
+					<i class="c_color_red c_mr5">*</i>
+					<div class="c_fl c_form_name c_tr">预警名称：</div>
+					<div class="c_fl c_ml5 c_form_text">
+						<input type="text" class="input c_form_input01" name="warningRuleName">
+					</div>
+					<div class="c_fl c_ml5 c_form_msg c_color_red c_none" tag="error-warningRuleName">预警名称不能为空</div>
+				</div> 
+				<div class="c_cb c_alt_form c_mt5">
+					<i class="c_color_red c_mr5">*</i>
+					<div class="c_fl c_form_name c_tr">关键词：</div>
+					<div class="c_fl c_ml5 c_form_text">
+						<textarea class="c_form_word c_textarea" name="warningRuleKeyword"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="c_alt_but c_w700 c_change_butbg">
+				<div class="c_change_but c_change_but01">
+					<a href="javascript:void(0);" class="c_but_ok c_mr10 box-submit">确定</a>
+					<a href="javascript:void(0);" class="c_but_no box-cancel">取消</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

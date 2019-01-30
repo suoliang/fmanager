@@ -1,0 +1,10 @@
+
+#set($relations = $pageInfo.data) 
+
+#parse("/people/personRelationPage-list.vm")
+
+<script type="text/javascript">
+	$(function() {
+		$("#relationpage-paging").paging("setInfo", $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	})
+</script>

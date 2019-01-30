@@ -1,0 +1,63 @@
+#if($queryRestSix.data && $queryRestSix.data.size() != 0)
+
+		#foreach($!queryList in $!queryRestSix.data)
+		<ul class="c_block_listE">
+<!-- 			#if($!typeflag) -->
+<!-- 			<li tag="alert_tag" oid="$!queryList.articleId"><a href="javascript:void(0);" class="c_block_list c_omit"><i class="c_emergency" tag="alert_tag_color">$!queryList.source</i>$!queryList.title</a><span class="c_block_date">$!date.format("MM-dd HH:mm",$!queryList.createTime)</span></li> -->
+<!-- 			#else -->
+<!-- 			<li tag="alert_tag" oid="$!queryList.articleId"><a href="javascript:void(0);" class="c_block_list c_omit"><i class="c_emergency" tag="alert_tag_color">$!queryList.source</i>$!queryList.title</a><span class="c_block_date">$!date.format("MM-dd HH:mm",$!queryList.createTime)</span></li> -->
+<!-- 			#end -->
+			<li><a tag="alert_tag" oid="$!queryList.articleId" href="javascript:void(0);" class="c_block_list c_omit">
+<!-- 			<i class="c_emergency" tag="alert_tag_color">$!queryList.source</i>
+ -->			#if($!queryList.level == 3)
+			<i class="c_general" tag="alert_tag_color">一般</i>
+			#elseif($!queryList.level == 2)
+			<i class="c_important" tag="alert_tag_color">重要</i>
+			#elseif($!queryList.level == 1)
+			<i class="c_emergency" tag="alert_tag_color">紧急</i>
+			#end
+			$!queryList.title</a>
+			
+            <a tag="to-similar" oid="querySimilar" guidGroup="$!queryList.guidGroup" guid="$!queryList.articleId" style="color: #FF6565;" class="c_listE_num c_omit"></a>
+           		
+           	</a>
+           	<span class="c_block_name c_omit" title="$!queryList.websiteName">$!queryList.websiteName</span>
+			<span class="c_block_date">$!date.format("MM-dd HH:mm",$!queryList.createTime)</span>
+			</li>				
+		</ul>
+		#end
+		
+#else
+<div class="c_nodata">暂无数据</div>
+#end
+<script type="text/javascript">
+
+	$(function(){
+		$(std.findOid("querySimilar")).each(function() {
+			$(this).removeAttr("Oid");
+			var guid = $(this).attr("guid");
+			var guidGroup = $(this).attr("guidGroup");
+			ajaxCommFun(std.u('/home/getSimilarNum.htm'), "guid="+guid+"&guidGroup="+guidGroup, function(response) {
+				$("a[guid="+guid+"]").html("");
+				$("a[guid="+guid+"]").html(response.message);
+			});
+		});
+	});	
+	
+	$(std.findTag('alert_tag')).unbind('click').click(function(e) {
+		$(".c_main").append("<form id='param-form' target='_blank' method='post' action='" + std.u('/focusing/openArticleDetail.htm') + "'></form>");
+		$("#param-form").append("<input type='hidden' name='guid' value='" + std.oid(this) + "'/>");
+		document.createElement("a").onclick = $("#param-form").submit();
+		$("#param-form").remove();
+	});
+	
+	$(std.findTag("to-similar")).unbind("click").click(function(e) {
+		/**相似文数量为空不跳转*/
+		if (util.isNotBlank($(this).text())) {
+			window.location.href = ctx+"/focusing/similarQueryInfo.htm?guid="+$(this).attr("guid")+"&guidGroup="+$(this).attr("guidGroup")
+			+"&jumpLocation=homepage";/**由于相似文页面公用一个,此字段控制返回按钮的跳转*/
+		}
+	});
+	
+</script>
+<script type="text/javascript" src="${rc.contextPath}/js/voicefocus/alert-board-viem.js"></script>

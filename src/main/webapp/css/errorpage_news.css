@@ -1,0 +1,17 @@
+.c_errorpage404{width:435px;height:406px;background:url(../images/bg404_news.png) no-repeat top center;  
+  margin: -150px auto 0px -170px;position: absolute;left: 50%;top: 50%;}
+.c_errorpage404 .c_errorpage_but{ position:absolute; right:0px; top:222px;}
+.c_errorpage404 .c_errorpage_but a{display:block; width:80px; height:30px; line-height:30px; text-align:center; font-size:14px; border-radius:3px;} 
+.c_errorpage404 .c_errorpage_but a.c_errorpage_back{background-color:#57B4C3;border:#57B4C3 solid 1px;color:#fff;}
+.c_errorpage404 .c_errorpage_but a.c_errorpage_back:hover{background-color:#3C98A8;border:#3C98A8 solid 1px;}
+.c_errorpage404 .c_errorpage_but a.c_errorpage_index{border:#57B4C3 solid 1px;color:#57B4C3;}
+.c_errorpage404 .c_errorpage_but a.c_errorpage_index:hover{border:#3C98A8 solid 1px;color:#3C98A8;}
+
+.c_errorpage500{width:510px;height:458px;background:url(../images/bg500_news.png) no-repeat top center;  
+  margin: -180px auto 0px -215px;position: absolute;left: 50%;top: 50%;}
+.c_errorpage500 .c_errorpage_but{ text-align:center; margin-top:393px;}
+.c_errorpage500 .c_errorpage_but a{display:inline-block; width:80px; height:30px; line-height:30px; text-align:center; font-size:14px; border-radius:3px;} 
+.c_errorpage500 .c_errorpage_but a.c_errorpage_back{background-color:#57B4C3;border:#57B4C3 solid 1px;color:#fff;}
+.c_errorpage500 .c_errorpage_but a.c_errorpage_back:hover{background-color:#3C98A8;border:#3C98A8 solid 1px;}
+.c_errorpage500 .c_errorpage_but a.c_errorpage_index{border:#BED8DD solid 1px;color:#BED8DD;}
+.c_errorpage500 .c_errorpage_but a.c_errorpage_index:hover{border:#E6F0F2 solid 1px;color:#E6F0F2;}

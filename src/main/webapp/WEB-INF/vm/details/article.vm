@@ -1,0 +1,32 @@
+#parse("/common/header.vm")
+<div class="c_alt_box c_w980 c_h560">
+  <div class="c_alt_tit"><i class=" c_sprite c_tit_icon01"></i><span>文章详情</span>
+    <ul class="c_fr"><li><a href="#" class="c_sprite c_tit_close"></a></li></ul>
+  </div>
+  
+  #foreach($!ctt in $!content)
+   <div class="c_alt_con c_bg_gay">
+      <div class="c_con_box c_fl" id="c_alt01">
+         <h4 class="c_mb10">$!esc.xml($!ctt.title)</h4>
+      </div>
+   </div><!--c_alt_con-->
+  <br>
+    <div class="c_con_word">
+       	 <p>$!esc.xml($!ctt.content)</p> 	 
+    </div>
+    <div class="c_con_boxrg c_fr" id="c_alt02">
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">发布时间：</div><div class="c_fl c_list_msg">$!{time}</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">采集时间：</div><div class="c_fl c_list_msg">2014-12-30 16:25:34</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">阅读：</div><div class="c_fl c_list_msg">30</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">回复：</div><div class="c_fl c_list_msg">299</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">发文网站：</div><div class="c_fl c_list_msg">新浪新闻网</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">作者：</div><div class="c_fl c_list_msg">路人甲</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">所属行业：</div><div class="c_fl c_list_msg">文艺</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">所属地域：</div><div class="c_fl c_list_msg">上上海上海上海上海上海上海海</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">褒贬：</div><div class="c_fl c_list_msg">正面</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">专辑：</div><div class="c_fl c_list_msg">涉及民生</div></div>
+      <div class="c_boxrg_list"><div class="c_fl c_list_name">关键词：</div><div class="c_fl c_list_msg">街头,艺人,持证,试行阶段,无证,形象</div></div>
+    </div> 
+  #end
+</div><!--c_alt_box-->
+  #parse("/common/footer.vm")

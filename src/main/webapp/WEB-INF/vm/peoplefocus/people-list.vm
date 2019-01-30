@@ -1,0 +1,17 @@
+ #foreach($!people in $!peoples)
+<ul class="c_tab2 c_tab_top">
+	<li class="c_tab_home1"><div>
+			<input type="checkbox" class="c_check">
+		</div></li>
+	<li class="c_tab_home2"><div class="c_mr10">$!people.id</div></li>
+	<li class="c_tab_home2"><div class="c_mr10">$!people.id</div></li>
+	<li class="c_tab_home2"><div class="c_mr10">$!people.id</div></li>
+	<li class="c_tab_home2"><div class="c_mr10">$!people.id</div></li>
+	<li class="c_tab_home2"><div class="c_mr10">$!people.id</div></li>
+	<li class="c_tab_home3"><div class="c_mr10 c_omit">$!people.name</div></li>
+	<li class="c_tab_home4"><div class="c_mr10 c_omit" tag="board-share-info" oid="$!board.id">$!tag.getRealName($board.userIds, ",")</div></li>
+	<li class="c_tab_home5"><div>
+			<a href="javascript:void(0);" class="c_color_gay c_color_deeporange" tag="board-share" oid="$!board.id" userIds="$userIds">共享用户</a>
+		</div></li>
+</ul>
+#end

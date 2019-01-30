@@ -1,0 +1,36 @@
+<div class="c_alt_con c_h420 c_pr">
+	<div class="c_con_tag">
+		<div class="c_mr5 c_fl c_mt5">已选:</div>
+		<ul class=" c_con_tit c_ml40 value-container"></ul>
+	</div>
+	<div class="c_fr c_con_search c_mr10">
+		<!-- <input type="text" class="input" value="请输入关键字" onFocus="if(this.value == this.defaultValue) this.value = '';" onBlur="if(this.value == '') this.value = this.defaultValue;"><a href="javascript:void(0);" class="c_search c_ml5">查询</a> -->
+	</div>
+	<div class="c_alt_content c_cb c_alert_theme2 c_mt10 c_ml5" id="c_alt_content01">
+		<ul class="c_h270">
+			<div class="c_w700 scrollbar-ctx">
+				<div class="scrollbar c_mr10">
+					<div class="c_scrol_track">
+						<div class="c_scrol_thumb">
+							<div class="c_scrol_end"></div>
+						</div>
+					</div>
+				</div>
+				<div class="c_scrol_viewport  c_h270 c_w680">
+					<div class="c_scrol_overview c_w680">
+						<div tag="option-container" oid="0"></div>
+					</div>
+				</div>
+			</div>
+		</ul>
+	</div>
+	<div class="c_alt_but c_w700 c_change_butbg">
+		<div class="c_change_but c_change_but01">
+			<a href="javascript:void(0);" class="c_but_ok c_mr10 box-submit">确定</a><a href="javascript:void(0);" class="c_but_no box-cancel">取消</a>
+		</div>
+	</div>
+	<div tag="option-hidden-container">
+		<div tag="option-hidden" oid="0" name="$!firstOptionName"></div>
+	</div>
+	<script type="text/javascript" src="${rc.contextPath}/js/search/pop-up-option.js"></script>
+</div>

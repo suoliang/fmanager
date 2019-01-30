@@ -1,0 +1,17 @@
+
+#set($pagecss = ["errorpage_news.css"]) 
+ 
+#parse("/common/header.vm")
+
+ <div class="c_main"> 
+     <!--404-->
+     <div class="c_errorpage404">
+     	<div class="c_errorpage_but">
+         	<a href="javascript:history.go(-1);" class="c_errorpage_back">上一步</a>
+         	<a href="${rc.contextPath}/home/index.htm" class="c_errorpage_index c_mt10">返回首页</a>
+        </div>
+     </div>     
+     <!--404end-->
+ </div><!-- main end-->
+
+#parse("/common/footer.vm")

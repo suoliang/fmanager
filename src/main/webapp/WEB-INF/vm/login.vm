@@ -1,0 +1,349 @@
+
+#set($pagecss = ["login_new.css"]) 
+
+#parse("/common/blank-header.vm")
+
+<script type="text/javascript" src="${rc.contextPath}/js/login.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('input[placeholder]').each(function(){$(this).is('input')?$(this).iePlaceholder():$(this).iePlaceholder({onInput: false});});
+		$('#username').bind({
+			blur : function() {
+				if (this.value == "") {
+					$('#error-message').text('用户名不能为空').show();
+				}
+			},
+			keydown : function() {
+				$('#error-message').hide();
+				$('#password').val("");
+			}
+		});
+
+		$('#password').bind({
+			blur : function() {
+				if (this.value == "") {
+					$('#error-message').text('密码不能为空').show();
+				}
+			},
+			keydown : function() {
+				$('#error-message').hide();
+			}
+		});
+
+		$("#username").keydown(function(e) {
+			if (e && e.keyCode == 13) {
+				$("#password").focus();
+			}
+			e.stopPropagation();
+		});
+
+		$("#password").keydown(function(e) {
+			if (e && e.keyCode == 13) {
+				login();
+			}
+			e.stopPropagation();
+		});
+	});
+
+	function login() {
+		var flag = false;
+		var username = $("#username");
+		if (username.val() == null || username.val().trim() == "") {
+			$('#error-message').text('用户名不能为空').show();
+			flag = true;
+		}
+		var password = $("#password");
+		if (password.val() == null || password.val().trim() == "") {
+			$('#error-message').text('密码不能为空').show();
+			flag = true;
+		}
+		if (flag) {
+			return;
+		} else {
+			$.ajax({
+				type : "POST",
+				url : std.u('/doLogin.htm'),
+				data : $("#loginForm").serialize(),
+				dataType : "json",
+				cache : false,
+				async : false,
+				success : function(result) {
+					if (result.type == "error") {
+						$('#error-message').text(result.message).show();
+					} else {
+						if("安徽师范大学客户用户登录成功"==result.message) {
+							showSecuritycodeBox();
+						} else {
+							document.location = std.u('/index.htm');
+						}
+					}
+				}
+			});
+		}
+	}
+</script>
+<style>
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+   /* IE10-specific styles go here */ 
+   .c_login_down{ margin-top:50px !important}; 
+   .c_login_down{ *margin-top:50px !important};
+   .c_login_down{ _margin-top:50px !important}  
+   
+}
+</style>
+
+<div class="c_login_top">
+	<div class="c_login_w960 c_bc">
+		<div class="c_sprite" id="c_login_logo"></div>
+	</div>
+</div>
+<div class="c_login_ban">
+	<div class="c_login_w960 c_bc">
+		<div class="c_fl c_logo_part">
+			<div class="c_logoAnimation">
+				<div class="c_fl c_login_phone" id="first" onmouseover="stopTimer();" onmouseout="startTimer();">
+					<div class="c_fl" id="c_login_pics"></div>
+					<div class="c_fl js">
+						<div class="js_title"></div>
+						<div class="js_nr">
+							<div class="li">
+								<span> » </span>多平台灵活接入,信息无缝对接
+							</div>
+							<div class="li">
+								<span> » </span> 随时随地一手掌握最新舆情动态
+							</div>
+							<div class="li">
+								<span> » </span> 实时同步预警各类敏感信息
+							</div>
+							<div class="li">
+								<span> » </span> 操作便捷,定制管理
+							</div>
+							<div class="download_btn">
+								<div class="ipone_er  c_fl">
+									<div class="ipewm" id="ios_down_codebar_id" style="display: none;">
+										<div class="mid">
+											<div class="name">android、ios通用二维码</div>
+											<div class="smer">扫描二维码下载</div>
+											<div class="ewm">
+												<img src="images/ewm_ios.png" width="119px" height="119px">
+											</div>
+										</div>
+										<div class="down">▼</div>
+									</div>
+									<!--ipewm-->
+									<div class="iphone c_mr10 c_f12 c_mt5" onmouseover="showView('ios_down_codebar_id');" onmouseout="hideView('ios_down_codebar_id');">手机端扫码下载</div>
+								</div>
+								<!--ipone_er-->
+								<div class="ipone_er c_fl c_none">
+									<div class="ipewm" id="android_down_codebar_id" style="display: none;">
+										<div class="mid">
+											<div class="name">android版</div>
+											<div class="smer">扫描二维码下载</div>
+											<div class="ewm">
+												<img src="images/ewm_android.png" width="119px" height="119px">
+											</div>
+										</div>
+										<div class="down">▼</div>
+									</div>
+									<div class="android c_mr10 c_f12 c_mt5" onmouseover="showView('android_down_codebar_id');" onmouseout="hideView('android_down_codebar_id');">Android下载</div>
+								</div>
+								<!--ipone_er-->
+								<div class="c_cb"></div>
+							</div>
+							<!--download_btn-->
+						</div>
+						<!--js_nr-->
+					</div>
+					<!--js-->
+				</div>
+				<!--c_login_phone-->
+				<div class="c_fl c_login_phone" id="second" onmouseover="stopTimer();" onmouseout="startTimer();">
+					<div class="c_fl c_login_pics2"></div>
+					<div class="c_fl js">
+						<div class="js_title2"></div>
+						<div class="js_nr">
+							<div class="li">
+								<span> » </span>舆情管理贴身工具
+							</div>
+							<div class="li">
+								<span> » </span> 第一时间知晓舆情动向
+							</div>
+							<div class="li">
+								<span> » </span> 敏感舆情精准推送
+							</div>
+							<div class="li">
+								<span> » </span> 系统兼容：XP/Win7/Win8/Win8.1/Win10
+							</div>
+							<div class="download_btn">
+								<div class="ipone_er  fl">
+									<a href="http://vip.cyyun.com:8003/fmanager25/mobile/PCClientVersionUpdate"><div class="download c_f12 c_mt5">点击下载</div></a>
+								</div>
+								<div class="c_cb"></div>
+							</div>
+						</div>
+					</div>
+					<div class="c_cb"></div>
+				</div>
+			</div>
+			<!--c_login_phone-->
+			<div class="blocks" onmouseover="stopTimer();" onmouseout="startTimer();">
+				<div class="block_on c_fl" id="dot1"></div>
+				<div class="block c_fl" id="dot2"></div>
+				<div class="cl"></div>
+			</div>
+		</div>
+		<form id="loginForm" autocomplete="off">
+			<div class="c_fr c_logo_box">
+				<div class="c_loginTop c_mt10 c_ml20 c_mr20 c_border_bot">
+					<div id="error-message" class="c_fr c_loginError c_f12 c_pr20 c_mt15 c_none">试用账号已过期</div>
+				</div>
+				<div class="c_loginUser c_f12 c_mt20">
+					<span>用户名：</span><input type="text" id="username" name="username" value="$!username" size="25" maxlength="15" class="input c_ml10 c_w140" placeholder="请输入用户名" />
+				</div>
+				<div class="c_loginUser c_f12 c_mt15">
+					<span>密&nbsp;&nbsp;&nbsp;码：</span><input id="password" name="password" type="password" value="$!password" size="25" maxlength="15" class="input c_ml10" placeholder="请输入密码" />
+				</div>
+				<div class="c_loginRem c_fl c_f12  c_ml20">
+					<input type="checkbox" value="true" id="remember" name="remember" #if(${username} && ${password})checked=checked#end class="c_login_checkbox c_mr5" />
+					<apan>记住密码</apan>
+				</div>
+				<div class="c_fr c_loginBut c_mt20 c_mr20" onclick="javascript:login();">
+					<a href="javascript:void(0);" class="c_f14 c_fl">登录</a><span class="c_fl c_sprite"></span>
+				</div>
+		</form>
+		</div>
+	</div>
+</div>
+<!--c_login_ban-->
+<div class="c_login_cloud"></div>
+<!--c_login_cloud-->
+<div class="c_login_w960 c_bc">
+	<div class="c_fl c_login_down c_mt50 c_ml10" style="margin-top:-160px\0">
+		<div class="c_down_pic01 c_fl"></div>
+		<div class="c_down_txt c_fl c_mt10">
+			<span class="c_f14">功能特色</span>
+			<p class="c_f12 c_mt5">全面监测、实时捕捉、精细采集、深入分析、量身定制</p>
+		</div>
+	<!-- </div>
+	<div class="c_fl c_login_down c_mt50 c_ml10"> -->
+		<div class="c_down_pic02 c_fl"></div>
+		<div class="c_down_txt c_fl c_mt10">
+			<span class="c_f14">服务模式</span>
+			<p class="c_f12 c_mt5">全面实时监控网络舆论、敏感话题的实时捕捉危机项目管理</p>
+		</div>
+	</div>
+	<div class="c_fl c_login_down c_mt20 c_ml10" style="margin-top:-60px\0">
+		<div class="c_down_pic03 c_fl"></div>
+		<div class="c_down_txt c_fl c_mt10">
+			<span class="c_f14">系统构架</span>
+			<p class="c_f12 c_mt5">
+				前期调研、实时监控、数据分析、覆盖重点信息源<br />专业信息源和特定信息源
+			</p>
+		</div>
+	<!-- </div>
+	<div class="c_fl c_login_down c_mt20 c_ml10"> -->
+		<div class="c_down_pic04 c_fl"></div>
+		<div class="c_down_txt c_fl c_mt10">
+			<span class="c_f14">技术优势</span>
+			<p class="c_f12 c_mt5">
+				专注于互联网信息的实时监测大范围自动捕获敏感话题，<br />节省物力、人力自主知识产权，拥有多项国家发明专利和软件著作权
+			</p>
+		</div>
+	</div>
+<div class="c_cb"></div>
+</div>
+<!--c_login_w1200-->
+<div class="c_login_w960 c_bc ">
+	<div class="c_login_copyright  c_f12 c_tc">
+		Copyright ©2017<span class="c_ml5 c_mr5"><img src="images/logodown.jpg" /></span> All Rights Reserved&nbsp;&nbsp;浙ICP备11048051号
+	</div>
+	<!--c_login_copyright-->
+</div>
+<script type="text/javascript">
+	$("#c_login_logo").ready(function(){
+           var path = "../fmanager/images/cyyun_logo_login.png";
+		$("#c_login_logo").css({"background" : "url("+path+") no-repeat left center","height":"60px","padding-top":"10px"});
+	});
+	
+	$("#c_login_pics").ready(function(){
+           var path1 = "../fmanager/images/cyyun_phone.png";
+		$("#c_login_pics").css({"background" : "url("+path1+") no-repeat","height":"218px","width": "203px","margin-right": "30px"});
+	});
+	
+    var showSecuritycodeBox = function(guid) {
+		var box = std.selector('popup-box', 'validatecode-input');
+		$.box(box, {
+			onOpen : function() {
+				$('#validateCode-error-message').hide();
+				
+				sendSecurityCode();
+				
+				sendSecurityCheck()
+			}
+		}, {
+			close : {
+				dom : [ box + " .close" ]
+			}
+		});
+		
+		//发送验证码
+		function sendSecurityCode() {
+			$("#getsecuritycode").unbind('click').click(function() {
+				var mobile = $("input[name=mobile]").val();
+				if (util.isBlank(mobile)) {
+					$.msg.warning("手机号不能为空！", 3);
+				}
+				ajaxCommFun(std.u("/validateCodeSend.htm"), {mobile : mobile}, function(response) {
+		 			if (response.type == dict.action.suc) {
+		 				$("#getsecuritycode").css('color','#9B9B9B');
+		 				settime();
+		 			} else {
+		 				$.msg.warning(response.message, 3);
+		 			}
+			 	});
+			});
+		};
+		
+		var countdown=60; 
+		function settime() {
+		    $("#getsecuritycode").unbind('click');
+		    if (countdown == 0) {
+		    	sendSecurityCode();
+		    	$("#getsecuritycode").html("获取验证码");
+		        countdown = 60;
+		        return;
+		    } else {
+		    	$("#getsecuritycode").html("重新发送(" + countdown + ")");
+		        countdown--;
+		    }
+		    
+			setTimeout(function() { settime() } ,1000)
+		}
+		
+		//验证验证码
+		function sendSecurityCheck() {
+			$("#validateCodeCheck").unbind('click').click(function() {
+				var securitycode = $("input[name=securitycode]").val();
+				var mobile = $("input[name=mobile]").val();
+				if (util.isBlank(mobile)) {
+					$.msg.warning("手机号不能为空！", 3);
+				}
+				if (util.isBlank(securitycode)) {
+					$.msg.warning("验证码不能为空！", 3);
+				}
+				ajaxCommFun(std.u("/validateCodeCheck.htm"), {securitycode : securitycode}, function(response) {
+		 			if (response.type == dict.action.suc) {
+		 				document.location = std.u('/index.htm');
+		 			} else {
+		 				$('#validateCode-error-message').text(response.message).show();
+		 			}
+			 	});
+			});
+		};
+	}
+		
+</script>	
+
+#parse("/logincustomize/pop-up-validatecode-input.vm")
+
+#parse("/common/blank-footer.vm")

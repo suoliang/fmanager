@@ -1,0 +1,229 @@
+#parse("/common/header.vm")
+
+<link href="${rc.contextPath}/css/setup.css" rel="stylesheet"
+	type="text/css" />
+	<script type="text/javascript" src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+		<script type="text/javascript" src="${rc.contextPath}/js/gengeral.js"></script>
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+<!-- 			<h3 class="c_name">用户管理</h3> -->
+			<p class="c_location">
+				<i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span
+					href="javaScript:void(0);">设置</span><span>></span><span
+					href="${rc.contextPath}/userMange/list.htm">用户管理</span><span>></span><span
+					href="${rc.contextPath}/userMange/toAddUser.htm">新增用户</span>
+			</p>
+		</div>
+		<!--location line end-->
+		<div class="c_search_box">
+			<div class="c_fl">
+				<span>新增用户</span>
+			</div>
+			<div class="c_fr">
+				<a href="javaScript:history.go(-1)"
+					class="c_search_link c_search_sys2 c_fl">返回</a>
+			</div>
+		</div>
+
+		<div class="c_tab_block">
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr"><font color="red">*</font>&nbsp;登陆账号：</div>
+				<div class="c_fl c_ml5">
+					<input type="text" id="userName" class="input c_w200">
+				</div>
+				<div class="c_fl c_ml5 c_color_red">3~20个字符，可使用字母、数字，需以字母开头</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr"><font color="red">*</font>&nbsp;密码：</div>
+				<div class="c_fl c_ml5">
+					<input type="password" id="password1" class="input c_w200">
+				</div>
+				<div class="c_fl c_ml5 c_color_red">6-20个字符，英文字母(区分大小写)或数字组成，不能和登陆账号相同</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr"><font color="red">*</font>&nbsp;确认密码：</div>
+				<div class="c_fl c_ml5">
+					<input type="password" id="password2" class="input c_w200">
+				</div>
+				<div class="c_fl c_ml5 c_color_red">请确认密码</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr"><font color="red">*</font>&nbsp;用户类型：</div>
+				<div id="divselect7" class="c_divselect c_fl c_divselectR">
+					<div class="cite">
+						<div class="citeT"></div>
+					</div>
+					<ul>
+						<li><a href="javascript:;" selectid="1" def="true">正式</a></li>
+						<li><a href="javascript:;" selectid="2">试用</a></li>
+						<li><a href="javascript:;" selectid="3">测试</a></li>
+					</ul>
+					<input  type="hidden" value="3" id="inputselect7" />
+				</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr"><font color="red">*</font>&nbsp;真实姓名：</div>
+				<div class="c_fl c_ml5">
+					<input type="text" id="realName" class="input c_w200" maxlength="10">
+				</div>
+				<div class="c_fl c_ml5 c_color_red">请填写真实姓名</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr"><font color="red">*</font>&nbsp;手机号码：</div>
+				<div class="c_fl c_ml5">
+					<input type="text" id="mobile" class="input c_w200">
+				</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">邮箱：</div>
+				<div class="c_fl c_ml5">
+					<input type="text" id="email" class="input c_w200">
+				</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">生效时间：</div>
+				<div class="c_fl c_ml5">
+					<input type="text" id="effectTime" class="input c_w200 laydate-icon">
+				</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">过期时间：</div>
+				<div class="c_fl c_ml5">
+					<input type="text" id="expiredTime" class="input c_w200 laydate-icon">
+				</div>
+			</div>
+			<div class="c_cb c_tab_list">
+				<div class="c_fl c_list_name c_tr">备注：</div>
+				<div class="c_fl c_ml5">
+					<textarea class="c_textarea c_w800 c_h100" id="remark"></textarea>
+				</div>
+			</div>
+			<div class="c_cb c_change_butbg">
+				<div class="c_change_but c_change_ml105">
+					<a href="javaScript:void();" class="c_but_ok c_mr10" onclick="addUser();">确定</a><a href="javaScript:void(0);"
+						class="c_but_no" onclick="javaScript:history.go(-1)">取消</a>
+				</div>
+			</div>
+		</div>
+		<!--c_tab_block-->
+	</div>
+</div>
+<!--c_alt_box-->
+<script type="text/javascript">
+
+$(function() {
+    document.onkeydown=function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if(e && e.keyCode==13){ // 按向下键
+        	addUser();
+        }
+    }; 
+    $.divselect("#divselect7", "#inputselect7");
+});
+
+var start = {
+	    elem: '#effectTime',
+	    format: 'YYYY-MM-DD',
+	    min: laydate.now(), //设定最小日期为当前日期
+	    max: '2099-06-16 23:59:59', //最大日期
+	    istime: true,
+	    istoday: false,
+	    choose: function(datas){
+	         end.min = datas; //开始日选好后，重置结束日的最小日期
+	         end.start = datas //将结束日的初始值设定为开始日
+	    }
+	};
+	var end = {
+	    elem: '#expiredTime',
+	    format: 'YYYY-MM-DD',
+	    min: laydate.now(),
+	    max: '2099-06-16 23:59:59',
+	    istime: true,
+	    istoday: false,
+	    choose: function(datas){
+	        start.max = datas; //结束日选好后，重置开始日的最大日期
+	    }
+	};
+	laydate(start);
+	laydate(end);
+
+	var addUser = function(){
+		var fun = function(msg) {
+			if (msg.result == "success") {
+				window.location.href="${rc.contextPath}/userMange/list.htm";
+			} else {
+				layer.alert(msg.result);
+			}
+		}
+		
+		var userName = $.trim($("#userName").val());
+		if(userName==''){
+			layer.alert("用户名称不能为空");
+			return false;
+		}
+		var reg_userName =/^[a-zA-Z][a-zA-Z0-9]{2,20}$/;
+		if(!reg_userName.test(userName)){
+			layer.alert("用户名称格式不符");
+			return false;
+		}
+		
+		var password1 = $.trim($("#password1").val());
+		var password2 = $.trim($("#password2").val());
+		if(password1==''||password2==''){
+			layer.alert("密码不能为空");
+			return false;
+		}
+		if(password1!=password2){
+			layer.alert("两次密码输入不一致");
+			return false;
+		}
+		if(password1==userName){
+			layer.alert("密码不能和登录账号相同");
+			return false;
+		}
+		var reg_pwd =/^[a-zA-Z0-9]{6,20}$/;
+		
+		if(!reg_pwd.test(password1)){
+			layer.alert("密码格式不符");
+			return false;
+		}
+		
+		var userType = $("#inputselect7").val();
+		var realName = $.trim($("#realName").val());
+		if(realName==''){
+			layer.alert("真实姓名不能为空");
+			return false;
+		}
+		var mobile = $.trim($("#mobile").val());
+		if(mobile==''){
+			layer.alert("手机号码不能为空");
+			return false;
+		}
+		
+		 var reg = /^0?1[0-9][0-9]\d{8}$/;
+		 if (!reg.test(mobile)) {
+			 layer.alert("手机号格式不正确");
+			 return false;
+		 }
+		var email = $.trim($("#email").val());
+		
+		var reg_email =/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+		
+		 if (email!=""&&!reg_email.test(email)) {
+			 layer.alert("邮箱格式不正确");
+			 return false;
+		 }
+		
+		var remark = $("#remark").val();
+		var effectTime = $("#effectTime").val();
+		var expiredTime = $("#expiredTime").val();
+		ajaxCommFun("${rc.contextPath}/userMange/addUser.htm", "userName="
+				+ userName + "&password="+password1+"&userType="+userType+"&realName="+realName+"&mobile="
+				+mobile+"&email="+email+"&remark="+remark+"&effectTime="+effectTime+"&expiredTime="+expiredTime, fun);
+	}
+</script>
+#parse("/common/footer.vm")
+
+
+

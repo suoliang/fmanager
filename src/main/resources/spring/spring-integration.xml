@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:in="http://www.springframework.org/schema/integration" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+	<!-- <jms:inbound-gateway id="jmsin" request-destination="requestQueue" request-channel="demoChannel" /> -->
+
+	<!-- <channel id="demoChannel" /> -->
+
+	<!-- <service-activator input-channel="demoChannel" ref="demoBean" /> -->
+
+	<!-- warning notify begin -->
+<!-- 	<in:channel id="warnMessageQueue"> -->
+<!-- 		<in:queue capacity="1000000"></in:queue> -->
+<!-- 	</in:channel> -->
+<!-- 	<in:channel id="warnNotifyQueue"> -->
+<!-- 		<in:queue capacity="1000000"></in:queue> -->
+<!-- 	</in:channel> -->
+
+<!-- 	<task:executor id="warnMessageExecutor" pool-size="${warn.message.executor.size}" /> -->
+<!-- 	<task:executor id="warnNotifyExecutor" pool-size="${warn.notify.executor.size}" /> -->
+
+<!-- 	<in:gateway id="warnMessagePublisher" service-interface="com.cyyun.fm.setting.task.WarnMessagePublisher" default-request-channel="warnMessageQueue" /> -->
+<!-- 	<in:gateway id="warnNotifyPublisher" service-interface="com.cyyun.fm.setting.task.WarnNotifyPublisher" default-request-channel="warnNotifyQueue" /> -->
+
+<!-- 	<in:service-activator id="warnMessageActivator" input-channel="warnMessageQueue" ref="warningNotifyTask" method="processMessage"> -->
+<!-- 		<in:poller task-executor="warnMessageExecutor" fixed-delay="500"></in:poller> -->
+<!-- 	</in:service-activator> -->
+
+<!-- 	<in:service-activator id="warnNotifyActivator" input-channel="warnNotifyQueue" ref="warningNotifyTask" method="executeNotify"> -->
+<!-- 		<in:poller task-executor="warnNotifyExecutor" fixed-delay="500"></in:poller> -->
+<!-- 	</in:service-activator> -->
+	<!-- warning notify end -->
+</beans>

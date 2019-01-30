@@ -1,0 +1,93 @@
+#set($pagecss = ["setup_reply.css"])
+
+#parse("/common/header.vm")
+<!-- sidebar end-->
+ <div class="c_main"> 
+  <div class="c_list c_mr15">
+    <div class="c_title">
+      <h3 class="c_name">
+     <p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="${rc.contextPath}/setting/leaveWordReply/index.htm">设置</span><span>></span><span href="${rc.contextPath}/setting/leaveWordReply/index.htm">留言回复</span></p>
+    </div>
+    <!--location line end-->   
+     <div class="c_search_box">
+      <div class="c_fl">
+        <span>时间：</span>
+        <div class="c_calendar_bar"><div class="c_calendar"><input type="text" class="c_cal_icon" name="startTime" id="startTimeInput"/></div>
+        <i class="c_clearfix c_fl c_mr5 c_ml5">-</i>
+        <div class="c_calendar  c_mr10"><input type="text" class="c_cal_icon" name="endTime" id="endTimeInput"/></div>
+        </div>
+        <span>状态：</span>
+        <div id="divselect5" class="c_divselect c_fl">
+            <div class="cite"><div class="citeT"></div></div>
+            <ul id="select-item"> 
+             <li><a href="javascript:;" selectid="" def="true">全部</a></li>
+             <li><a href="javascript:void(0);" selectid="0">未处理</a></li>
+             <li><a href="javascript:void(0);" selectid="1">已处理</a></li>
+            </ul>
+            <input name="status" type="hidden" value="" id="status-select-item"/>
+        </div>               
+       <a type="button" class="c_button c_ml10 c_fl" id="searchBtn">查询</a>
+      </div>
+    </div>
+    		<form id="MessageBoard-form">
+				<!-- 关键字 -->
+				<input type="hidden" id="status" name="status" />
+				<!-- 开始时间 -->
+				<input type="hidden" id="startTime" name="startTime" />
+				<!-- 结束时间 -->
+				<input type="hidden" id="endTime" name="endTime" />
+			</form>
+    
+   <!--search box end-->
+   <div class="c_mt15"></div>
+   <div class="c_tab_block">
+   		   <ul class="c_tab1">
+		      <li class="c_tab_reply1">序号</li>
+		      <li class="c_tab_reply2">留言标题</li>
+		      <li class="c_tab_reply3">留言时间</li>
+		      <li class="c_tab_reply4">处理状态</li>
+		      <li class="c_tab_reply5">操作</li>
+		   </ul>
+		   <div id="messageBoardTable_id">
+			#set($messages = $pageInfo.data)
+			#parse("/localsetting/leaveWordReplyInfo-list.vm")
+		   </div>
+    </div><!--c_tab_block-->
+    	#paging("id", "leaveWord-message-paging")
+  </div><!--c_list end-->
+  </div><!-- main end-->
+ </div>
+</div>
+<!-- 以下弹出框回复  gengeral.js  own.js-->
+<div class="c_alt_box c_w700 c_h450 c_alert_theme c_postion_w700" id="replyIDBox">
+  <div class="c_alt_tit">
+    <div class="c_fl c_alt_titTag c_w670 c_h30"><i class=" c_sprite c_tit_icon02"></i><span>留言回复</span></div>
+    <ul class="c_fr"><li><a href="#" class="c_sprite c_tit_close close"></a></li></ul>
+  </div>
+  <div class="c_alt_con c_h420 c_pr">
+   <div class="c_cb c_m10 c_f12">
+     <div class="c_cb c_alt_form"><div class="c_fl c_form_name c_tr">留言标题：</div><div class="c_fl c_ml5 c_form_text c_w500 c_omit" id="MessageBoard-title"></div></div>
+     <div class="c_cb c_alt_form c_mb15"><div class="c_fl c_form_name c_tr">留言内容：</div><div class="c_fl c_ml5 c_reply_msg  c_mt5 c_color_gay" id="MessageBoard-content"></div></div>
+     <div class="c_cb c_alt_form c_mt5"><div class="c_fl c_form_name c_tr">问题回复：</div><div class="c_fl c_ml5 c_form_text"><textarea class="c_form_word c_textarea" id="MessageBoardReply-content"></textarea></div></div>
+   </div><!--c_alt_content-->
+   <div class="c_alt_but c_w700 c_change_butbg"><div class="c_change_but c_change_but01"><a href="#" class="c_but_ok c_mr10">确定</a><a href="#" class="c_but_no">取消</a></div></div>
+  </div><!--c_alt_con-->
+</div><!--c_alt_box-->
+
+
+
+<script type="text/javascript" src="${rc.contextPath}/js/common/laydate/laydate.js"></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/leaveWordReplyInfo.js" ></script>
+<script type="text/javascript" src="${rc.contextPath}/js/localsetting/leaveWordReplyInfo-interface.js" ></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/gengeral.js')}"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#leaveWord-message-paging').paging('setInfo', $!pageInfo.pageNo, $!pageInfo.pageSize, $!pageInfo.totalPages, $!pageInfo.totalRecords);
+	});
+</script>
+#parse("/common/footer.vm")
+
+
+

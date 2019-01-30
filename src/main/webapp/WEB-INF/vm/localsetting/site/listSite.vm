@@ -1,0 +1,384 @@
+#parse("/common/header.vm")
+
+
+<script language="javascript">
+var sys_globePath="${rc.contextPath}";
+//进入分类数据设置弹窗
+	var  category=function(eventId){
+	var fun = function(resp) {     
+    var html="";
+    jQuery.each(resp.data.catList,function(index, item) {
+        var name=item.name;
+        var catId=item.id;
+        var checked="";
+
+		var flag = false;
+        jQuery.each(resp.data.custdataList,function(custindex, custitem) {
+        	//判断数据库返回的数据，是否选中。选中flag=true
+              if(custitem.cateId==catId){
+            	  flag = true;
+              }
+         });
+        
+        html=html+'' + //
+        '<div class="c_tab_choice c_fl">' + //
+        '	<div class="c_sprite c_choice_icon '+(flag ? 'active' : '')+' c_fl" onclick="addSiteId(this);" type="check_div" name="catId" oid="'+item.id+'"></div>' + //
+        '	<div class="c_fl c_tag_active c_w90" onclick="addSiteName($(this).prev());" value="'+catId+'">'+name+'</div>' + //
+        '	<div class="c_cb"></div>' + //
+        '</div>';
+    });
+    html=html+'<input type="hidden" name="eventId" id="eventId"  value='+eventId+'  />';
+    
+    jQuery("#custdatacategoryList").html(html);
+    
+    var index = $.box('#categoryEvent', {}, {});
+}
+  ajaxCommFun(sys_globePath + "/setting/setCategory.htm","dataId="+eventId+"&type=3" , fun);
+}
+
+
+//提交分类结果
+var submitSetCategory=function(){
+    var catIds="";
+    $("div[name=catId]").each(function(prop,value){
+    if($(value).hasClass("active")){//当选中时才有"active"这个样式。
+    	 catIds=catIds+$(value).attr("oid")+","//所以这句代码的意思是拿到选中的oid
+    }	
+    });
+    var eventId=$("#eventId").val();
+    //if(catIds==""){  
+    	
+    //}else{
+        var fun=function(resp){
+        	//分类完成后,请求到站点跟路径。
+//         	 location.href='${rc.getContextUrl('/setting/querySiteListByPage.htm')}'
+              if(resp.type=="success"){
+                  layer.closeAll();
+                  layer.msg("分类设置成功！",2,10,function(){
+//                 	  search();
+                	  asyncSubmit('addeventForm', $("[name='currentPage']").val());//异步刷新列表
+                  });
+//                     $.layer({
+// 		            title: false,
+// 		            offset: ['10px', '800px'],
+// 		            area: ['300px', 'auto'],
+// 		            time:1,
+// 		            border: [0],
+// 		            shade: [0],
+// 		            closeBtn: [0],
+// 		            fix: true,
+// 		            bgcolor: '#1C5C78',
+// 		            zIndex: 100000,
+// 		            shift: 'right-top',
+// 		            dialog: {
+// 			            type: 16,
+// 			            msg: data.tips
+//            			},end:function(){
+//            				$('#listSite_id').submit();
+//            			}
+//        			});
+              }
+        }
+        ajaxCommFun(sys_globePath + "/setting/submitSetCategory.htm",
+        "type=3&dataId="+eventId+"&catIds="+catIds.substr(0,catIds.length-1), fun);  
+    //}
+}
+
+//进入新增站点登记
+var  addSite=function(){
+var addSiteDome = $.box('#addSiteDiv', {}, {});
+/* ajaxCommFun(sys_globePath + "/setting/setCategory.htm","dataId="+eventId+"&type=3" , fun); */
+}
+</script>
+
+
+<!-- 新增站点div开始 -->
+<div class="c_alt_box c_w700 c_h450" id="addSiteDiv" pageEncoding="UTF-8" style="display: none">
+	<form action="${rc.getContextUrl('/setting/addSite.htm')}" id="addSiteForm" method="post">
+
+		<div class="c_alt_tit">
+			<div class="c_fl c_alt_titTag c_w670 c_h30">
+				<i class=" c_sprite c_tit_icon02"></i><span>登记新站点</span>
+			</div>
+			<ul class="c_fr">
+				<li><a href="javaScript:layer.closeAll()" class="c_sprite c_tit_close close"></a></li>
+			</ul>
+		</div>
+
+		<div class="c_alt_con c_h420 c_pr">
+			<div class="c_cb c_m10 c_f12">
+				<div class="c_cb c_alt_form">
+					<div class="c_fl c_form_name c_tr">
+						<i class="c_color_red c_mr5">*</i>站点名称：
+					</div>
+					<div class="c_fl c_ml5 c_form_text">
+						<input type="text" class="input c_form_input01" id="site_id" name="siteName"  onfocus="inputFoucus(this);" onblur="inputBlur(this);" maxlength="30" title="必须小于30个字符！"/>
+					</div>
+					<div class="c_fl c_ml5 c_form_msg c_color_red" id="site_name" style="display: none;">站点名称不能为空</div>
+					<div class="c_fl c_ml5 c_form_msg c_color_red" id="site_name_same" style="display: none;">站点名称已存在</div>
+				</div>
+
+				<div class="c_cb c_alt_form">
+					<div class="c_fl c_form_name c_tr">
+						<i class="c_color_red c_mr5">*</i>站点地址：
+					</div>
+					<div class="c_fl c_ml5 c_form_text"><input type="text" class="input c_form_input02" id="siteaPlace" name="siteaPlace" onfocus="inputFoucusAddr(this);" onblur="inputBlurAddr(this);" maxlength="100" title="必须小于100个字符！"/></div>
+					<div class="c_fl c_ml5 c_form_msg c_color_red" id="site_addr" style="display: none;">站点地址不能为空</div>
+					<div class="c_fl c_ml5 c_form_msg c_color_red" id="site_addr_same" style="display: none;">站点地址已存在</div>
+				</div>
+
+				<div class="c_cb c_alt_form c_mt5">
+					<div class="c_fl c_form_name c_tr">备注：</div>
+					<div class="c_fl c_ml5 c_form_text">
+						<textarea class="c_form_word c_textarea" id="siteRemarks_id" name="siteRemarks" maxlength="200" title="必须小于200个字符！"></textarea>
+					</div>
+				</div>
+			</div>
+			<!--c_alt_content-->
+			<div class="c_alt_but c_w700 c_change_butbg">
+				<div class="c_change_but c_change_but01">
+					<!-- <a href="javascript:submit();" class="c_but_ok c_mr10">确定</a><a href="javascript:returnSite();" class="c_but_no">取消</a> -->
+					<a href="javascript:submit();" class="c_but_ok c_mr10">确定</a><a href="javaScript:layer.closeAll();" class="c_but_no">取消</a>
+				</div>
+			</div>
+		</div>
+		<!--c_alt_con-->
+	</form>
+</div>
+<!-- 新增站点div结束-->
+<!-- 新增站点对应的确认和取消方法 开始 -->
+<script type="text/javascript"  charset="utf-8">
+	function returnSite(){
+		document.location = '${rc.getContextUrl('/setting/querySiteListByPage.htm')}'
+	}
+	function submit(){
+		if($('#site_id').val()==""){
+			$('#site_id').focus();
+		}
+		else if($('#siteaPlace').val()==""){
+			$('#siteaPlace').focus();
+		}else{
+			var siteName = $("#site_id").val();//名称
+			var siteaPlace=$("#siteaPlace").val();//地址
+			var siteRemarks=$("#siteRemarks_id").val();//备注
+			if(siteaPlace.substr(0,7).toLowerCase()=='http://'){
+				//url=url.substr(0,7).toLowerCase()=="http://"?url:"http://"+url;
+			}else{
+				siteaPlace="http://"+siteaPlace
+			}
+			//判断站点名称和站点地址是否已经存在
+			 if($('#site_name_same').attr("display","")){
+				$("#site_id").val();
+				//$("#site_id").focus();
+			}else if( $('#site_addr_same').attr("display","") ){
+				$("#siteaPlace").val();
+				//$("#siteaPlace").focus();
+			}else{
+				//document.location='${rc.getContextUrl('/setting/addSite.htm')}?siteName='+siteName+"&siteaPlace="+siteaPlace+"&siteRemarks="+siteRemarks
+			}
+			/* var json={
+					siteName :siteName,//站点名字
+					siteaPlace : siteaPlace//站点地址
+			};
+				
+				$.ajax({
+					url:std.u('/setting/queryRepeatSite.htm'), 
+					data:json,
+					dataType:"text",
+					contentType:"charset=utf-8", //添加这个编码声明
+					type: "post",
+					success: function(data){
+						if(data=='"2"'){
+							document.location='${rc.getContextUrl('/setting/addSite.htm')}?siteName='+siteName+"&siteaPlace="+siteaPlace+"&siteRemarks="+siteRemarks
+						}else{
+							layer.msg('站点名称或者url已经存在,请重新填写！',1,0);
+						}
+					}	
+				}); */
+				ajaxCommFunText(std.u('/setting/queryRepeatSite.htm'), {
+					siteName : $("#site_id").val(),//站点名称
+					siteaPlace : $("#siteaPlace").val(),//站点地址
+					MediaType : $("#siteRemarks_id").val()//备注
+				//媒体类型查询
+				}, function(data) {
+					if(data.data=='"2"'){
+						ajaxCommFunText(std.u('/setting/addSite.htm'), {
+							siteName : $("#site_id").val(),//站点名称
+							siteaPlace : siteaPlace,//站点地址
+							siteRemarks : $("#siteRemarks_id").val()//备注
+						//媒体类型查询
+						},function(data){
+// 							document.location='${rc.getContextUrl('/setting/querySiteListByPage.htm')}';
+							search();
+							layer.closeAll();
+						});
+					}else{
+						layer.msg('站点名称或者url已经存在,请重新填写！',1,0);
+					}
+				});
+		}
+	}
+</script>
+<!-- 新增站点对应的确认和取消方法 结束-->
+
+
+
+<!-- 站点分类div开始 -->
+<div id="categoryEvent" style="display: none">
+	<div class="c_alt_box c_w700 c_h450">
+		<div class="c_alt_tit">
+			<div class="c_fl c_alt_titTag c_w670 c_h30">
+				<i class=" c_sprite c_tit_icon02"></i><span>指定分类</span>
+			</div>
+			<ul class="c_fr">
+				<li><a href="javaScript:layer.closeAll();" class="c_sprite c_tit_close"></a></li>
+			</ul>
+		</div>
+		<div class="c_alt_con c_h420 c_pr">
+			<div class="c_con_tag" style="display: none">
+				<!-- 先隐藏点已选 -->
+				<div class="c_mr5 c_fl c_mt5">已选:</div>
+				<ul class=" c_con_tit c_ml40">
+					<li>腾讯新闻<i class="c_sprite"></i></li>
+				</ul>
+			</div>
+			<!-- 查询站点的先隐藏掉 -->
+			<div class="c_fr c_con_search c_mr10" style="display: none">
+				<input type="text" class="input" value="腾讯" onFocus="if(this.value == this.defaultValue) this.value = '';" onBlur="if(this.value == '') this.value = this.defaultValue;"><a href="#" class="c_search c_ml5">查询</a>
+			</div>
+			<div class="c_alt_content c_cb c_alert_theme2 c_mt10 c_ml5">
+				<ul class="c_h270">
+					<div id="scrollbar02" class="c_w700">
+						<div class="scrollbar c_mr10">
+							<div class="c_scrol_track">
+								<div class="c_scrol_thumb">
+									<div class="c_scrol_end"></div>
+								</div>
+							</div>
+						</div>
+						<div class="c_scrol_viewport  c_h270 c_w680">
+							<div class="c_scrol_overview c_w680">
+								<div class="c_con_tit c_m10">分类名称</div>
+								<div class="c_con_list c_cb c_m10 c_f12" id="custdatacategoryList">
+									<div class="c_tab_choice c_fl">
+										<div class="c_sprite c_choice_icon  c_fl"></div>
+										<div class="c_fl c_tag_active c_w90"></div>
+										<div class="c_cb"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</ul>
+			</div>
+			<div class="c_alt_but c_w700 c_change_butbg">
+				<div class="c_change_but c_change_but01">
+					<a href="JavaScript:submitSetCategory();" class="c_but_ok c_mr10">确定</a><a href="javaScript:layer.closeAll();" class="c_but_no">取消</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="c_main">
+	<div class="c_list c_mr15">
+		<div class="c_title">
+			<h3 class="c_name"><p class="c_location"><i class="c_loc_icon c_sprite"></i><span>当前位置：</span><span href="javascript:void(0)">设置</span><span> > </span><span href="javascript:void(0)">站点</span></p>
+			</h3>
+		</div>
+		<!--location line end-->
+		<form action="queryAjax.htm?step=0" id="addeventForm" method="post">
+
+			<div class="c_search_box">
+				<div class="c_fl">
+					<span>站点名称：</span><input type="text" name="site_name" id="site_name_id" class="c_keywds c_mr10" />
+  						
+					<span>&nbsp;&nbsp;站点分类：</span><input type="text" label="" name="site_Classification" id="site_Classification_id" class="c_keywds c_mr10" />
+					
+					<span>媒体类型：</span>
+					<div id="divselect8" class="c_divselect c_fl">
+						<!-- 来源下拉框 -->
+						<div class="cite">
+							<div class="citeT"></div>
+						</div>
+						<ul>
+							<li><a href="javascript:void(0)" ;  selectid="" def="true">全部</a></li>
+							#foreach($!t in $!const.list("MediaType"))
+							<li><a href="javascript:void(0);" selectid="$t.id">$t.name</a></li>
+							#end
+						</ul>
+						<input type="hidden" value="" name="MediaType" id="inputselect8" />
+					</div>
+					
+					<span>&nbsp;&nbsp;&nbsp;处理状态：</span>
+					<div id="divselect7" class="c_divselect c_fl">
+						<!-- 来源下拉框 -->
+						<div class="cite">
+							<div class="citeT"></div>
+						</div>
+						<ul>
+							<li><a href="javascript:void(0)" ;  selectid="" def="true">全部</a></li>
+							<li><a href="javascript:void(0)" ;  selectid="0">未处理</a></li>
+							<li><a href="javascript:void(0)" ;  selectid="1">已处理</a></li>
+							<li><a href="javascript:void(0)" ;  selectid="2">处理中</a></li>
+							<li><a href="javascript:void(0)" ;  selectid="3">暂不处理</a></li>
+						</ul>
+						<input type="hidden" value="" name="inputselect" id="inputselect7" />
+					</div>
+					
+					<!-- <a type="button" href="javascript:asyncSubmit('addeventForm');" class="c_button c_ml10 c_fl">查询</a> -->
+					<a type="button" href="javascript:search();" class="c_button c_ml10 c_fl">查询</a>
+				</div>
+				<div class="c_fr">
+					<a onclick="addSite();" class="c_search_link c_search_sys1 c_fl">新增站点登记</a> <a href="#" class="c_search_link c_search_sys2 c_fl" style="display: none">指定分类</a>
+				</div>
+			</div>
+			<!--search box end-->
+			<div class="c_mt15"></div>
+			<div class="c_tab_block">
+				<ul class="c_tab1">
+					<li class="c_tab_site2 c_tc">序号</li>
+					<li class="c_tab_site3">站点名称</li>
+					<li class="c_tab_site4">站点地址</li>
+					<li class="c_tab_site5">站点分类</li>
+					<li class="c_tab_site6">媒体类型</li>
+					<li class="c_tab_site7">处理状态</li>
+					<li class="c_tab_site8">操作</li>
+				</ul>
+				<div id="sitectx">
+				#set($sites = $!sitePageInfo.data)
+				#parse("/localsetting/site/sitepageList-list-site.vm")
+    				<script type="text/javascript">
+					 $(function(){
+						 var json = 
+						 {
+								 formId:"addeventForm",
+								 divId:"div2",
+								 asyncFlag:true,
+								 prefix:"2",
+								 replaceId:"sitectx",
+								 currentPage:$!sitePageInfo.pageNo,
+								 totalPage:$!sitePageInfo.totalPages,
+								 count:$!sitePageInfo.totalRecords,
+								 pageSize:$!sitePageInfo.pageSize
+						 };
+						 initPageTab(json);
+					 });
+		    		</script>
+				</div>
+			</div>
+			<!--c_tab_block-->
+			<div class="c_page c_fr c_mt15 c_mb15" id="div2">#parse("/common/page-templet-fm.vm")</div>
+			<!--c_page end-->
+		</form>
+	</div>
+	<!--c_list end-->
+</div>
+<!-- main end-->
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/listSite.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/localsetting/common.js')}"></script>
+<script type="text/javascript" src="${rc.getContextUrl('/js/commonpage.js')}"></script>
+
+<link href="${rc.getContextUrl('/css/setup.css')}" rel="stylesheet" type="text/css" />
+<!-- <link href="${rc.getContextUrl('/css/jquery-ui.min.css')}" rel="stylesheet" type="text/css" /> -->
+#parse("/common/footer.vm")
